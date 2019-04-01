@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, ImageBackground, View, StyleSheet } from 'react-native';
-import { Container, Content, Text, List, ListItem, Left, Body, Icon } from "native-base";
+import { Image, ImageBackground, View, StyleSheet, FlatList } from 'react-native';
+import { Container, Content, Text, ListItem, Left, Body, Icon } from "native-base";
 
 const routes =  [
   {
@@ -17,38 +17,46 @@ const routes =  [
   },
 ]
 
-export default class SideBar extends React.Component {
+class SideBar extends React.Component {
   render() {
     return (
       <Container>
         <Content>
           <ImageBackground
-            source={require('../../assets/sidebar-background.png')}
-            style={styles.imageBackground}>
+            source={require('../../assets/images/sidebar-background.png')}
+            style={styles.imageBackground}
+          >
             <View style={styles.darkOverlay} />
             <View style={styles.logoContainer}>
               <Image
                 style={{ height: 70, width: 70 }}
-                source={require('../../assets/sidebar-logo.png')}
+                source={require('../../assets/images/sidebar-logo.png')}
               />
             </View>
             <Text style={styles.title}>Master Eric's WCT</Text>
           </ImageBackground>
 
-          <List
-            dataArray={routes}
-            renderRow={data => {
+          <FlatList        
+            keyExtractor={item => item.name}
+            data={routes}
+            renderItem={data => {
               return (
                 <ListItem
                   icon
                   button
-                  onPress={() => this.props.navigation.navigate(data.name)}
-                  style={{listBtnUnderlayColor: '#333'}}>
+                  onPress={() => 
+                    {
+                      this.props.navigation.closeDrawer();
+                      this.props.navigation.navigate(data.item.name);
+                    }
+                  }   
+                  style={{marginLeft: 0}}
+                  >
                   <Left>
-                    <Icon style={{ fontSize: 23 }} name={data.iconName} type={data.iconType} />
+                    <Icon style={{ fontSize: 23, marginLeft: 10 }} name={data.item.iconName} type={data.item.iconType} />
                   </Left>
                   <Body>
-                    <Text style={{marginLeft: 10}}>{data.displayName}</Text>
+                    <Text style={{marginLeft: 10}}>{data.item.displayName}</Text>
                   </Body>
                 </ListItem>
               );
@@ -59,6 +67,8 @@ export default class SideBar extends React.Component {
     );
   }
 }
+
+export default SideBar;
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -90,10 +100,10 @@ const styles = StyleSheet.create({
     borderColor: '#333'
   },
   title: {
-    marginLeft: 15,
-    marginTop: 10,
+    marginLeft: 17,
+    marginTop: 5,
     color: 'white',
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
   }
 });
