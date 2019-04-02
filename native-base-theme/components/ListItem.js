@@ -141,6 +141,7 @@ export default (variables /*: * */ = variable) => {
         alignSelf: null
       },
       "NativeBase.Icon": {
+        textAlign:'center',
         width: variables.iconFontSize - 10,
         fontSize: variables.iconFontSize - 10
       },
@@ -233,8 +234,9 @@ export default (variables /*: * */ = variable) => {
     },
     ".avatar": {
       "NativeBase.Left": {
+        textAlign:'center',
         flex: 0,
-        alignSelf: "flex-start",
+        alignSelf: "center",
         paddingTop: 14
       },
       "NativeBase.Body": {

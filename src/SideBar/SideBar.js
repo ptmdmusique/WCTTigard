@@ -15,6 +15,18 @@ const routes =  [
     iconType: "AntDesign",
     displayName: "Videos"
   },
+  {
+    name: "Picture",
+    iconName: "picture",
+    iconType: "AntDesign",
+    displayName: "Picture Board"
+  },
+  {
+    name: "Event",
+    iconName: "calendar",
+    iconType: "AntDesign",
+    displayName: "Events and News"
+  },
 ]
 
 class SideBar extends React.Component {
