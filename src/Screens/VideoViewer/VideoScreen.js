@@ -1,19 +1,25 @@
 import React from 'react';
-import {Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, Content } from 'native-base';
+import {Spinner, Title, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {StyleSheet} from 'react-native';
-import { Row, Grid } from "react-native-easy-grid";
-import {Video} from 'expo';
+import {StyleSheet, WebView, AppState} from 'react-native';
 
 export default class VideoScreen extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {videoSource: ''};
+  state = {
+    appState: AppState.currentState
   }
-  
-  changeVideo(newSource){
-    this.setState({videoSource: newSource})
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    console.log(nextAppState);
+    this.setState({appState: nextAppState});
   }
 
   render () {
@@ -21,31 +27,27 @@ export default class VideoScreen extends React.Component {
       <StyleProvider style={getTheme(material)}>
         <Container>
           <Header style={styles.header}>
-            <Left style={{flex:1}}>    
+            <Left>    
               <Button transparent onPress={this.props.navigation.openDrawer}>
                 <Icon name='menu'/>
               </Button>
             </Left>
 
-            <Body style={{flex: 1, alignItems: 'center'}}>
-              <Text style={{fontFamily: 'Ubuntu_Bold'}}> Videos </Text>
+            <Body style={{}}>
+              <Title style={{fontFamily: 'Ubuntu_Bold'}}> Videos </Title>
             </Body>
 
-            <Right style={{flex: 1}}/>
+            <Right></Right>
           </Header>
 
-          <Content style={{flexDirection: 'column'}}>
-            <Content style={{backgroundColor: 'red', flex: 3}}>
-              <Text> asdasd</Text>
-              <Text> asdasd</Text>
-              <Text> asdasd</Text>
-            </Content>
-
-            <Content style={{backgroundColor: 'black', flexGrow: 1, height: 'auto'}}>
-              <Text> asdasd</Text>
-              <Text> asdasd</Text>
-              <Text> asdasd</Text>
-            </Content>
+          <Content>
+            {this.state.appState == 'active' &&
+            <WebView 
+              style={{height: 200, width: 400}}
+              javaScriptEnabled={true}
+              source={{uri: 'https://www.youtube.com/embed/1CTced9CMMk'}}
+            />
+            }
           </Content>
 
         </Container>
@@ -59,5 +61,13 @@ const styles = StyleSheet.create({
     height: 50, 
     justifyContent: 'center', 
     alignItems: 'center',
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    width: 300, height: 300
   },
 })

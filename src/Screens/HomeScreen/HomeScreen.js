@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     width: 'auto',
-    height: 500,
+    //height: 600,
   },
   imageBackground: {
     flex: 1,

@@ -1,12 +1,7 @@
 import React from 'react';
 import { StyleSheet, StatusBar } from 'react-native';
-
 import AppContainer from './src/AppContainer';
-
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import reducers from './src/Redux/Reducers'
-
+import {Root} from 'native-base';
 import { Font, AppLoading } from 'expo';
 
 export default class App extends React.Component {
@@ -31,17 +26,15 @@ export default class App extends React.Component {
 
 
   render() {
-    const store = createStore(reducers);
-
     if (!this.state.isReady) {
       return <AppLoading />
     }
 
     return (
-      <Provider store={store}>
+      <Root>
         <StatusBar hidden />
         <AppContainer></AppContainer>
-      </Provider>
+      </Root>
     );
   }
 }
