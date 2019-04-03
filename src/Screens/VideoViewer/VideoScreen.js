@@ -2,11 +2,13 @@ import React from 'react';
 import {Spinner, Title, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {StyleSheet, WebView, AppState} from 'react-native';
+import { StyleSheet, WebView, AppState, View } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 export default class VideoScreen extends React.Component {
   state = {
-    appState: AppState.currentState
+    appState: AppState.currentState,
+    screenSwitched: false,
   }
 
   componentDidMount() {
@@ -20,6 +22,20 @@ export default class VideoScreen extends React.Component {
   _handleAppStateChange = (nextAppState) => {
     console.log(nextAppState);
     this.setState({appState: nextAppState});
+  }
+
+  renderVideo() {
+    if (this.state.appState !== 'active' || this.state.screenSwitched) {
+      return <View />;
+    }
+
+    return (
+      <WebView 
+        style={styles.mainVideo}
+        javaScriptEnabled={true}
+        source={{uri: 'https://www.youtube.com/embed/1CTced9CMMk'}}
+      />
+    );
   }
 
   render () {
@@ -41,13 +57,12 @@ export default class VideoScreen extends React.Component {
           </Header>
 
           <Content>
-            {this.state.appState == 'active' &&
-            <WebView 
-              style={{height: 200, width: 400}}
-              javaScriptEnabled={true}
-              source={{uri: 'https://www.youtube.com/embed/1CTced9CMMk'}}
+            <NavigationEvents
+              onWillFocus={() => this.setState({ screenSwitched: false })}
+              onWillBlur={() => this.setState({ screenSwitched: true })}
             />
-            }
+
+            {this.renderVideo()}
           </Content>
 
         </Container>
@@ -57,17 +72,8 @@ export default class VideoScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    height: 50, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-  },
-  backgroundVideo: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: 300, height: 300
-  },
+  mainVideo: {
+    height: 300, // temp
+    width: 'auto',
+  }
 })
