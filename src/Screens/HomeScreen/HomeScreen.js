@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, } from 'react-native';
 import {Container, Header, Text, Button, Left, Icon, StyleProvider, Footer } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
@@ -8,10 +8,10 @@ import { Row, Grid } from "react-native-easy-grid";
 
 const previewRoute = [
   {
-    name: "Video",
-    iconName: "videocamera",
+    name: "Schedule",
+    iconName: "calendar",
     iconType: "AntDesign",
-    displayName: "Videos"
+    displayName: "Class Schedule"
   },
   {
     name: "Picture",
@@ -21,7 +21,7 @@ const previewRoute = [
   },
   {
     name: "Event",
-    iconName: "calendar",
+    iconName: "notification",
     iconType: "AntDesign",
     displayName: "News"
   },
@@ -63,7 +63,8 @@ export default class HomeScreen extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header style={styles.header}>
+          <Header style={styles.header}
+          >
             <Left style={{flex:1}}>    
               <Button transparent onPress={this.props.navigation.openDrawer}>
                 <Icon name='menu'/>
@@ -113,11 +114,15 @@ const styles = StyleSheet.create({
     height: 50, 
     justifyContent: 'center', 
     alignItems: 'center',
+    borderBottomWidth: 2, 
+    borderBottomColor: '#FF1515',
   },
   footer: {
     height: 60, 
     justifyContent: 'center', 
     alignItems: 'center',
+    borderTopWidth: 2, 
+    borderTopColor: '#FF1515',
   },
   screenContainer: {
     flex: 1,
@@ -144,7 +149,8 @@ const styles = StyleSheet.create({
   },
 
   blurImage: {
-    height: 175,
+    height: 50,
+    top: -52,
     alignItems:'center', 
     position: 'absolute', 
     opacity: 0.7

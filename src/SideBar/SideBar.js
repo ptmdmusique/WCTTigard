@@ -23,9 +23,15 @@ const routes =  [
   },
   {
     name: "Event",
-    iconName: "calendar",
+    iconName: "notification",
     iconType: "AntDesign",
     displayName: "Events and News"
+  },
+  {
+    name: "Schedule",
+    iconName: "calendar",
+    iconType: "AntDesign",
+    displayName: "School Schedule"
   },
 ]
 
