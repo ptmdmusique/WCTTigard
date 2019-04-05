@@ -6,31 +6,31 @@ const routes =  [
   {
     name: "Home",
     iconName: "home",
-    iconType: "AntDesign",
+    iconType: "Entypo",
     displayName: "Home"
   },
   {
     name: "Video",
-    iconName: "videocamera",
-    iconType: "AntDesign",
+    iconName: "video",
+    iconType: "Entypo",
     displayName: "Videos"
   },
   {
     name: "Picture",
-    iconName: "picture",
-    iconType: "AntDesign",
+    iconName: "image",
+    iconType: "Entypo",
     displayName: "Picture Board"
   },
   {
     name: "Event",
     iconName: "notification",
-    iconType: "AntDesign",
+    iconType: "Entypo",
     displayName: "Events and News"
   },
   {
     name: "Schedule",
     iconName: "calendar",
-    iconType: "AntDesign",
+    iconType: "Entypo",
     displayName: "School Schedule"
   },
 ]
@@ -71,10 +71,10 @@ class SideBar extends React.Component {
                   style={{marginLeft: 0}}
                   >
                   <Left>
-                    <Icon style={{ fontSize: 23, marginLeft: 10 }} name={data.item.iconName} type={data.item.iconType} />
+                    <Icon style={{ fontSize: 25, marginLeft: 10 }} name={data.item.iconName} type={data.item.iconType} />
                   </Left>
                   <Body>
-                    <Text style={{marginLeft: 10}}>{data.item.displayName}</Text>
+                    <Text style={{marginLeft: 10, fontSize: 12}}>{data.item.displayName}</Text>
                   </Body>
                 </ListItem>
               );

@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
 import NavReducer from './NavReducer';
+import VidReducer from './VidReducer';
 
 export default combineReducers({
-    navReducer: NavReducer
+    selectedFolder: VidReducer,
+    navReducer: NavReducer,
 })

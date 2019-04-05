@@ -122,7 +122,7 @@ export default {
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: "Ubuntu_Light",
+  fontFamily: "Merriweather_Light",
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -248,7 +248,7 @@ export default {
   },
 
   // Title
-  titleFontfamily: "Ubuntu_Bold",
+  titleFontfamily: "Merriweather_Bold",
   titleFontSize: 19,
   subTitleFontSize: 14,
   subtitleColor: "#FFF",

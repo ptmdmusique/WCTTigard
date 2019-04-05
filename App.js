@@ -4,6 +4,10 @@ import AppContainer from './src/AppContainer';
 import {Root} from 'native-base';
 import { Font, AppLoading } from 'expo';
 
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reducers from './src/Redux/Reducers';
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -20,6 +24,8 @@ export default class App extends React.Component {
       'VarelaRound': require('./assets/fonts/VarelaRound/VarelaRound-Regular.ttf'),
       'Ubuntu_Bold': require('./assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
       'Ubuntu_Light': require('./assets/fonts/Ubuntu/Ubuntu-Light.ttf'),
+      'Merriweather_Bold': require('./assets/fonts/Merriweather/Merriweather-Bold.ttf'),
+      'Merriweather_Light': require('./assets/fonts/Merriweather/Merriweather-Light.ttf'),
     });
     this.setState({ isReady: true });
   }
@@ -31,10 +37,12 @@ export default class App extends React.Component {
     }
 
     return (
-      <Root>
-        <StatusBar hidden />
-        <AppContainer></AppContainer>
-      </Root>
+      <Provider store={createStore(reducers)}>
+        <Root>
+          <StatusBar hidden />
+          <AppContainer></AppContainer>
+        </Root>
+      </Provider>
     );
   }
 }

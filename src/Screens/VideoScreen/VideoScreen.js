@@ -1,14 +1,18 @@
 import React from 'react';
-import {Spinner, Title, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, Content } from 'native-base';
+import {ScrollView, Spinner, Title, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { StyleSheet, WebView, AppState, View } from 'react-native';
+import { StyleSheet, WebView, AppState, View, FlatList } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import {Grid, Row, Col} from 'react-native-easy-grid';
 
-export default class VideoScreen extends React.Component {
+import VideoFolder from './VideoFolder';
+
+import data from './VideoList.json';
+
+class VideoScreen extends React.Component {
   state = {
-    vidID: 'sdf',
+    vidID: '',
     appState: AppState.currentState,
     screenSwitched: false,
   }
@@ -17,7 +21,6 @@ export default class VideoScreen extends React.Component {
     AppState.addEventListener('change', this._handleAppStateChange);
 
     this.setState({vidID: 'http://www.youtube.com/embed/' + this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")});
-    console.log(this.state.vidID);
   }
 
   componentWillUnmount() {
@@ -25,7 +28,6 @@ export default class VideoScreen extends React.Component {
   }
 
   _handleAppStateChange = (nextAppState) => {
-    console.log(nextAppState);
     this.setState({appState: nextAppState});
   }
 
@@ -54,7 +56,21 @@ export default class VideoScreen extends React.Component {
     }
   }
 
+  renderFolder(folder){
+    return <VideoFolder folder={folder.item} />
+  }
+
   render () {
+    const gridItems = [];
+  
+    for(let i = 0; i < data.length; i++){
+      gridItems.push(
+        <Row key={data[i].folderName}> 
+          <VideoFolder folder={data[i]}/> 
+        </Row>          
+      )
+    }
+    
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
@@ -83,9 +99,17 @@ export default class VideoScreen extends React.Component {
               </Row>
 
               <Row size={6} style={{backgroundColor: 'blue'}}>
-                <Text>
-                  Some text!
-                </Text>
+                <Container>
+                  <Header style={{...styles.header, borderBottomWidth: 0, height: 25}}>
+                    <Text> Available Videos </Text>
+                  </Header>
+                  
+                  <Grid
+                    style={{top: 10}}
+                  >
+                    {gridItems}
+                  </Grid>
+                </Container>
               </Row>
             </Grid>
 
@@ -97,6 +121,8 @@ export default class VideoScreen extends React.Component {
     );
   };
 }
+
+export default VideoScreen;
 
 const styles = StyleSheet.create({
   header: {

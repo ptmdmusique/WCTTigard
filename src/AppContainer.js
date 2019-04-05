@@ -4,7 +4,7 @@ import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 
 import SideBar from './SideBar/SideBar';
 import HomeScreen from './Screens/HomeScreen/HomeScreen';
-import VideoScreen from './Screens/VideoViewer/VideoScreen';
+import VideoScreen from './Screens/VideoScreen/VideoScreen';
 import EventScreen from './Screens/EventScreen/EventScreen';
 import PictureScreen from './Screens/PictureScreen/PictureScreen';
 import InfoScreen from './Screens/InfoScreen/InfoScreen'

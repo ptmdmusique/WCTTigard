@@ -10,25 +10,25 @@ const previewRoute = [
   {
     name: "Schedule",
     iconName: "calendar",
-    iconType: "AntDesign",
+    iconType: "Entypo",
     displayName: "Class Schedule"
   },
   {
     name: "Picture",
-    iconName: "picture",
-    iconType: "AntDesign",
+    iconName: "image",
+    iconType: "Entypo",
     displayName: "Picture Board"
   },
   {
     name: "Event",
     iconName: "notification",
-    iconType: "AntDesign",
+    iconType: "Entypo",
     displayName: "News"
   },
   {
     name: "Info",
-    iconName: "infocirlceo",
-    iconType: "AntDesign",
+    iconName: "info",
+    iconType: "Entypo",
     displayName: "School Info"
   },
 ]
@@ -92,7 +92,7 @@ export default class HomeScreen extends React.Component {
               style={styles.blurImage}
             />
             <View style={styles.textOverImage}>
-                <Text style={{fontSize: 15, fontFamily: 'Ubuntu_Bold'}}>
+                <Text style={{fontSize: 15, fontFamily: 'Merriweather_Bold'}}>
                   Master Eric's World Champion Taekwondo
                 </Text>
             </View> 
