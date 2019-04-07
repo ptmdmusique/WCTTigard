@@ -1,8 +1,8 @@
 import React from 'react';
-import {ScrollView, Spinner, Title, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, Content } from 'native-base';
+import {Spinner, Title, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Body, Right, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { StyleSheet, WebView, AppState, View, FlatList } from 'react-native';
+import { StyleSheet, WebView, AppState, View, FlatList, Image, } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import {Grid, Row, Col} from 'react-native-easy-grid';
 
@@ -10,17 +10,18 @@ import VideoFolder from './VideoFolder';
 
 import data from './VideoList.json';
 
+import {connect} from 'react-redux';
+import {customStyles} from '../../common/CustomStyle';
+
 class VideoScreen extends React.Component {
   state = {
-    vidID: '',
     appState: AppState.currentState,
     screenSwitched: false,
+    defaultURL: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")
   }
 
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
-
-    this.setState({vidID: 'http://www.youtube.com/embed/' + this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")});
   }
 
   componentWillUnmount() {
@@ -40,7 +41,7 @@ class VideoScreen extends React.Component {
       <WebView 
         style={styles.mainVideo}
         javaScriptEnabled={true}
-        source={{uri: this.state.vidID}}
+        source={{uri: this.props.vidURL ? this.getEmbedFromLink(this.props.vidURL) : this.state.defaultURL}}
       />
     );
   }
@@ -50,9 +51,9 @@ class VideoScreen extends React.Component {
     const match = url.match(regExp);
 
     if (match && match[2].length == 11) {
-        return match[2];
+        return 'http://www.youtube.com/embed/' + match[2];
     } else {
-        return 'error';
+        return this.defaultURL;
     }
   }
 
@@ -61,31 +62,24 @@ class VideoScreen extends React.Component {
   }
 
   render () {
-    const gridItems = [];
-  
-    for(let i = 0; i < data.length; i++){
-      gridItems.push(
-        <Row key={data[i].folderName}> 
-          <VideoFolder folder={data[i]}/> 
-        </Row>          
-      )
-    }
-    
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header style={styles.header}>
+          <Header style={customStyles.header}>
             <Left>    
               <Button transparent onPress={this.props.navigation.openDrawer}>
-                <Icon name='menu'/>
+                <Icon style={customStyles.headerIcon}  name='menu'/>
               </Button>
             </Left>
 
-            <Body style={{}}>
-              <Title style={{fontFamily: 'Ubuntu_Bold'}}> Videos </Title>
+            <Body>
+              <Title style={customStyles.headerText}> Videos </Title>
             </Body>
 
-            <Right></Right>
+            <Right>
+              <Image source={require('../../../assets/images/sidebar-logo.png')} 
+                    style={{height: 40, width: 40}}/>              
+            </Right>
           </Header>
 
           <NavigationEvents
@@ -93,50 +87,63 @@ class VideoScreen extends React.Component {
               onWillBlur={() => this.setState({ screenSwitched: true })}
             />
 
-            <Grid style={styles.content}>
-              <Row size={4} style={{backgroundColor: 'red'}}>
-                {this.renderVideo()}
-              </Row>
+          <Grid style={styles.content}>
+            <Row size={4} style={{backgroundColor: 'red'}}>
+              {this.renderVideo()}
+            </Row>
 
-              <Row size={6} style={{backgroundColor: 'blue'}}>
-                <Container>
-                  <Header style={{...styles.header, borderBottomWidth: 0, height: 25}}>
-                    <Text> Available Videos </Text>
-                  </Header>
-                  
-                  <Grid
-                    style={{top: 10}}
-                  >
-                    {gridItems}
-                  </Grid>
-                </Container>
-              </Row>
-            </Grid>
+            <Row size={6} style={{backgroundColor: '#e1e1e1'}}>
+              <Grid>
+                <Row 
+                  style={styles.videoListHeader}>
+                  <Text style={{fontFamily: 'Ubuntu_Bold', color: '#2658cd'}}> Available Videos </Text>
+                </Row>
+               
+                <Row 
+                  style={{
+                    marginLeft: 5,
+                    marginRight: 5,
+                    top: 10,
+                  }}
+                >
+                  <FlatList
+                    data = {data}
+                    renderItem={this.renderFolder}
+                    keyExtractor={folder => folder.folderName.toString()}
+                  />
+                </Row>
+              </Grid>
+            </Row>
+          </Grid>
 
-            <Footer style={styles.footer}>
-              <Text> Enjoy? Join us! </Text>
-            </Footer>
+
         </Container>
       </StyleProvider>
     );
   };
 }
 
-export default VideoScreen;
+const mapStateToProps = (state) => {
+  const vidURL = state.selectedItem.vidURL;
+  
+  return {vidURL}
+};
+
+export default connect(mapStateToProps)(VideoScreen);
 
 const styles = StyleSheet.create({
-  header: {
-    height: 50, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    borderBottomWidth: 2, 
-    borderBottomColor: '#FF1515',
-  },
-  footer: {
-    height: 50, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    borderTopWidth: 2, 
-    borderTopColor: '#FF1515',
+  videoListHeader: {
+    alignContent: 'center', 
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    height: 40,  
+
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    shadowRadius: 5,
+    elevation: 10,
+    zIndex: 10,
   },
 })

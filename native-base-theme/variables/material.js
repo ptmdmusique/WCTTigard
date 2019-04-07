@@ -105,7 +105,7 @@ export default {
   checkboxTickColor: "#fff",
 
   // Color
-  brandPrimary: "#0f0f0f",
+  brandPrimary: "white",
   brandInfo: "#62B1F6",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",
@@ -122,7 +122,7 @@ export default {
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: "Merriweather_Light",
+  fontFamily: "Roboto",
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -136,7 +136,7 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: "#0f0f0f",
+  footerDefaultBg: "white",
   footerPaddingBottom: 0,
 
   // FooterTab
@@ -145,18 +145,18 @@ export default {
   activeTab: "#fff",
   sTabBarActiveTextColor: "#007aff",
   tabBarActiveTextColor: "#fff",
-  tabActiveBgColor: "#0f0f0f",
+  tabActiveBgColor: "white",
 
   // Header
   toolbarBtnColor: "#fff",
-  toolbarDefaultBg: "#0f0f0f",
+  toolbarDefaultBg: "white",
   toolbarHeight: 56,
   toolbarSearchIconSize: 23,
   toolbarInputColor: "#fff",
   searchBarHeight: platform === "ios" ? 30 : 40,
   searchBarInputHeight: platform === "ios" ? 40 : 50,
   toolbarBtnTextColor: "#fff",
-  toolbarDefaultBorder: "#0f0f0f",
+  toolbarDefaultBorder: "white",
   iosStatusbar: "light-content",
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
@@ -170,9 +170,9 @@ export default {
   },
 
   // Icon
-  iconFamily: "Ionicons",
-  iconFontSize: 28,
-  iconHeaderSize: 30,
+  iconFamily: "Entypo",
+  iconFontSize: 30,
+  iconHeaderSize: 25,
 
   // InputGroup
   inputFontSize: 17,
@@ -202,7 +202,7 @@ export default {
   listItemPadding: 12,
   listNoteColor: "#808080",
   listNoteSize: 13,
-  listItemSelected: "#0f0f0f",
+  listItemSelected: "white",
 
   // Progress Bar
   defaultProgressColor: "#E4202D",
@@ -210,26 +210,26 @@ export default {
 
   // Radio Button
   radioBtnSize: 23,
-  radioSelectedColorAndroid: "#0f0f0f",
+  radioSelectedColorAndroid: "white",
   radioBtnLineHeight: 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: "#0f0f0f",
+  segmentBackgroundColor: "white",
   segmentActiveBackgroundColor: "#fff",
   segmentTextColor: "#fff",
-  segmentActiveTextColor: "#0f0f0f",
+  segmentActiveTextColor: "white",
   segmentBorderColor: "#fff",
-  segmentBorderColorMain: "#0f0f0f",
+  segmentBorderColorMain: "white",
 
   // Spinner
   defaultSpinnerColor: "#45D56E",
   inverseSpinnerColor: "#1A191B",
 
   // Tab
-  tabDefaultBg: "#0f0f0f",
+  tabDefaultBg: "white",
   topTabBarTextColor: "#b3c7f9",
   topTabBarActiveTextColor: "#fff",
   topTabBarBorderColor: "#fff",
@@ -240,8 +240,8 @@ export default {
   tabFontSize: 15,
 
   // Text
-  textColor: "#fff",
-  inverseTextColor: "#000",
+  textColor: "#000",
+  inverseTextColor: "#fff",
   noteFontSize: 14,
   get defaultTextColor() {
     return this.textColor;
@@ -281,3 +281,4 @@ export default {
     }
   }
 };
+

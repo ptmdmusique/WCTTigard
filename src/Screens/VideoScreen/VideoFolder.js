@@ -1,9 +1,12 @@
 import React from 'react';
-import {LayoutAnimation, UIManager, FlatList} from 'react-native';
-import {Body, Card, CardItem, Button, Text} from 'native-base';
+import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, Clipboard} from 'react-native';
+import {Title, Card, CardItem, Button, Text} from 'native-base';
+import {Grid, Row, Col} from 'react-native-easy-grid';
 
-import {selectFolder} from '../../Redux/Actions';
+import * as actions from '../../Redux/Actions';
 import {connect} from 'react-redux';
+import Toast from 'react-native-simple-toast';
+
 
 class VideoFolder extends React.Component {
     constructor() {
@@ -18,70 +21,86 @@ class VideoFolder extends React.Component {
 
     //Props consists of "folder" 
     renderItem(video) {
-        console.log(video.item);
         return (
-            <Button
-                //onPress={}      //Reducer, connect with video screen!
-            >
-                <Text style={{color: 'black'}}>{video.item.name}</Text>    
-                <Text style={{color: 'black'}}>{video.item.link}</Text>
-            </Button>
+           <CardItem
+                button  
+                onPress={() =>{
+                    this.props.selectVideo(video.item.link);
+                }}
+                onLongPress={async () => {
+                    await Clipboard.setString(video.item.link);
+                    Toast.show("Copied to clip board!");
+                    console.log("Link: " + Clipboard.getString());
+                }}
+                style={{
+                    marginTop: 0,
+                    borderTopWidth: 1, 
+                    borderTopColor: '#e1e1e1',
+                    backgroundColor:  '#f9f9f9',
+                }}
+           >
+                <Title style={styles.text}>{video.item.name}:</Title>    
+                <Text style={{...styles.text, color: '#0000af'}}>   {video.item.link}</Text>
+           </CardItem>
         )
     }
 
     expandVideoList(){
         if (this.props.expanded){
             return (
-                <CardItem>
-                    <Body>
-                        <FlatList 
-                            data={this.props.folder.videoList}
-                            renderItem={this.renderItem}
-                            keyExtractor={video => video.name.toString()}
-                        />
-                    </Body>
-                </CardItem>
+                <FlatList 
+                    data={this.props.folder.videoList}
+                    renderItem={this.renderItem.bind(this)}
+                    keyExtractor={video => video.name.toString()}
+                />
             )
-        }
+        } 
     }
 
     render(){
         return (
-            <Button
-                // style={{backgroundColor:'red'}}
-                transparent
-                onPress={()=> {
-                    //console.log(this.props.expanded);
-                    //console.log(this.props.folder.folderName + " " + this.props.expanded);
-                    this.props.selectFolder(this.props.folder.folderName)
-                }}
-            >
+            <TouchableWithoutFeedback
+                    onPress={()=> {
+                        this.props.selectFolder(this.props.folder.folderName, this.props.expanded)
+                    }}
+                    >
                 <Card 
                     style={styles.containerStyle}
+                >
+                    <CardItem header
+                        style={{height: 10}}
                     >
-                    <CardItem header>
                         <Text style={{color: 'black'}}> 
                             {this.props.folder.folderName} 
                         </Text>
+
+                        
                     </CardItem>
                     {this.expandVideoList()}
                 </Card>
-            </Button>
+            </TouchableWithoutFeedback>   
         )
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    //console.log(state.selectedFolder.folderName + " " + ownProps.folder.folderName);
-    const expanded = (state.selectedFolder.folderName === ownProps.folder.folderName);
+    //Expand the pressed card
+    let expanded = (state.selectedItem.folderName === ownProps.folder.folderName) 
+    if (expanded){
+        //Check whether we have already expanded or not if we press the same card again
+        expanded = expanded  === !state.selectedItem.hasExpanded;
+    }
     return {expanded}
 };
 
 const styles = {
     containerStyle: {
-        marginRight: 0,
-        width: '100%',
+        
+    },
+    text: {
+        color: 'black', 
+        fontSize: 10,
     }
 }
 
-export default connect(mapStateToProps, {selectFolder})(VideoFolder);
+export default connect(mapStateToProps, actions)(VideoFolder);

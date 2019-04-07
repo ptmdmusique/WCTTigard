@@ -71,7 +71,7 @@ class SideBar extends React.Component {
                   style={{marginLeft: 0}}
                   >
                   <Left>
-                    <Icon style={{ fontSize: 25, marginLeft: 10 }} name={data.item.iconName} type={data.item.iconType} />
+                    <Icon style={{ fontSize: 23, marginLeft: 10 }} name={data.item.iconName} type={data.item.iconType} />
                   </Left>
                   <Body>
                     <Text style={{marginLeft: 10, fontSize: 12}}>{data.item.displayName}</Text>
