@@ -24,6 +24,19 @@ export const customStyles = StyleSheet.create({
       color: 'black',
     },
     headerIcon:{
-      color: 'black',
+      color: '#FF6961',
+      fontSize: 20,
     },
   })
+
+
+  /*
+  Some color to consider:
+    Header
+      #3ccdcd
+      #2658cd
+    Border
+      #ebebeb
+    Icon
+      #FF6961
+  */

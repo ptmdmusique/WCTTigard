@@ -92,11 +92,11 @@ class VideoScreen extends React.Component {
               {this.renderVideo()}
             </Row>
 
-            <Row size={6} style={{backgroundColor: '#e1e1e1'}}>
+            <Row size={6} style={{backgroundColor: '#f0f0f0'}}>
               <Grid>
                 <Row 
                   style={styles.videoListHeader}>
-                  <Text style={{fontFamily: 'Ubuntu_Bold', color: '#2658cd'}}> Available Videos </Text>
+                  <Text style={{fontFamily: 'Ubuntu_Bold', color: 'black'}}> Available Videos </Text>
                 </Row>
                
                 <Row 

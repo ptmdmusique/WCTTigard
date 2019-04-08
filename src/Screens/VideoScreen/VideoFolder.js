@@ -60,10 +60,10 @@ class VideoFolder extends React.Component {
     render(){
         return (
             <TouchableWithoutFeedback
-                    onPress={()=> {
-                        this.props.selectFolder(this.props.folder.folderName, this.props.expanded)
-                    }}
-                    >
+                onPress={()=> {
+                    this.props.selectFolder(this.props.folder.folderName, this.props.expanded)
+                }}
+            >
                 <Card 
                     style={styles.containerStyle}
                 >
@@ -72,9 +72,7 @@ class VideoFolder extends React.Component {
                     >
                         <Text style={{color: 'black'}}> 
                             {this.props.folder.folderName} 
-                        </Text>
-
-                        
+                        </Text>                       
                     </CardItem>
                     {this.expandVideoList()}
                 </Card>
@@ -95,7 +93,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const styles = {
     containerStyle: {
-        
+        elevation: 3
     },
     text: {
         color: 'black', 
