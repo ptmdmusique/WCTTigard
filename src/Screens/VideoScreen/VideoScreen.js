@@ -66,17 +66,17 @@ class VideoScreen extends React.Component {
       <StyleProvider style={getTheme(material)}>
         <Container>
           <Header style={customStyles.header}>
-            <Left>    
+            <Left style={{flex: 1}}>    
               <Button transparent onPress={this.props.navigation.openDrawer}>
                 <Icon style={customStyles.headerIcon}  name='menu'/>
               </Button>
             </Left>
 
-            <Body>
+            <Body style={{flex: 1}}>
               <Title style={customStyles.headerText}> Videos </Title>
             </Body>
 
-            <Right>
+            <Right style={{flex: 1}}>
               <Image source={require('../../../assets/images/sidebar-logo.png')} 
                     style={{height: 40, width: 40}}/>              
             </Right>

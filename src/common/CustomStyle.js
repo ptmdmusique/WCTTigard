@@ -6,9 +6,8 @@ export const customStyles = StyleSheet.create({
       height: 50, 
       justifyContent: 'center', 
       alignItems: 'center',
-      shadowRadius: 10,
-      elevation: 5,
-      zIndex: 5,
+      shadowRadius: 5,
+      elevation: 3,
     },
     footer: {
       height: 60, 
@@ -22,16 +21,18 @@ export const customStyles = StyleSheet.create({
     headerText:{
       fontFamily: 'Ubuntu_Bold', 
       color: 'black',
+      alignSelf: 'center',
     },
     headerIcon:{
-      color: '#FF6961',
-      fontSize: 20,
+      color: '#e53110',
+      fontSize: 30,
     },
   })
 
 
   /*
   Some color to consider:
+      #e53110
     Header
       #3ccdcd
       #2658cd
@@ -39,4 +40,7 @@ export const customStyles = StyleSheet.create({
       #ebebeb
     Icon
       #FF6961
+
+  Some font to consider
+    Arial
   */

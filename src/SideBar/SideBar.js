@@ -1,87 +1,101 @@
 import React from 'react';
 import { Image, ImageBackground, View, StyleSheet, FlatList } from 'react-native';
-import { Container, Content, Text, ListItem, Left, Body, Icon } from "native-base";
+import { Container, Content, Text, ListItem, Left, Body, Icon, StyleProvider } from "native-base";
+import material from '../..//native-base-theme/variables/material';
+import getTheme from '../../native-base-theme/components';
 
 const routes =  [
   {
     name: "Home",
     iconName: "home",
-    iconType: "Entypo",
     displayName: "Home"
   },
   {
     name: "Video",
     iconName: "video",
-    iconType: "Entypo",
     displayName: "Videos"
   },
   {
     name: "Picture",
     iconName: "image",
-    iconType: "Entypo",
     displayName: "Picture Board"
   },
   {
     name: "Event",
-    iconName: "notification",
-    iconType: "Entypo",
+    iconName: "news",
     displayName: "Events and News"
   },
   {
     name: "Schedule",
     iconName: "calendar",
-    iconType: "Entypo",
     displayName: "School Schedule"
+  },
+  {
+    name: "AboutUs",
+    iconName: "info",
+    displayName:  "About Us"
+  },
+  {
+    name: "Birthday",
+    iconName: "cake",
+    displayName: "Birthday Party"
+  },
+  {
+    name: "ReferUs",
+    iconName: "users",
+    displayName: "Refer Us"
   },
 ]
 
 class SideBar extends React.Component {
   render() {
     return (
-      <Container>
-        <Content>
-          <ImageBackground
-            source={require('../../assets/images/sidebar-background.png')}
-            style={styles.imageBackground}
-          >
-            <View style={styles.darkOverlay} />
-            <View style={styles.logoContainer}>
-              <Image
-                style={{ height: 70, width: 70 }}
-                source={require('../../assets/images/sidebar-logo.png')}
-              />
-            </View>
-            <Text style={styles.title}>Master Eric's WCT</Text>
-          </ImageBackground>
+      <StyleProvider style={getTheme(material)}>
+        <Container>
+          <Content>
+            <ImageBackground
+              source={require('../../assets/images/sidebar-background.png')}
+              style={styles.imageBackground}
+            >
+              <View style={styles.darkOverlay} />
+              <View style={styles.logoContainer}>
+                <Image
+                  style={{ height: 70, width: 70 }}
+                  source={require('../../assets/images/sidebar-logo.png')}
+                />
+              </View>
+              <Text style={styles.title}>Master Eric's WCT</Text>
+            </ImageBackground>
 
-          <FlatList        
-            keyExtractor={item => item.name}
-            data={routes}
-            renderItem={data => {
-              return (
-                <ListItem
-                  icon
-                  button
-                  onPress={() => 
-                    {
-                      this.props.navigation.closeDrawer();
-                      this.props.navigation.navigate(data.item.name);
-                    }
-                  }   
-                  style={{marginLeft: 0}}
-                  >
-                  <Left>
-                    <Icon style={{ fontSize: 23, marginLeft: 10, color: 'black' }} name={data.item.iconName} type={data.item.iconType} />
-                  </Left>
-                  <Body>
-                    <Text style={{marginLeft: 10, fontSize: 12}}>{data.item.displayName}</Text>
-                  </Body>
-                </ListItem>
-              );
-            }}
-          />
-        </Content>
-      </Container>
+            <FlatList        
+              keyExtractor={item => item.name}
+              data={routes}
+              renderItem={data => {
+                return (
+                  <ListItem
+                    icon
+                    button
+                    onPress={() => 
+                      {
+                        this.props.navigation.closeDrawer();
+                        this.props.navigation.navigate(data.item.name);
+                      }
+                    }   
+                    style={{marginLeft: 0}}
+                    >
+                    <Left>
+                      <Icon style={{ fontSize: 23, marginLeft: 10, color: 'black' }} name={data.item.iconName}/>
+                    </Left>
+                    <Body>
+                      <Text style={{marginLeft: 10, fontSize: 12}}>{data.item.displayName}</Text>
+                    </Body>
+                  </ListItem>
+                );
+              }}
+            />
+          </Content>
+        </Container>
+      </StyleProvider>
     );
   }
 }
