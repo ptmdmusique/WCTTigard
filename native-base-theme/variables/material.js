@@ -122,7 +122,7 @@ export default {
 
   // Font
   DefaultFontSize: 16,
-  fontFamily: "Roboto",
+  fontFamily: "LiberationSans-Regular",
   fontSizeBase: 15,
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
@@ -248,7 +248,7 @@ export default {
   },
 
   // Title
-  titleFontfamily: "Merriweather_Bold",
+  titleFontfamily: "LiberationSans-Bold",
   titleFontSize: 19,
   subTitleFontSize: 14,
   subtitleColor: "#FFF",

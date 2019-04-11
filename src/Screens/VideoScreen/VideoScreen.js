@@ -5,10 +5,11 @@ import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, WebView, AppState, View, FlatList, Image, } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import {Grid, Row, Col} from 'react-native-easy-grid';
+import Toast from 'react-native-simple-toast';
 
 import VideoFolder from './VideoFolder';
 
-import data from './VideoList.json';
+import data from '../../../Database/Videos/VideoList.json';
 
 import {connect} from 'react-redux';
 import {customStyles} from '../../common/CustomStyle';
@@ -21,6 +22,7 @@ class VideoScreen extends React.Component {
   }
 
   componentDidMount() {
+    Toast.show("Tip: Click and hold the link to copy!", Toast.SHORT);
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 
@@ -96,7 +98,7 @@ class VideoScreen extends React.Component {
               <Grid>
                 <Row 
                   style={styles.videoListHeader}>
-                  <Text style={{fontFamily: 'Ubuntu_Bold', color: 'black'}}> Available Videos </Text>
+                  <Text style={{fontFamily: 'LiberationSans-Bold', color: 'black'}}> Available Videos </Text>
                 </Row>
                
                 <Row 

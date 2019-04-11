@@ -70,7 +70,6 @@ export default class HomeScreen extends React.Component {
           row.push(
             <Col key={previewRoute[i + j].displayName}
             style={{
-              justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center', 
             }}
@@ -82,7 +81,7 @@ export default class HomeScreen extends React.Component {
                 style={styles.menu}  
                 >
                   <Icon style={{color: '#e53110', fontSize: 40}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{fontSize: 11, top: 5}}>
+                  <Text style={{fontSize: 11, top: 8}}>
                     {previewRoute[i + j].displayName}
                   </Text>
                 </Card>
@@ -99,6 +98,7 @@ export default class HomeScreen extends React.Component {
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
+            width: '85%'
           }}>
           {row}
         </Row>
@@ -139,7 +139,7 @@ export default class HomeScreen extends React.Component {
               >
                 <Content>
                   <Content>
-                    <Left style={{paddingBottom: 5, paddingTop: 10}}>
+                    <Left style={{paddingBottom: 5, paddingTop: 5}}>
                       <Title style={{color:'black', fontSize: 15}}>Latest News!</Title>
                     </Left>              
                   </Content>
@@ -148,7 +148,7 @@ export default class HomeScreen extends React.Component {
                     onPress={() => this.props.navigation.navigate("Event")}
                     style={{alignSelf: 'center'}}
                   >
-                    <Card style={{width: '90%', alignSelf: 'center',}}>
+                    <Card style={{width: '90%', alignSelf: 'center'}}>
                       <Grid>
                         <Col size={3} 
                           style={{
@@ -168,16 +168,29 @@ export default class HomeScreen extends React.Component {
                         </Col>
                         <Col size={7}>
                           <View style={{paddingTop: 10}}>
-                            <Header style={{height: 25, elevation: 0}}>
-                              <Title style={{fontSize: 14, color: "black"}}> News' Title </Title>
+                            <Header style={{height: 20, elevation: 0}}>
+                              <Title style={{fontSize: 14, color: "black"}}> Tournament is coming! </Title>
                             </Header>
-                            <Content style={{height: 70}}>
+                            <Content style={{height: 60,}}>
                               <Text 
                                 style={{alignSelf: 'center', fontSize: 12,}}
                               >
-                                Tournament!
+                                1/1/2019
+                              </Text>
+                              <Text 
+                                style={{alignSelf: 'center', fontSize: 12,}}
+                              >
+                                All day
+                              </Text>
+                              <Text 
+                                style={{alignSelf: 'center', fontSize: 12,}}
+                              >
+                                Everybody can join!
                               </Text>
                             </Content>
+                            <Footer style={{height: 20, elevation: 0.25}}>
+                              <Image source={require('../../../assets/images/high-kick.png')} style={{width: 15, height: 15, paddingBottom: 5}}/>          
+                            </Footer>
                           </View>
                         </Col>
                       </Grid>
@@ -204,6 +217,8 @@ export default class HomeScreen extends React.Component {
 
                   <Grid style={{
                     justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
                     padding: 10,
                   }}>
                     {menuGridItems}
@@ -260,7 +275,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    width: (width - 100) / itemPerRow,
-    height: (width - 150) / itemPerRow,
+    width: (width - 120) / itemPerRow,
+    height: (width - 100) / itemPerRow,
   },
 })

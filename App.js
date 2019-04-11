@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, StatusBar } from 'react-native';
 import AppContainer from './src/AppContainer';
-import {Root} from 'native-base';
+import {Root, StyleProvider, Spinner, Text, Content, Container} from 'native-base';
+import {Image} from 'react-native';
 import { Font, AppLoading } from 'expo';
+import material from './native-base-theme/variables/material';
+import getTheme from './native-base-theme/components';
 
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
@@ -13,27 +16,51 @@ export default class App extends React.Component {
     super();
 
     this.state = {
-      isReady: false
+      isReady: false,
+      fontLoaded: false,
     };
   }
 
   async componentDidMount() {
+    setTimeout(() => {this.setState({isReady: true})}, 2000);
+
     await Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'VarelaRound': require('./assets/fonts/VarelaRound/VarelaRound-Regular.ttf'),
-      'Ubuntu_Bold': require('./assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
-      'Ubuntu_Light': require('./assets/fonts/Ubuntu/Ubuntu-Light.ttf'),
+      'LiberationSans-Bold': require('./assets/fonts/LiberationSans/LiberationSans-Bold.ttf'),
+      'LiberationSans-Regular': require('./assets/fonts/LiberationSans/LiberationSans-Regular.ttf'),
       'Merriweather_Bold': require('./assets/fonts/Merriweather/Merriweather-Bold.ttf'),
       'Merriweather_Light': require('./assets/fonts/Merriweather/Merriweather-Light.ttf'),
     });
-    this.setState({ isReady: true });
+    this.setState({ fontLoaded: true });
   }
 
-
   render() {
-    if (!this.state.isReady) {
-      return <AppLoading />
+    if (!this.state.fontLoaded) {
+      return <AppLoading/>
+    }
+
+    if (!this.state.isReady){
+      return (
+        <StyleProvider style={getTheme(material)}>
+            <Container>
+            <Content 
+                contentContainerStyle={{
+                    flex: 1, 
+                    alignContent: 'center', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                }}
+            >
+                    <Image source={require('./assets/images/sidebar-logo.png')}/>
+                    <Text>Master Eric's World Champion Taekwondo</Text>
+                    <Spinner color='red'/>
+                </Content>
+            </Container>
+        </StyleProvider>
+      )
+      
     }
 
     return (
@@ -46,12 +73,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

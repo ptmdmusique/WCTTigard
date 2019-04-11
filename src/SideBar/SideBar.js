@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, ImageBackground, View, StyleSheet, FlatList } from 'react-native';
-import { Container, Content, Text, ListItem, Left, Body, Icon, StyleProvider } from "native-base";
+import { Container, Content, Text, ListItem, Left, Body, Icon, StyleProvider, Footer, Header} from "native-base";
 import material from '../..//native-base-theme/variables/material';
 import getTheme from '../../native-base-theme/components';
 
@@ -52,48 +52,52 @@ class SideBar extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Content>
-            <ImageBackground
-              source={require('../../assets/images/sidebar-background.png')}
-              style={styles.imageBackground}
-            >
-              <View style={styles.darkOverlay} />
-              <View style={styles.logoContainer}>
-                <Image
-                  style={{ height: 70, width: 70 }}
-                  source={require('../../assets/images/sidebar-logo.png')}
-                />
-              </View>
-              <Text style={styles.title}>Master Eric's WCT</Text>
-            </ImageBackground>
+          <ImageBackground
+            source={require('../../assets/images/sidebar-background.png')}
+            style={styles.imageBackground}
+          >
+            <View style={styles.darkOverlay} />
+            <View style={styles.logoContainer}>
+              <Image
+                style={{ height: 70, width: 70 }}
+                source={require('../../assets/images/sidebar-logo.png')}
+              />
+            </View>
+            <Text style={styles.title}>Master Eric's WCT</Text>
+          </ImageBackground>
 
-            <FlatList        
-              keyExtractor={item => item.name}
-              data={routes}
-              renderItem={data => {
-                return (
-                  <ListItem
-                    icon
-                    button
-                    onPress={() => 
-                      {
-                        this.props.navigation.closeDrawer();
-                        this.props.navigation.navigate(data.item.name);
-                      }
-                    }   
-                    style={{marginLeft: 0}}
-                    >
-                    <Left>
-                      <Icon style={{ fontSize: 23, marginLeft: 10, color: 'black' }} name={data.item.iconName}/>
-                    </Left>
-                    <Body>
-                      <Text style={{marginLeft: 10, fontSize: 12}}>{data.item.displayName}</Text>
-                    </Body>
-                  </ListItem>
-                );
-              }}
-            />
+          <Content>
+          <FlatList        
+            keyExtractor={item => item.name}
+            data={routes}
+            renderItem={data => {
+              return (
+                <ListItem
+                  icon
+                  button
+                  onPress={() => 
+                    {
+                      this.props.navigation.closeDrawer();
+                      this.props.navigation.navigate(data.item.name);
+                    }
+                  }   
+                  style={{marginLeft: 0}}
+                  >
+                  <Left>
+                    <Icon style={{ fontSize: 23, marginLeft: 10, color: '#404040' }} name={data.item.iconName}/>
+                  </Left>
+                  <Body>
+                    <Text style={{marginLeft: 10, fontSize: 12, color: '#404040', fontWeight: '500'}}>{data.item.displayName}</Text>
+                  </Body>
+                </ListItem>
+              );
+            }}
+          />
           </Content>
+
+          <Footer style={{height: 50, paddingTop: 10}}>
+            <Image source={require('../../assets/images/yin-yang.png')} style={{width: 30, height: 30}}/>             
+          </Footer>
         </Container>
       </StyleProvider>
     );

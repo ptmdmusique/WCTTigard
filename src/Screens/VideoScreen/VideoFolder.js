@@ -1,7 +1,6 @@
 import React from 'react';
 import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, Clipboard} from 'react-native';
 import {Title, Card, CardItem, Button, Text} from 'native-base';
-import {Grid, Row, Col} from 'react-native-easy-grid';
 
 import * as actions from '../../Redux/Actions';
 import {connect} from 'react-redux';
@@ -29,8 +28,7 @@ class VideoFolder extends React.Component {
                 }}
                 onLongPress={async () => {
                     await Clipboard.setString(video.item.link);
-                    Toast.show("Copied to clip board!");
-                    console.log("Link: " + Clipboard.getString());
+                    Toast.show("Toast! Link is copied!");
                 }}
                 style={{
                     marginTop: 0,

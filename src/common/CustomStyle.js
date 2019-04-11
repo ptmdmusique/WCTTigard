@@ -19,7 +19,7 @@ export const customStyles = StyleSheet.create({
       zIndex: 10,
     },
     headerText:{
-      fontFamily: 'Ubuntu_Bold', 
+      fontSize: 25,
       color: 'black',
       alignSelf: 'center',
     },

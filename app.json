@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.test.WCTTigard"
+    },
+    "android": {
+      "package": "com.test.WCTTigard"
     }
   }
 }
