@@ -1,46 +1,26 @@
 import React from 'react';
-import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Card, CardItem } from 'native-base';
+import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions} from 'react-native';
+import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, ImageBackground} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
+import {BlurView} from 'expo';
 
 import {customStyles} from '../../common/CustomStyle';
+import NewsCard from '../../common/NewsCard';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 //This should be dynamically retrieved from database for the "More" section
-/* Temp
-  {
-    name: "Picture",
-    iconName: "image",
-    displayName: "Picture Board"
-  },
-  {
-    name: "AboutUs",
-    iconName: "info",
-    displayName:  "About Us"
-  },
-  {
-    name: "Birthday",
-    iconName: "cake",
-    displayName: "Birthday Party"
-  },
-  {
-    name: "ReferUs",
-    iconName: "users",
-    displayName: "Refer Us"
-  },
-
-*/
 const previewRoute = [
   {
     name: "Event",
     iconName: "news",
-    displayName: "News"
+    displayName: "Events"
   },
   {
-    name: "Video",
-    iconName: "video",
-    displayName: "Videos"
+    name: "Alert",
+    iconName: "bell",
+    displayName: "Alerts"
   },
   {
     name: "Schedule",
@@ -54,9 +34,27 @@ const previewRoute = [
   },
 ]
 
+const images = [
+  {
+    url: "https://i.imgur.com/oZ0qFnR.jpg",
+  },
+  {
+    url: "https://i.imgur.com/rilIkTm.png",
+  },
+  {
+    url: "https://i.imgur.com/B8cudDx.jpg",
+  },
+  {
+    url: "https://i.imgur.com/5KMWV7S.jpg",
+  },
+  {
+    url: "https://i.imgur.com/KpPtEMH.png",
+  },
+]
+
 var {height, width} = Dimensions.get('window');
 //To format grid
-const itemPerRow = 2;
+const itemPerRow = 4;
 
 export default class HomeScreen extends React.Component {
   render() {    
@@ -77,14 +75,12 @@ export default class HomeScreen extends React.Component {
               <TouchableNativeFeedback
                 onPress={() => this.props.navigation.navigate(previewRoute[i + j].name)}
               >
-                <Card             
-                style={styles.menu}  
-                >
-                  <Icon style={{color: '#e53110', fontSize: 40}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{fontSize: 11, top: 8}}>
-                    {previewRoute[i + j].displayName}
+                <View style={styles.menu}>
+                  <Icon style={{color: '#e53110', fontSize: 20}} name={previewRoute[i + j].iconName}/>
+                  <Text style={{fontSize: 11, top: 5}}>
+                      {previewRoute[i + j].displayName}
                   </Text>
-                </Card>
+                </View>
               </TouchableNativeFeedback>
             </Col>
           )
@@ -98,7 +94,7 @@ export default class HomeScreen extends React.Component {
             justifyContent: 'center',
             alignContent: 'center',
             alignItems: 'center',
-            width: '85%'
+            width: '100%'
           }}>
           {row}
         </Row>
@@ -128,147 +124,104 @@ export default class HomeScreen extends React.Component {
           </Header>
 
           <Grid style={{
-              backgroundColor: '#f0f0f0',
+              backgroundColor: '#fafafa',
               zIndex: -3,
             }}>
-              <Row size={3}
-                style={{
-                  borderTopWidth: 1,
-                  borderTopColor: '#d9d9d9',
-                }}
-              >
-                <Content>
-                  <Content>
-                    <Left style={{paddingBottom: 5, paddingTop: 5}}>
-                      <Title style={{color:'black', fontSize: 15}}>Latest News!</Title>
-                    </Left>              
-                  </Content>
 
-                  <TouchableNativeFeedback
-                    onPress={() => this.props.navigation.navigate("Event")}
-                    style={{alignSelf: 'center'}}
-                  >
-                    <Card style={{width: '90%', alignSelf: 'center'}}>
-                      <Grid>
-                        <Col size={3} 
+            <Row size={5}>
+              <ImageViewer 
+                imageUrls={images}
+                backgroundColor='white'  
+                failImageSource={{uri: '../../../assets/images/sidebar-logo.png'}}
+                loadingRender={() =>
+                                <View>
+                                  <Image source={require('../../../assets/images/sidebar-logo.png')}/>
+                                  <Spinner color={'red'}/>
+                                </View>
+                              }
+                pageAnimateTime={200}
+                renderIndicator={() => null}
+                renderArrowLeft={
+                  () => <BlurView
+                          tint="dark"
+                          intensity={100}
+                        >
+                          <Icon 
+                          name="chevron-left" 
                           style={{
-                            justifyContent: 'center',
-                            borderRightWidth: 0.2,
-                            borderRightColor: '#d9d9d9'
-                          }}>
-                          <View 
-                            style={{
-                              width: '75%', 
-                              height: '75%', 
-                              alignSelf: 'center', 
-                            }}>
-                            <Image source={require('../../../assets/images/sidebar-logo.png')} 
-                              style={{flex: 1, width: undefined, height: undefined}}/>
-                          </View>
-                        </Col>
-                        <Col size={7}>
-                          <View style={{paddingTop: 10}}>
-                            <Header style={{height: 20, elevation: 0}}>
-                              <Title style={{fontSize: 14, color: "black"}}> Tournament is coming! </Title>
-                            </Header>
-                            <Content style={{height: 60,}}>
-                              <Text 
-                                style={{alignSelf: 'center', fontSize: 12,}}
-                              >
-                                1/1/2019
-                              </Text>
-                              <Text 
-                                style={{alignSelf: 'center', fontSize: 12,}}
-                              >
-                                All day
-                              </Text>
-                              <Text 
-                                style={{alignSelf: 'center', fontSize: 12,}}
-                              >
-                                Everybody can join!
-                              </Text>
-                            </Content>
-                            <Footer style={{height: 20, elevation: 0.25}}>
-                              <Image source={require('../../../assets/images/high-kick.png')} style={{width: 15, height: 15, paddingBottom: 5}}/>          
-                            </Footer>
-                          </View>
-                        </Col>
-                      </Grid>
-                    </Card>
-                  </TouchableNativeFeedback>
-                </Content>
-              </Row>
+                            color:"white",
+                          }}/>
+                        </BlurView>}
+                renderArrowRight={
+                  () => <BlurView
+                          tint="dark"
+                          intensity={100}
+                        >
+                          <Icon 
+                          name="chevron-right" 
+                          style={{color:"white"}}/>
+                        </BlurView>}
+              />
+            </Row>
 
-              <Row
-                size={7}
-                style={{
-                    top: 10,
-                    paddingTop: height / 20,
-                    borderTopWidth: 2,
-                    borderTopColor: '#d9d9d9',
-                }}
-              >
-                <Content >
-                  <Content>
-                    <Left style={{paddingLeft: 12}}>
-                      <Title style={{color:'black', fontSize: 15}}>Quick Navigation</Title>
-                    </Left>              
+            <Row size={5}
+              style={{
+                borderTopWidth: 1,
+                borderTopColor: '#d9d9d9',
+                }
+              }
+            >
+              <Grid>
+                <Row size={1}
+                >
+                  <Body style={{paddingBottom: 5, paddingTop: 10}}>
+                    <Title style={{color:'black', fontSize: 15}}>Latest News!</Title>
+                  </Body>              
+                </Row>
+
+                <Row size={4}>
+                  <Content
+                    contentContainerStyle={{
+                      justifyContent: 'center',
+                      alignContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <TouchableNativeFeedback
+                      onPress={() => this.props.navigation.navigate("Event")}
+                      
+                    >
+                      <NewsCard
+                        imageLink='https://i.imgur.com/rilIkTm.png'
+                        headerText='Tournament!'
+                        date='1/1/2019'
+                        durationText='All day!'
+                        content='Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template '                        
+                      />
+                    </TouchableNativeFeedback>
                   </Content>
+                </Row>
+              </Grid>
+            </Row>
+          </Grid>
 
-                  <Grid style={{
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                    alignItems: 'center',
-                    padding: 10,
-                  }}>
-                    {menuGridItems}
-                  </Grid>
-                </Content>
-              </Row>
+          <Footer style={customStyles.footer}>
+            <Grid style={{
+              justifyContent: 'center',
+              alignContent: 'center',
+              alignItems: 'center',
+              padding: 10,
+            }}>
+              {menuGridItems}
             </Grid>
-
-          {/* <Footer style={customStyles.footer}>
-            {/* <Image 
-              source={require('../../../assets/images/plain_black.png')}
-              style={styles.blurImage}
-            />
-            <View style={styles.textOverImage}>
-                <Text style={{fontSize: 15, fontFamily: 'Merriweather_Bold', color: "white"}}>
-                  Master Eric's World Champion Taekwondo
-                </Text>
-            </View>  
-
-            <Text style={{fontSize: 15, fontFamily: 'Merriweather_Bold', color: "black"}}>
-              Master Eric's World Champion Taekwondo
-            </Text> 
-          </Footer>*/}
+          </Footer>
         </Container>
       </StyleProvider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  logo: {
-    height: 80,
-    width: 80,
-  },
-  blurImage: {
-    height: 50,
-    top: -50,
-    alignItems:'center', 
-    position: 'absolute', 
-    opacity: 0.7
-  },
-  textOverImage: {
-    top:-50,
-    alignItems:'center', 
-    marginTop: 15,
-    position: 'absolute', 
-    left: 0, 
-    right: 0, 
-    bottom: 0,
-  },
+const styles = StyleSheet.create({ 
   menu: {
     elevation: 2,
     alignItems: 'center',

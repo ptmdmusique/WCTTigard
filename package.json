@@ -13,10 +13,12 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-easy-grid": "^0.2.1",
     "react-native-fast-image": "^5.2.0",
+    "react-native-image-zoom-viewer": "^2.2.25",
     "react-native-simple-toast": "0.0.8",
     "react-navigation": "^3.5.1",
     "react-redux": "^6.0.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-form": "^8.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

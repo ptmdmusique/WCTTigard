@@ -45,6 +45,21 @@ const routes =  [
     iconName: "users",
     displayName: "Refer Us"
   },
+  {
+    name: "Alert",
+    iconName: "bell",
+    displayName: "Alerts"
+  },
+  {
+    name: "ContactUs",
+    iconName: "globe",
+    displayName: "Contact Us"
+  },
+  {
+    name: "Trial",
+    iconName: "v-card",
+    displayName: "Trial Class"
+  },
 ]
 
 class SideBar extends React.Component {

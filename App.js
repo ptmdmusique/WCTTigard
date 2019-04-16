@@ -22,7 +22,7 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-    setTimeout(() => {this.setState({isReady: true})}, 2000);
+    setTimeout(() => {this.setState({isReady: true})}, 500);
 
     await Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),

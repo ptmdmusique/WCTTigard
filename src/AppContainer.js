@@ -8,6 +8,7 @@ import VideoScreen from './Screens/VideoScreen/VideoScreen';
 import EventScreen from './Screens/EventScreen/EventScreen';
 import PictureScreen from './Screens/PictureScreen/PictureScreen';
 import InfoScreen from './Screens/InfoScreen/InfoScreen'
+import TrialClassScreen from './Screens/TrialClassScreen/TrialClassScreen';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Home: {
@@ -24,9 +25,12 @@ const MyDrawerNavigator = createDrawerNavigator({
   },
   Info: {
     screen: InfoScreen
+  },
+  Trial: {
+    screen: TrialClassScreen
   }
 }, {
-  initialRouteName: 'Picture',
+  initialRouteName: 'Trial',
   contentComponent: props => <SideBar {...props} />
 });
 
