@@ -3,22 +3,26 @@ import {Title, Container, Header, Button, Left, Icon, StyleProvider,
     Body, Right, Footer, Text, Content, Spinner} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, Dimensions, StyleSheet, Linking, Platform} from 'react-native';
+import { View, Image, Dimensions, StyleSheet, Linking, Platform, ScrollView } from 'react-native';
 import {MapView, Location, Permissions} from 'expo';
 
 import {customStyles} from '../../common/CustomStyle';
+import { scale, moderateScale, verticalScale} from '../../common/Scalling';
 
 var {height, width} = Dimensions.get('window');
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
 const label = 'Custom Label';
 
+const MOCK_CONTACT = {
+    phoneNumber: '(503) 431-2034',
+    address: "15660 SW Pacific Hwy",
+    website: 'http://wcttigard.com/',
+    email: 'wcttigard@yahoo.com',
+    name: "World Champion Taekwondo Tigard",
+};
+
 export default class ScheduleScreen extends React.Component {
     state = {
-        phoneNumber: 5034312034,
-        address: "15660 SW Pacific Hwy",
-        website: 'http://wcttigard.com/',
-        email: 'wcttigard@yahoo.com',
-        name: "World Champion Taekwondo Tigard",
         finishLoading: false,
         geoLocation: null,
         url: null,
@@ -26,7 +30,7 @@ export default class ScheduleScreen extends React.Component {
     
     async convertAddress() {
         try {
-            this.setState({geoLocation: await Location.geocodeAsync(this.state.address)});        
+            this.setState({geoLocation: await Location.geocodeAsync(MOCK_CONTACT.address)});        
         } catch(e){
             console.log(e);
         } finally {
@@ -37,12 +41,12 @@ export default class ScheduleScreen extends React.Component {
             this.setState({
                 url: Platform.select({
                     ios: "maps:" + this.state.geoLocation.latitude + "," + 
-                        this.state.geoLocation.longitude + "?q=" + this.state.name,
+                        this.state.geoLocation.longitude + "?q=" + MOCK_CONTACT.name,
                     android: "geo:" + this.state.geoLocation.latitude + "," + 
-                        this.state.geoLocation.longitude + "?q=" + this.state.name,           
+                        this.state.geoLocation.longitude + "?q=" + MOCK_CONTACT.name,           
                 })
             })
-            console.log(JSON.stringify(this.state.geoLocation) + " " + JSON.stringify(this.state.url));
+            //console.log(JSON.stringify(this.state.geoLocation) + " " + JSON.stringify(this.state.url));
         }
     }
 
@@ -77,15 +81,16 @@ export default class ScheduleScreen extends React.Component {
     renderMap(){
         if (this.state.finishLoading){
             return (
-                <MapView
-                            style={{width, height: 300}}
-                            initialRegion={{
-                                latitude: this.state.geoLocation.latitude, 
-                                longitude: this.state.geoLocation.longitude, 
-                                longitudeDelta, 
-                                latitudeDelta
-                            }}
-                    >
+                <View style={{flex: 1, borderBottomColor: '#aaa', borderBottomWidth: 1}}>
+                    <MapView
+                        style={{width: '100%', flex: 1}}
+                        initialRegion={{
+                            latitude: this.state.geoLocation.latitude, 
+                            longitude: this.state.geoLocation.longitude, 
+                            longitudeDelta, 
+                            latitudeDelta
+                        }}
+                        >
                         <MapView.Marker
                             title={"World Champion Taekwondo Tigard"}
                             description={"Master Eric's World Champion Taekwondo Tigard"}
@@ -94,7 +99,8 @@ export default class ScheduleScreen extends React.Component {
                                 longitude: this.state.geoLocation.longitude
                             }}
                         />
-                </MapView>
+                    </MapView>
+                </View>
             )
         } else {
             return (
@@ -129,7 +135,7 @@ export default class ScheduleScreen extends React.Component {
                         paddingLeft: 10, 
                         alignItems: 'flex-start',
                     }}>
-                    <Text style={{fontSize: 15, color: 'blue'}}>{description}</Text>
+                    <Text style={{fontSize: 15,}}>{description}</Text>
                 </Body>
             </View>
         )
@@ -156,42 +162,47 @@ export default class ScheduleScreen extends React.Component {
                 </Right>
               </Header>
 
-              <Content>
+            <View style={{flex: 1, flexDirection: 'column'}}>
                 {this.renderMap()}
-                {this.renderButton("phone", "(503) 431-2034")}
-                {this.renderButton("mail", "wcttigard@yahoo.com")}
-                {this.renderButton("location", "15660 SW Pacific Hwy, Tigard, OR 97224")}
-                {this.renderButton("globe", "http://wcttigard.com/")}
-              </Content>
+                <View style={{flex: 1, backgroundColor: '#ddd'}}>
+                    <ScrollView contentContainerStyle={{alignItems: 'center'}}>
+                        <View style={{width: '85%', backgroundColor: '#fff', borderColor: '#fff', borderRadius: 5, elevation: 5}}>
+                            <Text>Hello</Text>
+                        </View>
+                    </ScrollView>
+                </View>
+            </View>
+            {/* {this.renderButton("phone", MOCK_CONTACT.phoneNumber)}
+            {this.renderButton("mail", MOCK_CONTACT.email)}
+            {this.renderButton("location", MOCK_CONTACT.address)}
+            {this.renderButton("globe", MOCK_CONTACT.website)} */}
 
-              <Footer style={{justifyContent: 'space-evenly'}}>
+              {/* <Footer style={{flexDirection: 'row',}}>
                   <Button danger
                     style={styles.button}
-                    onPress={() => 
-                        {
-                            Linking.openURL(`tel:${this.state.phoneNumber}`);
-                        }
-                    }
+                    onPress={() => Linking.openURL(`tel:${MOCK_CONTACT.phoneNumber}`)}
                   >
                     <Text style={styles.buttonText}>Call</Text>
                   </Button>
                   <Button danger
                     style={styles.button}
+                    onPress={() => Linking.openURL('mailto:' + MOCK_CONTACT.email)}
                   >
                     <Text style={styles.buttonText}>Email</Text>
                   </Button>
                   <Button danger
                     style={styles.button}
-                    onPress={() => Linking.openURL(this.state.url)}
+                    onPress={() => Linking.openURL(MOCK_CONTACT.url)}
                   >
                     <Text style={styles.buttonText}>Direction</Text>
                   </Button>
                   <Button danger
                     style={styles.button}
+                    onPress={() => Linking.openURL(MOCK_CONTACT.website)}
                   >
                     <Text style={styles.buttonText}>Website</Text>
                   </Button>
-              </Footer>
+              </Footer> */}
             </Container>
           </StyleProvider>
         );
@@ -200,15 +211,16 @@ export default class ScheduleScreen extends React.Component {
 
 styles = StyleSheet.create({
     button: {
+        flex: 1,
         height: 40, 
         top: 10, 
         color: '#e53110',
-        width: '21%',
+        marginHorizontal: 5,
         justifyContent: 'center',
     },
     buttonText: {
         fontWeight: 'bold',
         color: 'white',
-        fontSize: 9,
+        fontSize: width / 50,
     }
 })

@@ -54,7 +54,7 @@ export default class App extends React.Component {
                 }}
             >
                     <Image source={require('./assets/images/sidebar-logo.png')}/>
-                    <Text style={{fontSize: 15}}>Master Eric's World Champion Taekwondo</Text>
+                    <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{'\n'}World Champion Taekwondo</Text>
                     <Spinner color='red'/>
                 </Content>
             </Container>
