@@ -81,7 +81,7 @@ export default class PictureScreen extends React.Component {
               </Button>
             </Left>
 
-            <Body style={{flex:1}}>
+            <Body style={{flex:3}}>
               <Title style={customStyles.headerText}>Pictures</Title>
             </Body>
 

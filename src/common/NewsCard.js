@@ -53,7 +53,7 @@ export default class NewsCard extends React.Component {
                             </Content>
                             <Footer style={{height: 25, elevation: 0.25}}>
                                 <Image source={require('../../assets/images/michaelangelo.png')} 
-                                    style={{width: 20, height: 20, paddingBottom: 5}}
+                                    style={{width: 15, height: 15, paddingBottom: 5, alignSelf: 'center'}}
                                 />          
                             </Footer>
                         </View>

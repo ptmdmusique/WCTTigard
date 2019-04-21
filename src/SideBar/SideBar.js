@@ -51,15 +51,15 @@ const routes =  [
     displayName: "Alerts"
   },
   {
-    name: "ContactUs",
+    name: "Contact",
     iconName: "globe",
     displayName: "Contact Us"
   },
-  {
-    name: "Trial",
-    iconName: "v-card",
-    displayName: "Trial Class"
-  },
+  // {
+  //   name: "Trial",
+  //   iconName: "v-card",
+  //   displayName: "Trial Class"
+  // },
 ]
 
 class SideBar extends React.Component {

@@ -1,14 +1,13 @@
 import React from 'react';
-import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Spinner } from 'native-base';
+import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, ImageBackground} from 'react-native';
+import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
-import {BlurView} from 'expo';
 
 import {customStyles} from '../../common/CustomStyle';
 import NewsCard from '../../common/NewsCard';
-import ImageViewer from 'react-native-image-zoom-viewer';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 //This should be dynamically retrieved from database for the "More" section
 const previewRoute = [
@@ -28,7 +27,7 @@ const previewRoute = [
     displayName: "Schedule"
   },
   {
-    name: "ContactUs",
+    name: "Contact",
     iconName: "globe",
     displayName: "Contact Us"
   },
@@ -77,7 +76,7 @@ export default class HomeScreen extends React.Component {
               >
                 <View style={styles.menu}>
                   <Icon style={{color: '#e53110', fontSize: 20}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{fontSize: 11, top: 5}}>
+                  <Text style={{fontSize: 10, top: 5}}>
                       {previewRoute[i + j].displayName}
                   </Text>
                 </View>
@@ -112,7 +111,7 @@ export default class HomeScreen extends React.Component {
               </Button>
             </Left>
 
-            <Body style={{flex:1}}>
+            <Body style={{flex:3}}>
               <Title style={customStyles.headerText}>Home</Title>
             </Body>
 
@@ -128,8 +127,8 @@ export default class HomeScreen extends React.Component {
               zIndex: -3,
             }}>
 
-            <Row size={5}>
-              <ImageViewer 
+            <Row size={5} style={{justifyContent: 'center'}}>
+              {/* <ImageViewer 
                 imageUrls={images}
                 backgroundColor='white'  
                 failImageSource={{uri: '../../../assets/images/sidebar-logo.png'}}
@@ -161,6 +160,10 @@ export default class HomeScreen extends React.Component {
                           name="chevron-right" 
                           style={{color:"white"}}/>
                         </BlurView>}
+              /> */}
+              <AutoHeightImage source={{uri: "https://i.imgur.com/oZ0qFnR.jpg"}}
+                width={width}
+                style={{alignSelf: 'center'}}
               />
             </Row>
 
