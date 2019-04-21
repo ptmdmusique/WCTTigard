@@ -9,7 +9,7 @@ import {MapView, Location, Permissions} from 'expo';
 import {customStyles} from '../../common/CustomStyle';
 import { scale, moderateScale, verticalScale} from '../../common/Scalling';
 
-var {height, width} = Dimensions.get('window');
+var {height: screenHeight, width: screenWidth} = Dimensions.get('window');
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
 const label = 'Custom Label';
 
@@ -18,11 +18,30 @@ const MOCK_CONTACT = {
     address: "15660 SW Pacific Hwy",
     website: 'http://wcttigard.com/',
     email: 'wcttigard@yahoo.com',
-    name: "World Champion Taekwondo Tigard",
+    name: "WCT Tigard",
 };
+
+// const CONTACT_BUTTONS = [
+//     {
+//         iconName: 'email',
+//         iconType: 'MaterialCommunityIcons',
+//         backgroundColor: '#ff7b5e',
+//     },
+//     {
+//         iconName: 'phone',
+//         iconType: 'MaterialCommunityIcons',
+//         backgroundColor: '#15db54',
+//     },
+//     {
+//         iconName: 'globe',
+//         iconType: 'Entypo',
+//         backgroundColor: '#70a1ff',
+//     },
+// ];
 
 export default class ScheduleScreen extends React.Component {
     state = {
+        contact: MOCK_CONTACT,
         finishLoading: false,
         geoLocation: null,
         url: null,
@@ -81,7 +100,7 @@ export default class ScheduleScreen extends React.Component {
     renderMap(){
         if (this.state.finishLoading){
             return (
-                <View style={{flex: 1, borderBottomColor: '#aaa', borderBottomWidth: 1}}>
+                <View style={{flex: 1}}>
                     <MapView
                         style={{width: '100%', flex: 1}}
                         initialRegion={{
@@ -109,37 +128,29 @@ export default class ScheduleScreen extends React.Component {
         }
     }
 
-    renderButton(iconName, description){
+    renderContact() {
         return (
-            <View 
-                style={{
-                    paddingTop: 15, 
-                    flexDirection:'row', 
-                    alignItems: 'center', 
-                    width: '75%', 
-                    paddingLeft: width / 11,
-                }}>
-                <Body 
-                    style={{
-                        width: '25%',
-                        justifyContent: 'center',
-                    }}>
-                    <View style={{alignItems: 'center'}}>
-                        <Icon name={iconName} style={{fontSize: 21, color: '#e53110'}}/>
-                        {/* <Text style={{fontSize: 10, color: '#e53110', paddingTop: 5}}>{note}</Text> */}
-                    </View>
-                </Body>
-                <Body 
-                    style={{
-                        flex: 5, 
-                        paddingLeft: 10, 
-                        alignItems: 'flex-start',
-                    }}>
-                    <Text style={{fontSize: 15,}}>{description}</Text>
-                </Body>
+            <View style={{flexDirection: 'row', width: '100%', marginTop: -15}}>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Icon name="location-on" type="MaterialIcons" style={{color: '#fc5344'}} />
+                </View>
+                <View style={{flex: 5, paddingRight: 15}}>
+                    <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{this.state.contact.name}</Text>
+                    <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.address}</Text>
+                    <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.phoneNumber}</Text>
+                    <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.email}</Text>
+                    {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
+                </View>
             </View>
-        )
+        );
     }
+
+    // renderContactButtons(contactButtons) {
+    //     contactButtons = CONTACT_BUTTONS;
+    //     return contactButtons.map(contactButton => (
+    //         <Icon name={contactButton.iconName} type={contactButton.iconType} style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+    //     ));
+    // }
 
     render () {
         return (
@@ -162,47 +173,20 @@ export default class ScheduleScreen extends React.Component {
                 </Right>
               </Header>
 
-            <View style={{flex: 1, flexDirection: 'column'}}>
-                {this.renderMap()}
-                <View style={{flex: 1, backgroundColor: '#ddd'}}>
-                    <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-                        <View style={{width: '85%', backgroundColor: '#fff', borderColor: '#fff', borderRadius: 5, elevation: 5}}>
-                            <Text>Hello</Text>
-                        </View>
-                    </ScrollView>
-                </View>
-            </View>
-            {/* {this.renderButton("phone", MOCK_CONTACT.phoneNumber)}
-            {this.renderButton("mail", MOCK_CONTACT.email)}
-            {this.renderButton("location", MOCK_CONTACT.address)}
-            {this.renderButton("globe", MOCK_CONTACT.website)} */}
+                <View style={{flex: 1, flexDirection: 'column'}}>
+                    {this.renderMap()}
+                    <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+                        <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
+                        
+                        <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
+                            <Icon name="email" type="MaterialCommunityIcons" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
 
-              {/* <Footer style={{flexDirection: 'row',}}>
-                  <Button danger
-                    style={styles.button}
-                    onPress={() => Linking.openURL(`tel:${MOCK_CONTACT.phoneNumber}`)}
-                  >
-                    <Text style={styles.buttonText}>Call</Text>
-                  </Button>
-                  <Button danger
-                    style={styles.button}
-                    onPress={() => Linking.openURL('mailto:' + MOCK_CONTACT.email)}
-                  >
-                    <Text style={styles.buttonText}>Email</Text>
-                  </Button>
-                  <Button danger
-                    style={styles.button}
-                    onPress={() => Linking.openURL(MOCK_CONTACT.url)}
-                  >
-                    <Text style={styles.buttonText}>Direction</Text>
-                  </Button>
-                  <Button danger
-                    style={styles.button}
-                    onPress={() => Linking.openURL(MOCK_CONTACT.website)}
-                  >
-                    <Text style={styles.buttonText}>Website</Text>
-                  </Button>
-              </Footer> */}
+                            <Icon name="phone" type="MaterialCommunityIcons" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+
+                            <Icon name="globe" type="Entypo" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                        </View>
+                    </View>
+                </View>
             </Container>
           </StyleProvider>
         );
@@ -210,17 +194,5 @@ export default class ScheduleScreen extends React.Component {
 }
 
 styles = StyleSheet.create({
-    button: {
-        flex: 1,
-        height: 40, 
-        top: 10, 
-        color: '#e53110',
-        marginHorizontal: 5,
-        justifyContent: 'center',
-    },
-    buttonText: {
-        fontWeight: 'bold',
-        color: 'white',
-        fontSize: width / 50,
-    }
-})
+
+});

@@ -41,7 +41,7 @@ export default class App extends React.Component {
       return <AppLoading/>
     }
 
-    if (!this.state.isReady){
+    if (!this.state.isReady) {
       return (
         <StyleProvider style={getTheme(material)}>
             <Container>
@@ -54,12 +54,12 @@ export default class App extends React.Component {
                 }}
             >
                     <Image source={require('./assets/images/sidebar-logo.png')}/>
-                    <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{'\n'}World Champion Taekwondo</Text>
+                    <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{"\n"}World Champion Taekwondo</Text>
                     <Spinner color='red'/>
                 </Content>
             </Container>
         </StyleProvider>
-      )
+      );
       
     }
 
