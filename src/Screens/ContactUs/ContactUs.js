@@ -3,7 +3,7 @@ import {Title, Container, Header, Button, Left, Icon, StyleProvider,
     Body, Right, Footer, Text, Content, Spinner} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, Dimensions, StyleSheet, Linking, Platform, ScrollView } from 'react-native';
+import { View, Image, Dimensions, StyleSheet, Linking, Platform, TouchableNativeFeedback } from 'react-native';
 import {MapView, Location, Permissions} from 'expo';
 
 import {customStyles} from '../../common/CustomStyle';
@@ -156,7 +156,12 @@ export default class ScheduleScreen extends React.Component {
         return (
             <StyleProvider style={getTheme(material)}>
             <Container>
-              <Header style={customStyles.header}>
+              <Header style={{
+                  ...customStyles.header,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#ccc',
+                  elevation: 5,
+              }}>
                 <Left style={{flex: 1}}>    
                   <Button transparent onPress={this.props.navigation.openDrawer}>
                     <Icon style={customStyles.headerIcon}  name='menu'/>
@@ -173,17 +178,35 @@ export default class ScheduleScreen extends React.Component {
                 </Right>
               </Header>
 
-                <View style={{flex: 1, flexDirection: 'column'}}>
+                <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
                     {this.renderMap()}
                     <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
                         <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
                         
                         <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
-                            <Icon name="email" type="MaterialCommunityIcons" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            <TouchableNativeFeedback
+                                onPress={() => Linking.openURL('mailto:' + MOCK_CONTACT.email)}
+                            >
+                                <Icon name="email" type="MaterialCommunityIcons" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            </TouchableNativeFeedback>
 
-                            <Icon name="phone" type="MaterialCommunityIcons" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            <TouchableNativeFeedback
+                                onPress={() => Linking.openURL('tel:' + MOCK_CONTACT.phoneNumber)}
+                            >
+                                <Icon name="phone" type="MaterialCommunityIcons" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            </TouchableNativeFeedback>
 
-                            <Icon name="globe" type="Entypo" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            <TouchableNativeFeedback
+                                onPress={() => Linking.openURL(MOCK_CONTACT.website)}
+                            >
+                                <Icon name="globe" type="Entypo" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            </TouchableNativeFeedback>
+
+                            <TouchableNativeFeedback
+                                onPress={() => Linking.openURL(this.state.url)}
+                            >
+                                <Icon name="location" type="Entypo" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                            </TouchableNativeFeedback>
                         </View>
                     </View>
                 </View>
