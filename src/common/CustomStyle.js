@@ -8,6 +8,8 @@ export const customStyles = StyleSheet.create({
       alignItems: 'center',
       shadowRadius: 5,
       elevation: 3,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
     },
     footer: {
       height: 60, 

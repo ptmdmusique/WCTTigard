@@ -9,6 +9,12 @@ import {customStyles} from '../../common/CustomStyle';
 import NewsCard from '../../common/NewsCard';
 import AutoHeightImage from 'react-native-auto-height-image';
 
+const MOCK_DATA = {
+  eventTitle: 'Test Title',
+  eventTime: '1/1/1111',
+  eventDuration: 'All week',
+  eventContent: 'Something Content!',
+}
 //This should be dynamically retrieved from database for the "More" section
 const previewRoute = [
   {
@@ -30,24 +36,6 @@ const previewRoute = [
     name: "Contact",
     iconName: "globe",
     displayName: "Contact Us"
-  },
-]
-
-const images = [
-  {
-    url: "https://i.imgur.com/oZ0qFnR.jpg",
-  },
-  {
-    url: "https://i.imgur.com/rilIkTm.png",
-  },
-  {
-    url: "https://i.imgur.com/B8cudDx.jpg",
-  },
-  {
-    url: "https://i.imgur.com/5KMWV7S.jpg",
-  },
-  {
-    url: "https://i.imgur.com/KpPtEMH.png",
   },
 ]
 
@@ -75,7 +63,7 @@ export default class HomeScreen extends React.Component {
                 onPress={() => this.props.navigation.navigate(previewRoute[i + j].name)}
               >
                 <View style={styles.menu}>
-                  <Icon style={{color: '#e53110', fontSize: 20}} name={previewRoute[i + j].iconName}/>
+                  <Icon style={{color: '#e53110', fontSize: 24}} name={previewRoute[i + j].iconName}/>
                   <Text style={{fontSize: 10, top: 5}}>
                       {previewRoute[i + j].displayName}
                   </Text>
@@ -122,45 +110,12 @@ export default class HomeScreen extends React.Component {
             </Right>
           </Header>
 
-          <Grid style={{
+          {/* <Grid style={{
               backgroundColor: '#fafafa',
               zIndex: -3,
             }}>
 
             <Row size={5} style={{justifyContent: 'center'}}>
-              {/* <ImageViewer 
-                imageUrls={images}
-                backgroundColor='white'  
-                failImageSource={{uri: '../../../assets/images/sidebar-logo.png'}}
-                loadingRender={() =>
-                                <View>
-                                  <Image source={require('../../../assets/images/sidebar-logo.png')}/>
-                                  <Spinner color={'red'}/>
-                                </View>
-                              }
-                pageAnimateTime={200}
-                renderIndicator={() => null}
-                renderArrowLeft={
-                  () => <BlurView
-                          tint="dark"
-                          intensity={100}
-                        >
-                          <Icon 
-                          name="chevron-left" 
-                          style={{
-                            color:"white",
-                          }}/>
-                        </BlurView>}
-                renderArrowRight={
-                  () => <BlurView
-                          tint="dark"
-                          intensity={100}
-                        >
-                          <Icon 
-                          name="chevron-right" 
-                          style={{color:"white"}}/>
-                        </BlurView>}
-              /> */}
               <AutoHeightImage source={{uri: "https://i.imgur.com/oZ0qFnR.jpg"}}
                 width={width}
                 style={{alignSelf: 'center'}}
@@ -206,7 +161,28 @@ export default class HomeScreen extends React.Component {
                 </Row>
               </Grid>
             </Row>
-          </Grid>
+          </Grid> */}
+          <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
+            <View style={{flex: 1}}>
+              <Image source={{uri: "https://imgur.com/z3vlReU.jpg"}}
+                style={{alignSelf: 'center', height: '100%', width: '100%'}}
+              />
+            </View>
+            <View style={{width: '80%', height: '25%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row', width: '100%', marginTop: -15,}}>
+                  <View style={{flex: 1, alignItems: 'center',}}>
+                      <Icon name="newspaper" type="MaterialCommunityIcons" style={{color: '#fc5344'}} />
+                  </View>
+                  <View style={{flex: 5, paddingRight: 15, paddingLeft: 10}}>
+                      <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{MOCK_DATA.eventTitle}</Text>
+                      <Text style={{color: '#888', fontSize: 12}}>{MOCK_DATA.eventTime}</Text>
+                      <Text style={{color: '#888', fontSize: 12}}>{MOCK_DATA.eventDuration}</Text>
+                      <Text style={{color: '#888', fontSize: 12}}>{MOCK_DATA.eventContent}</Text>
+                      {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
+                  </View>
+              </View>
+            </View>
+          </View>
 
           <Footer style={customStyles.footer}>
             <Grid style={{

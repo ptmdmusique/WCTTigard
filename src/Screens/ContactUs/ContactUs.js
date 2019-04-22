@@ -156,12 +156,7 @@ export default class ScheduleScreen extends React.Component {
         return (
             <StyleProvider style={getTheme(material)}>
             <Container>
-              <Header style={{
-                  ...customStyles.header,
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#ccc',
-                  elevation: 5,
-              }}>
+              <Header style={customStyles.header}>
                 <Left style={{flex: 1}}>    
                   <Button transparent onPress={this.props.navigation.openDrawer}>
                     <Icon style={customStyles.headerIcon}  name='menu'/>
@@ -215,7 +210,3 @@ export default class ScheduleScreen extends React.Component {
         );
       };
 }
-
-styles = StyleSheet.create({
-
-});
