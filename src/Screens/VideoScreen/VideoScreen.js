@@ -9,7 +9,7 @@ import Toast from 'react-native-simple-toast';
 
 import VideoFolder from './VideoFolder';
 
-import data from '../../../Database/Videos/VideoList.json';
+import data from '../../../database/Videos/VideoList.json';
 
 import {connect} from 'react-redux';
 import {customStyles} from '../../common/CustomStyle';
