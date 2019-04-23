@@ -2,68 +2,101 @@ import React from 'react';
 import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Card, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, FlatList} from 'react-native';
-import { Row, Grid, Col } from "react-native-easy-grid";
+import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, FlatList,} from 'react-native';
 
 import Lightbox from 'react-native-lightbox';
 import Carousel from 'react-native-looped-carousel-improved';
 
 import {customStyles} from '../../common/CustomStyle';
-import data from '../../../database/Images/ImageList.json'; //Temporarily, use this as name
+import MOCK_IMAGES from '../../../database/Images/ImageList.json'; //Temporarily, use this as name
+
 
 const imagePerRow = 3;
+const ratioToView = 98;
 const {height, width} = Dimensions.get('window');
 
-const imageGridItems = [];
-const renderCarousel = (image) => {
-  //console.log(image);
-  return (
-    <Carousel style={{width, height}}>
-      <Image
-        style={{ flex: 1 }}
-        resizeMode="contain"
-        source={{ uri: image}}
-      />
-    </Carousel>
-  )
-}
-const renderImage = (image) => {
-  return (
-    <View 
-      style={{flex: 1 / imagePerRow, aspectRatio: 1, alignContent: 'center', justifyContent: 'center', }}
-    >
-      <Lightbox
-        swipeToDismiss={false}   
-        renderContent={() => renderCarousel(image.item)}
-      >
-          <Image source={{uri: image.item}} style={{width: '98%', height: '98%', alignSelf: 'center'}}/>
-      </Lightbox>
-    </View>
-  )
-}
-
+let imageURLs = [];
 
 export default class PictureScreen extends React.Component {  
   state = {
     finishLoading: false,
+    imageSize: [],
+    imageBrowser: [],
+  }
+
+  constructor(props){
+    super(props);
+    MOCK_IMAGES.forEach((image, index) => {
+      imageURLs.push({'URI': image, "id": index.toString()});
+    });
   }
   
-  async componentDidMount() {
-    //await this.loadImages();
+  loadImageSize() {
+    const _imageSize = this.state.imageSize;
+    const _imageBrowser = this.state.imageBrowser;
+    MOCK_IMAGES.forEach((item, index) => {
+      Image.getSize(item, (myWidth, myHeight) => {
+        _imageSize.push({ myUri: item, myWidth, myHeight });
+        this.setState({imageSize: _imageSize});
+
+        _imageBrowser.push({
+          photo: item,
+          id: index,
+        })
+        this.setState({imageBrowser: _imageBrowser});
+      });
+    });
+  }
+
+  renderCarousel(image){
+    return (
+      // <Carousel style={{width, height}}>
+        
+      // </Carousel>
+      <Image
+          resizeMode="contain"
+          source={{ uri: image.myUri}}
+          style={{ 
+            flex: 1,
+          }}
+      />
+    )
+  } 
+  renderImage(image){  
+    return (
+      <View 
+      style={{flex: 1 / imagePerRow, aspectRatio: 1, marginBottom: 2, marginRight: 2, alignContent: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#ddd'}}
+      >
+        <Lightbox
+          swipeToDismiss={false}
+          renderContent={() => this.renderCarousel(image)}
+        >
+          <View style={{backgroundColor: '#f0f0f0', width: '100%', height: '100%', alignSelf: 'center'}}>
+            <Image source={{uri: image.myUri}} 
+              resizeMode='cover'
+              style={{width: '100%', height: '100%'}}/>
+          </View>
+        </Lightbox>
+      </View>
+    )
+  }
+  
+  componentDidMount() {
+    this.loadImageSize();
+    //console.log(MOCK_IMAGES);
     this.setState({finishLoading: true});
   }
 
   renderBody(){
     if (this.state.finishLoading){
       return (
-        <Grid 
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',              
-          }}>
-          {imageGridItems}      
-        </Grid>
+        <FlatList
+          keyExtractor={(item, index) => item + index}
+          numColumns={imagePerRow}
+          data={this.state.imageSize}
+          renderItem={data => this.renderImage(data.item)}
+          contentContainerStyle={{flexGrow: 1, justifyContent: 'center',}}
+        />
       )
     } else {
       return (
@@ -95,14 +128,7 @@ export default class PictureScreen extends React.Component {
           </Header>
 
           <Content contentContainerStyle={{flexDirection: 'row', justifyContent: 'center'}}>
-            {/* {this.renderBody()} */}
-            <FlatList
-              keyExtractor={(item, index) => item + index}
-              numColumns={imagePerRow}
-              data={data}
-              renderItem={image => renderImage(image)}
-              contentContainerStyle={{flexGrow: 1, justifyContent: 'center',}}
-            />
+            {this.renderBody()}
           </Content>
         </Container>
       </StyleProvider>

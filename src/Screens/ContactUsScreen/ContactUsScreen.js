@@ -39,7 +39,7 @@ const MOCK_CONTACT = {
 //     },
 // ];
 
-export default class ScheduleScreen extends React.Component {
+export default class ContactUsScreen extends React.Component {
     state = {
         contact: MOCK_CONTACT,
         finishLoading: false,

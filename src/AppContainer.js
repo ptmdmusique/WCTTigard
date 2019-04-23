@@ -10,7 +10,7 @@ import PictureScreen from './Screens/PictureScreen/PictureScreen';
 import InfoScreen from './Screens/InfoScreen/InfoScreen'
 //import TrialClassScreen from './Screens/TrialClassScreen/TrialClassScreen';
 import ScheduleScreen from './Screens/ScheduleScreen/ScheduleScreen';
-import ContactUs from './Screens/ContactUs/ContactUs';
+import ContactUsScreen from './Screens/ContactUsScreen/ContactUsScreen';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Home: {
@@ -35,7 +35,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: ScheduleScreen
   },
   Contact: {
-    screen: ContactUs
+    screen: ContactUsScreen
   }
 }, {
   initialRouteName: 'Picture',
