@@ -38,7 +38,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: ContactUsScreen
   }
 }, {
-  initialRouteName: 'Picture',
+  initialRouteName: 'Home',
   contentComponent: props => <SideBar {...props} />
 });
 

@@ -2,26 +2,29 @@ import React from 'react';
 import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer, Card, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, FlatList,} from 'react-native';
-
-import Lightbox from 'react-native-lightbox';
-import Carousel from 'react-native-looped-carousel-improved';
+import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, FlatList} from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 import {customStyles} from '../../common/CustomStyle';
 import MOCK_IMAGES from '../../../database/Images/ImageList.json'; //Temporarily, use this as name
-
+import Modal from "react-native-modal";
+import AutoHeightImage from 'react-native-auto-height-image';
+import { FileSystem } from 'expo';
 
 const imagePerRow = 3;
-const ratioToView = 98;
 const {height, width} = Dimensions.get('window');
 
 let imageURLs = [];
 
 export default class PictureScreen extends React.Component {  
   state = {
+    screenSwitched: false,
+
     finishLoading: false,
     imageSize: [],
-    imageBrowser: [],
+
+    isModalVisible : false,
+    uri: '',
   }
 
   constructor(props){
@@ -31,54 +34,64 @@ export default class PictureScreen extends React.Component {
     });
   }
   
+  componentWillUnmount() {
+    this.setState({isModalVisible: false});
+  }
+  
+  _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  
+  async _downloadImage(uri){
+    const fileUri = FileSystem.documentDirectory + "images";
+  
+    let downloadObject = FileSystem.createDownloadResumable(
+      uri,
+      fileUri
+    );
+    let response = await downloadObject.downloadAsync();
+    console.log(response);
+  }
+
   loadImageSize() {
     const _imageSize = this.state.imageSize;
-    const _imageBrowser = this.state.imageBrowser;
     MOCK_IMAGES.forEach((item, index) => {
       Image.getSize(item, (myWidth, myHeight) => {
         _imageSize.push({ myUri: item, myWidth, myHeight });
         this.setState({imageSize: _imageSize});
-
-        _imageBrowser.push({
-          photo: item,
-          id: index,
-        })
-        this.setState({imageBrowser: _imageBrowser});
       });
     });
   }
 
-  renderCarousel(image){
-    return (
-      // <Carousel style={{width, height}}>
-        
-      // </Carousel>
-      <Image
-          resizeMode="contain"
-          source={{ uri: image.myUri}}
-          style={{ 
-            flex: 1,
-          }}
-      />
-    )
-  } 
   renderImage(image){  
     return (
       <View 
       style={{flex: 1 / imagePerRow, aspectRatio: 1, marginBottom: 2, marginRight: 2, alignContent: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#ddd'}}
       >
-        <Lightbox
-          swipeToDismiss={false}
-          renderContent={() => this.renderCarousel(image)}
+        <TouchableNativeFeedback
+          onPress={() => {
+            this.setState({uri: image.myUri});
+            this._toggleModal();
+          }}
         >
           <View style={{backgroundColor: '#f0f0f0', width: '100%', height: '100%', alignSelf: 'center'}}>
-            <Image source={{uri: image.myUri}} 
-              resizeMode='cover'
-              style={{width: '100%', height: '100%'}}/>
+              <Image source={{uri: image.myUri}} 
+                resizeMode='cover'
+                style={{width: '100%', height: '100%'}}/>
           </View>
-        </Lightbox>
+        </TouchableNativeFeedback>
       </View>
     )
+  }
+  renderModalImage(){
+    if (this.state.uri){
+      return (
+        <TouchableNativeFeedback
+          onPress={() => this._toggleModal()}
+        >
+          <AutoHeightImage width={width * 0.98} style={{alignSelf: 'center'}} source={{uri: this.state.uri}}/>
+        </TouchableNativeFeedback>
+      )
+    }
   }
   
   componentDidMount() {
@@ -109,6 +122,11 @@ export default class PictureScreen extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
+          <NavigationEvents
+              onWillFocus={() => this.setState({ screenSwitched: false })}
+              onWillBlur={() => this.setState({ screenSwitched: true })}
+            />
+
           <Header style={customStyles.header}
           >
             <Left style={{flex:1}}>    
@@ -126,6 +144,32 @@ export default class PictureScreen extends React.Component {
                 style={{height: 40, width: 40}}/>
             </Right>
           </Header>
+
+          <Modal 
+            isVisible={this.state.isModalVisible}
+            onBackButtonPress={() => this.setState({isModalVisible: false})}
+            animationIn={'fadeIn'}
+            animationOut={'fadeOut'}
+          >
+            <View style={{ flex: 1 }}>
+              <View 
+                style={{
+                  position: 'absolute',
+                  left:     0,
+                  top:      0,
+                  right: 0,
+                  bottom: 0,
+                  flex: 1,
+                  justifyContent: 'center',
+                }}>
+                {this.renderModalImage()}
+              </View>
+              <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+                <Icon name="cross" style={{color:'white'}} onPress={this._toggleModal}/>
+                <Icon name="download" style={{color: 'white',}} onPress={() => this._downloadImage(this.state.uri)}/>
+              </View>
+            </View>
+          </Modal>
 
           <Content contentContainerStyle={{flexDirection: 'row', justifyContent: 'center'}}>
             {this.renderBody()}
