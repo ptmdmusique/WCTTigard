@@ -14,16 +14,16 @@ import MOCK_VIDEOS from '../../../database/Videos/VideoList.json';
 import {connect} from 'react-redux';
 import {customStyles} from '../../common/CustomStyle';
 
-class VideoScreen extends React.Component {
+export default class VideoScreen extends React.Component {
   state = {
     appState: AppState.currentState,
     screenSwitched: false,
     currentVidUrl: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc"),
-    defaultURL: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")
+    // defaultURL: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")
   }
 
   componentDidMount() {
-    Toast.show("Tip: Click and hold the link to copy!", Toast.SHORT);
+    // Toast.show("Tip: Click and hold the link to copy!", Toast.SHORT);
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 
@@ -42,7 +42,6 @@ class VideoScreen extends React.Component {
 
     return (
       <WebView 
-        style={styles.mainVideo}
         javaScriptEnabled={true}
         source={{uri: this.state.currentVidUrl}}
       />
@@ -60,12 +59,12 @@ class VideoScreen extends React.Component {
     }
   }
 
-  selectVideo() {
-    console.log('vidUrl');
+  selectVideo(vidUrl) {
+    this.setState({ currentVidUrl: this.getEmbedFromLink(vidUrl) });
   }
 
-  renderFolder(folder){
-    return <VideoFolder folder={folder.item} selectVideo={() => console.log('select')} />
+  renderFolder = (folder) => {
+    return <VideoFolder folder={folder.item} selectVideo={(url) => this.selectVideo(url)} />
   }
 
   // render () {
@@ -155,7 +154,7 @@ class VideoScreen extends React.Component {
               onWillBlur={() => this.setState({ screenSwitched: true })}
             />
 
-          <Grid style={styles.content}>
+          <Grid>
             <Row size={4} style={{borderBottomColor: '#666', borderBottomWidth: 4, elevation: 5}}>
               {this.renderVideo()}
             </Row>
@@ -181,27 +180,27 @@ class VideoScreen extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const vidURL = state.selectedItem.vidURL;
+// const mapStateToProps = (state) => {
+//   const vidURL = state.selectedItem.vidURL;
   
-  return {vidURL}
-};
+//   return {vidURL}
+// };
 
-export default connect(mapStateToProps)(VideoScreen);
+// export default connect(mapStateToProps)(VideoScreen);
 
-const styles = StyleSheet.create({
-  videoListHeader: {
-    alignContent: 'center', 
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    height: 40,  
+// const styles = StyleSheet.create({
+//   videoListHeader: {
+//     alignContent: 'center', 
+//     justifyContent: 'center',
+//     backgroundColor: 'white',
+//     height: 40,  
 
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    shadowRadius: 5,
-    elevation: 10,
-    zIndex: 10,
-  },
-})
+//     paddingTop: 10,
+//     paddingBottom: 10,
+//     borderBottomLeftRadius: 10,
+//     borderBottomRightRadius: 10,
+//     shadowRadius: 5,
+//     elevation: 10,
+//     zIndex: 10,
+//   },
+// })

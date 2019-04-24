@@ -2,8 +2,8 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://t4-hnh.willow614.wcttigard.exp.direct",
+  "packagerNgrokUrl": "https://packager.t4-hnh.willow614.wcttigard.exp.direct",
+  "ngrokPid": 5496,
   "devToolsPort": 19002
 }

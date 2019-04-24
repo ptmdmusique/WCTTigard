@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import Toast from 'react-native-simple-toast';
 
 
-class VideoFolder extends React.Component {
+export default class VideoFolder extends React.Component {
     constructor() {
         super();
 
@@ -18,7 +18,7 @@ class VideoFolder extends React.Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     
-    componentDidUpdate(){
+    componentDidUpdate() {
         LayoutAnimation.spring();
     }
 
@@ -54,14 +54,14 @@ class VideoFolder extends React.Component {
                     flexDirection: 'row', marginTop: 10, height: 100, elevation: 2,
                     shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.8, shadowRadius: 2,
                 }}
-                onPress={this.props.selectVideo}
+                onPress={() => this.props.selectVideo(video.link)}
             >
                 <View style={{flex: 3}}>
                     <Thumbnail
                         url={video.link}
                         showPlayIcon={false}
                         style={{height: '100%', width: '100%'}}
-                        onPress={() => {}} />
+                        onPress={() => this.props.selectVideo(video.link)} />
                 </View>
 
                 <View style={{flex: 4}}>
@@ -127,24 +127,24 @@ class VideoFolder extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    //Expand the pressed card
-    let expanded = (state.selectedItem.folderName === ownProps.folder.folderName) 
-    if (expanded){
-        //Check whether we have already expanded or not if we press the same card again
-        expanded = expanded  === !state.selectedItem.hasExpanded;
-    }
-    return {expanded}
-};
+// const mapStateToProps = (state, ownProps) => {
+//     //Expand the pressed card
+//     let expanded = (state.selectedItem.folderName === ownProps.folder.folderName) 
+//     if (expanded){
+//         //Check whether we have already expanded or not if we press the same card again
+//         expanded = expanded  === !state.selectedItem.hasExpanded;
+//     }
+//     return {expanded}
+// };
 
-const styles = {
-    containerStyle: {
-        elevation: 3
-    },
-    text: {
-        color: 'black', 
-        fontSize: 10,
-    }
-}
+// const styles = {
+//     containerStyle: {
+//         elevation: 3
+//     },
+//     text: {
+//         color: 'black', 
+//         fontSize: 10,
+//     }
+// }
 
-export default connect(mapStateToProps, actions)(VideoFolder);
+// export default connect(mapStateToProps, actions)(VideoFolder);
