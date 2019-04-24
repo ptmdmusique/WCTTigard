@@ -9,7 +9,7 @@ import Toast from 'react-native-simple-toast';
 
 import VideoFolder from './VideoFolder';
 
-import data from '../../../database/Videos/VideoList.json';
+import MOCK_VIDEOS from '../../../database/Videos/VideoList.json';
 
 import {connect} from 'react-redux';
 import {customStyles} from '../../common/CustomStyle';
@@ -18,6 +18,7 @@ class VideoScreen extends React.Component {
   state = {
     appState: AppState.currentState,
     screenSwitched: false,
+    currentVidUrl: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc"),
     defaultURL: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")
   }
 
@@ -43,7 +44,7 @@ class VideoScreen extends React.Component {
       <WebView 
         style={styles.mainVideo}
         javaScriptEnabled={true}
-        source={{uri: this.props.vidURL ? this.getEmbedFromLink(this.props.vidURL) : this.state.defaultURL}}
+        source={{uri: this.state.currentVidUrl}}
       />
     );
   }
@@ -59,11 +60,76 @@ class VideoScreen extends React.Component {
     }
   }
 
-  renderFolder(folder){
-    return <VideoFolder folder={folder.item} />
+  selectVideo() {
+    console.log('vidUrl');
   }
 
-  render () {
+  renderFolder(folder){
+    return <VideoFolder folder={folder.item} selectVideo={() => console.log('select')} />
+  }
+
+  // render () {
+  //   return (
+  //     <StyleProvider style={getTheme(material)}>
+  //       <Container>
+  //         <Header style={customStyles.header}>
+  //           <Left style={{flex: 1}}>    
+  //             <Button transparent onPress={this.props.navigation.openDrawer}>
+  //               <Icon style={customStyles.headerIcon}  name='menu'/>
+  //             </Button>
+  //           </Left>
+
+  //           <Body style={{flex: 1}}>
+  //             <Title style={customStyles.headerText}> Videos </Title>
+  //           </Body>
+
+  //           <Right style={{flex: 1}}>
+  //             <Image source={require('../../../assets/images/sidebar-logo.png')} 
+  //                   style={{height: 40, width: 40}}/>              
+  //           </Right>
+  //         </Header>
+
+  //         <NavigationEvents
+  //             onWillFocus={() => this.setState({ screenSwitched: false })}
+  //             onWillBlur={() => this.setState({ screenSwitched: true })}
+  //           />
+
+  //         <Grid style={styles.content}>
+  //           <Row size={4} style={{backgroundColor: 'red'}}>
+  //             {this.renderVideo()}
+  //           </Row>
+
+  //           <Row size={6} style={{backgroundColor: '#f0f0f0'}}>
+  //             <Grid>
+  //               <Row 
+  //                 style={styles.videoListHeader}>
+  //                 <Text style={{fontFamily: 'LiberationSans-Bold', color: 'black'}}> Available Videos </Text>
+  //               </Row>
+               
+  //               <Row 
+  //                 style={{
+  //                   marginLeft: 5,
+  //                   marginRight: 5,
+  //                   top: 10,
+  //                 }}
+  //               >
+  //                 <FlatList
+  //                   data = {MOCK_VIDEOS}
+  //                   renderItem={this.renderFolder}
+  //                   keyExtractor={folder => folder.folderName.toString()}
+  //                 />
+  //               </Row>
+  //             </Grid>
+  //           </Row>
+  //         </Grid>
+
+
+  //       </Container>
+  //     </StyleProvider>
+  //   );
+  // };
+
+  render() {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
@@ -74,7 +140,7 @@ class VideoScreen extends React.Component {
               </Button>
             </Left>
 
-            <Body style={{flex: 1}}>
+            <Body style={{flex: 3}}>
               <Title style={customStyles.headerText}> Videos </Title>
             </Body>
 
@@ -90,26 +156,16 @@ class VideoScreen extends React.Component {
             />
 
           <Grid style={styles.content}>
-            <Row size={4} style={{backgroundColor: 'red'}}>
+            <Row size={4} style={{borderBottomColor: '#666', borderBottomWidth: 4, elevation: 5}}>
               {this.renderVideo()}
             </Row>
 
-            <Row size={6} style={{backgroundColor: '#f0f0f0'}}>
+            <Row size={6} style={{backgroundColor: '#ddd'}}>
               <Grid>
-                <Row 
-                  style={styles.videoListHeader}>
-                  <Text style={{fontFamily: 'LiberationSans-Bold', color: 'black'}}> Available Videos </Text>
-                </Row>
                
-                <Row 
-                  style={{
-                    marginLeft: 5,
-                    marginRight: 5,
-                    top: 10,
-                  }}
-                >
+                <Row style={{}}>
                   <FlatList
-                    data = {data}
+                    data = {MOCK_VIDEOS}
                     renderItem={this.renderFolder}
                     keyExtractor={folder => folder.folderName.toString()}
                   />
@@ -122,7 +178,7 @@ class VideoScreen extends React.Component {
         </Container>
       </StyleProvider>
     );
-  };
+  }
 }
 
 const mapStateToProps = (state) => {

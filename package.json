@@ -20,6 +20,7 @@
     "react-native-looped-carousel-improved": "^1.0.2",
     "react-native-modal": "^9.0.0",
     "react-native-simple-toast": "0.0.8",
+    "react-native-thumbnail-video": "^0.1.2",
     "react-navigation": "^3.5.1",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",

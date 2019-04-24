@@ -21,12 +21,12 @@ export const customStyles = StyleSheet.create({
       zIndex: 10,
     },
     headerText:{
-      fontSize: 25,
-      color: 'black',
-      alignSelf: 'center',
+      fontSize: 22,
+      color: '#333',
+      // alignSelf: 'center',
     },
     headerIcon:{
-      color: '#e53110',
+      color: '#333',
       fontSize: 30,
     },
   })

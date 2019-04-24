@@ -1,6 +1,7 @@
 import React from 'react';
-import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, Clipboard} from 'react-native';
+import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, TouchableOpacity, Clipboard, Image} from 'react-native';
 import {Title, Card, CardItem, Button, Text} from 'native-base';
+import { Thumbnail } from 'react-native-thumbnail-video';
 
 import * as actions from '../../Redux/Actions';
 import {connect} from 'react-redux';
@@ -10,6 +11,9 @@ import Toast from 'react-native-simple-toast';
 class VideoFolder extends React.Component {
     constructor() {
         super();
+
+        console.disableYellowBox = true;
+
         UIManager.setLayoutAnimationEnabledExperimental && 
             UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -20,27 +24,57 @@ class VideoFolder extends React.Component {
 
     //Props consists of "folder" 
     renderItem(video) {
+        // return (
+        //    <CardItem
+        //         button  
+        //         onPress={() =>{
+        //             this.props.selectVideo(video.item.link);
+        //         }}
+        //         onLongPress={async () => {
+        //             await Clipboard.setString(video.item.link);
+        //             Toast.show("Toast! Link is copied!");
+        //         }}
+        //         style={{
+        //             marginTop: 0,
+        //             borderTopWidth: 1, 
+        //             borderTopColor: '#e1e1e1',
+        //             backgroundColor:  '#f9f9f9',
+        //         }}
+        //    >
+        //         <Title style={styles.text}>{video.item.name}:</Title>    
+        //         <Text style={{...styles.text, color: '#0000af'}}>   {video.item.link}</Text>
+        //    </CardItem>
+        // )
+
         return (
-           <CardItem
-                button  
-                onPress={() =>{
-                    this.props.selectVideo(video.item.link);
-                }}
-                onLongPress={async () => {
-                    await Clipboard.setString(video.item.link);
-                    Toast.show("Toast! Link is copied!");
-                }}
+            <TouchableOpacity
+                activeOpacity={0.9}
                 style={{
-                    marginTop: 0,
-                    borderTopWidth: 1, 
-                    borderTopColor: '#e1e1e1',
-                    backgroundColor:  '#f9f9f9',
+                    width: '95%', alignSelf: 'center', backgroundColor: 'white',
+                    flexDirection: 'row', marginTop: 10, height: 100, elevation: 2,
+                    shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.8, shadowRadius: 2,
                 }}
-           >
-                <Title style={styles.text}>{video.item.name}:</Title>    
-                <Text style={{...styles.text, color: '#0000af'}}>   {video.item.link}</Text>
-           </CardItem>
-        )
+                onPress={this.props.selectVideo}
+            >
+                <View style={{flex: 3}}>
+                    <Thumbnail
+                        url={video.link}
+                        showPlayIcon={false}
+                        style={{height: '100%', width: '100%'}}
+                        onPress={() => {}} />
+                </View>
+
+                <View style={{flex: 4}}>
+                    <View style={{flex: 1, flexDirection: 'column', paddingLeft: 10, paddingVertical: 5}}>
+                        <Text style={{color: '#444', fontWeight: '600'}}>{video.name}</Text>
+                        <Text style={{color: '#888', fontSize: 12, marginTop: 8}}>{video.description}</Text>
+                        {/* <View style={{flex: 1, justifyContent: 'center'}}>
+                            <Text style={{color: '#888', fontSize: 12}}>{video.description}</Text>
+                        </View> */}
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
     }
 
     expandVideoList(){
@@ -56,26 +90,40 @@ class VideoFolder extends React.Component {
     }
 
     render(){
+        // return (
+        //     <TouchableWithoutFeedback
+        //         onPress={()=> {
+        //             this.props.selectFolder(this.props.folder.folderName, this.props.expanded)
+        //         }}
+        //     >
+        //         <Card 
+        //             style={styles.containerStyle}
+        //         >
+        //             <CardItem header
+        //                 style={{height: 10}}
+        //             >
+        //                 <Text style={{color: 'black'}}> 
+        //                     {this.props.folder.folderName} 
+        //                 </Text>                       
+        //             </CardItem>
+        //             {this.expandVideoList()}
+        //         </Card>
+        //     </TouchableWithoutFeedback>   
+        // )
+
         return (
-            <TouchableWithoutFeedback
-                onPress={()=> {
-                    this.props.selectFolder(this.props.folder.folderName, this.props.expanded)
-                }}
-            >
-                <Card 
-                    style={styles.containerStyle}
-                >
-                    <CardItem header
-                        style={{height: 10}}
-                    >
-                        <Text style={{color: 'black'}}> 
-                            {this.props.folder.folderName} 
-                        </Text>                       
-                    </CardItem>
-                    {this.expandVideoList()}
-                </Card>
-            </TouchableWithoutFeedback>   
-        )
+            <View style={{marginTop: 10, marginBottom: 20,}}>
+                <View style={{borderBottomColor: '#888', borderBottomWidth: 2, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, marginLeft: 3, marginRight: 8,}}>
+                    <Text style={{color: '#333', fontSize: 18, fontWeight: '500', paddingLeft: 5}}>{this.props.folder.folderName}</Text>
+                </View>
+
+                <FlatList 
+                    data={this.props.folder.videoList}
+                    renderItem={data => this.renderItem(data.item)}
+                    keyExtractor={video => video.name.toString()}
+                />
+            </View>
+        );
     }
 }
 
