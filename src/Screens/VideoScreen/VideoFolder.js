@@ -1,5 +1,5 @@
 import React from 'react';
-import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, TouchableOpacity, Clipboard, Image} from 'react-native';
+import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, TouchableOpacity, Clipboard, ScrollView} from 'react-native';
 import {Title, Card, CardItem, Button, Text} from 'native-base';
 import { Thumbnail } from 'react-native-thumbnail-video';
 
@@ -67,7 +67,9 @@ export default class VideoFolder extends React.Component {
                 <View style={{flex: 4}}>
                     <View style={{flex: 1, flexDirection: 'column', paddingLeft: 10, paddingVertical: 5}}>
                         <Text style={{color: '#444', fontWeight: '600'}}>{video.name}</Text>
-                        <Text style={{color: '#888', fontSize: 12, marginTop: 8}}>{video.description}</Text>
+                        <ScrollView>
+                            <Text style={{color: '#888', fontSize: 12, marginTop: 7}}>{video.description}</Text>
+                        </ScrollView>
                         {/* <View style={{flex: 1, justifyContent: 'center'}}>
                             <Text style={{color: '#888', fontSize: 12}}>{video.description}</Text>
                         </View> */}
@@ -105,7 +107,7 @@ export default class VideoFolder extends React.Component {
         //                 <Text style={{color: 'black'}}> 
         //                     {this.props.folder.folderName} 
         //                 </Text>                       
-        //             </CardItem>
+        //             </CardItem>sắp de
         //             {this.expandVideoList()}
         //         </Card>
         //     </TouchableWithoutFeedback>   
