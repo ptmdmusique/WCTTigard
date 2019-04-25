@@ -1,6 +1,6 @@
 import React from 'react';
-import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, TouchableOpacity, Clipboard, ScrollView} from 'react-native';
-import {Title, Card, CardItem, Button, Text} from 'native-base';
+import {LayoutAnimation, UIManager, FlatList, View, TouchableWithoutFeedback, TouchableOpacity, Clipboard, ScrollView, Linking} from 'react-native';
+import {Title, Card, CardItem, Button, Text, Icon } from 'native-base';
 import { Thumbnail } from 'react-native-thumbnail-video';
 
 import * as actions from '../../Redux/Actions';
@@ -51,7 +51,7 @@ export default class VideoFolder extends React.Component {
                 activeOpacity={0.9}
                 style={{
                     width: '95%', alignSelf: 'center', backgroundColor: 'white',
-                    flexDirection: 'row', marginTop: 10, height: 100, elevation: 2,
+                    flexDirection: 'row', marginTop: 20, height: 100, elevation: 2,
                     shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.8, shadowRadius: 2,
                 }}
                 onPress={() => this.props.selectVideo(video.link)}
@@ -75,6 +75,14 @@ export default class VideoFolder extends React.Component {
                         </View> */}
                     </View>
                 </View>
+
+                <TouchableOpacity
+                    style={{position: 'absolute', top: -10, right: 5, width: 30, height: 30, backgroundColor: '#ff2b2b', borderRadius: 50, flex: 1, justifyContent: 'center', alignItems: 'center', elevation: 5}}
+                    activeOpacity={0.9}
+                    onPress={() => {Linking.openURL(video.link)}}
+                >
+                    <Icon name="controller-play" type="Entypo" style={{color: 'white', fontSize: 20}} />
+                </TouchableOpacity>
             </TouchableOpacity>
         );
     }

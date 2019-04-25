@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 16376,
-  "expoServerNgrokUrl": "https://t4-hnh.anonymous.wcttigard.exp.direct",
-  "packagerNgrokUrl": "https://packager.t4-hnh.anonymous.wcttigard.exp.direct",
-  "ngrokPid": 12532,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002
 }
