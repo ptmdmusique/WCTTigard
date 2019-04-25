@@ -4,17 +4,38 @@ import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
+import Swiper from 'react-native-deck-swiper';
 
 import {customStyles} from '../../common/CustomStyle';
 import NewsCard from '../../common/NewsCard';
 import AutoHeightImage from 'react-native-auto-height-image';
 
-const MOCK_DATA = {
-  eventTitle: 'Test Title',
-  eventTime: '1/1/1111',
-  eventDuration: 'All week',
-  eventContent: 'Something Content!',
-}
+const MOCK_EVENTS = [
+  {
+    eventTitle: 'Test Title 1',
+    eventTime: '1/1/1111',
+    eventDuration: 'All week',
+    eventContent: 'Something Content!',
+  },
+  {
+    eventTitle: 'Test Title 2',
+    eventTime: '1/1/1111',
+    eventDuration: 'All week',
+    eventContent: 'Something Content!',
+  },
+  {
+    eventTitle: 'Test Title 3',
+    eventTime: '1/1/1111',
+    eventDuration: 'All week',
+    eventContent: 'Something Content!',
+  },
+  {
+    eventTitle: 'Test Title 4',
+    eventTime: '1/1/1111',
+    eventDuration: 'All week',
+    eventContent: 'Something Content!',
+  },
+]
 //This should be dynamically retrieved from database for the "More" section
 const previewRoute = [
   {
@@ -44,6 +65,26 @@ var {height, width} = Dimensions.get('window');
 const itemPerRow = 4;
 
 export default class HomeScreen extends React.Component {
+
+  renderEventCard = (card) => {
+    return (
+      <View style={{width: '80%', height: '25%', position: 'absolute', top: '50%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+        <View style={{flexDirection: 'row', width: '100%', backgroundColor: 'white'}}>
+          <View style={{flex: 1, alignItems: 'center',}}>
+              <Icon name="newspaper" type="MaterialCommunityIcons" style={{color: '#fc5344'}} />
+          </View>
+          <View style={{flex: 5, paddingRight: 15, paddingLeft: 10}}>
+              <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{card.eventTitle}</Text>
+              <Text style={{color: '#888', fontSize: 12}}>{card.eventTime}</Text>
+              <Text style={{color: '#888', fontSize: 12}}>{card.eventDuration}</Text>
+              <Text style={{color: '#888', fontSize: 12}}>{card.eventContent}</Text>
+              {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   render() {    
     //All menu
     const menuGridItems = [];
@@ -63,8 +104,8 @@ export default class HomeScreen extends React.Component {
                 onPress={() => this.props.navigation.navigate(previewRoute[i + j].name)}
               >
                 <View style={styles.menu}>
-                  <Icon style={{color: '#e53110', fontSize: 24}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{fontSize: 10, top: 5}}>
+                  <Icon style={{color: '#333', fontSize: 24}} name={previewRoute[i + j].iconName}/>
+                  <Text style={{color: '#333', fontSize: 10, marginTop: 5}}>
                       {previewRoute[i + j].displayName}
                   </Text>
                 </View>
@@ -162,26 +203,27 @@ export default class HomeScreen extends React.Component {
               </Grid>
             </Row>
           </Grid> */}
+
           <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
             <View style={{flex: 1}}>
               <Image source={{uri: "https://imgur.com/z3vlReU.jpg"}}
                 style={{alignSelf: 'center', height: '100%', width: '100%'}}
               />
             </View>
-            <View style={{width: '80%', height: '25%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
-              <View style={{flexDirection: 'row', width: '100%', marginTop: -15,}}>
-                  <View style={{flex: 1, alignItems: 'center',}}>
-                      <Icon name="newspaper" type="MaterialCommunityIcons" style={{color: '#fc5344'}} />
-                  </View>
-                  <View style={{flex: 5, paddingRight: 15, paddingLeft: 10}}>
-                      <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{MOCK_DATA.eventTitle}</Text>
-                      <Text style={{color: '#888', fontSize: 12}}>{MOCK_DATA.eventTime}</Text>
-                      <Text style={{color: '#888', fontSize: 12}}>{MOCK_DATA.eventDuration}</Text>
-                      <Text style={{color: '#888', fontSize: 12}}>{MOCK_DATA.eventContent}</Text>
-                      {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
-                  </View>
-              </View>
-            </View>
+              
+            <Swiper
+              cards={MOCK_EVENTS}
+              renderCard={(card) => this.renderEventCard(card)}
+              useViewOverflow={false}
+              backgroundColor="transparent"
+              cardVerticalMargin={0}
+              cardHorizontalMargin={0}
+              infinite={true}
+              stackSize={3}
+              // containerStyle={{flex: 1}}
+              // cardStyle={{}}
+            >
+            </Swiper>
           </View>
 
           <Footer style={customStyles.footer}>
