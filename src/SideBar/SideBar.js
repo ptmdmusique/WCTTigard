@@ -31,7 +31,7 @@ const routes =  [
     displayName: "School Schedule"
   },
   {
-    name: "AboutUs",
+    name: "About",
     iconName: "info",
     displayName:  "About Us"
   },
