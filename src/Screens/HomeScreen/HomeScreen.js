@@ -10,6 +10,8 @@ import {customStyles} from '../../common/CustomStyle';
 import NewsCard from '../../common/NewsCard';
 import AutoHeightImage from 'react-native-auto-height-image';
 
+const numberOfSwiper = 3;
+
 const MOCK_EVENTS = [
   {
     eventTitle: 'Test Title 1',
@@ -104,8 +106,8 @@ export default class HomeScreen extends React.Component {
                 onPress={() => this.props.navigation.navigate(previewRoute[i + j].name)}
               >
                 <View style={styles.menu}>
-                  <Icon style={{color: '#333', fontSize: 24}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{color: '#333', fontSize: 10, marginTop: 5}}>
+                  <Icon style={{color: '#fc5344', fontSize: 24}} name={previewRoute[i + j].iconName}/>
+                  <Text style={{color: '#fc5344', fontSize: 10, marginTop: 5}}>
                       {previewRoute[i + j].displayName}
                   </Text>
                 </View>
@@ -219,7 +221,7 @@ export default class HomeScreen extends React.Component {
               cardVerticalMargin={0}
               cardHorizontalMargin={0}
               infinite={true}
-              stackSize={3}
+              stackSize={numberOfSwiper}
               // containerStyle={{flex: 1}}
               // cardStyle={{}}
             >
