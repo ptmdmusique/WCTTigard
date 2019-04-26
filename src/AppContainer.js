@@ -42,7 +42,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: AboutUsScreen
   }
 }, {
-  initialRouteName: 'Video',
+  initialRouteName: 'Home',
   contentComponent: props => <SideBar {...props} />
 });
 

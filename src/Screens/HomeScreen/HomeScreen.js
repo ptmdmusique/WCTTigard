@@ -8,7 +8,6 @@ import Swiper from 'react-native-deck-swiper';
 
 import {customStyles} from '../../common/CustomStyle';
 import NewsCard from '../../common/NewsCard';
-import AutoHeightImage from 'react-native-auto-height-image';
 
 const numberOfSwiper = 3;
 
@@ -208,7 +207,7 @@ export default class HomeScreen extends React.Component {
 
           <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
             <View style={{flex: 1}}>
-              <Image source={{uri: "https://imgur.com/z3vlReU.jpg"}}
+              <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
                 style={{alignSelf: 'center', height: '100%', width: '100%'}}
               />
             </View>

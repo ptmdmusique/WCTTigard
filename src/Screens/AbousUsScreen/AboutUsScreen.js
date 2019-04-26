@@ -1,5 +1,5 @@
 import React from 'react';
-import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, FooterTab, Footer, Tabs, Tab } from 'native-base';
+import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, FooterTab, Footer, Card, CardItem,} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, FlatList} from 'react-native';
@@ -10,6 +10,12 @@ import MOCK_IMAGES from '../../../database/Images/ImageList.json'; //Temporarily
 import Modal from "react-native-modal";
 import AutoHeightImage from 'react-native-auto-height-image';
 import { FileSystem } from 'expo';
+
+const MOCK_DATA = {
+  masterName: 'Master Eric',
+  masterImageURL: 'https://imgur.com/eY76iWD.jpg'
+}
+const {height, width} = Dimensions.get('window');
 
 export default class PictureScreen extends React.Component {  
   state = {
@@ -49,9 +55,83 @@ export default class PictureScreen extends React.Component {
         )
       case 'master': 
         return (
-          <Text>Master</Text>
+          this.renderMasterScreen()
         )
     }
+  }
+
+  renderMasterScreen() {
+    return(
+      <Card>
+        <CardItem header bordered>
+          <Text style={{color: '#fc5344'}}>{MOCK_DATA.masterName}</Text>
+        </CardItem>
+        
+        <CardItem bordered>
+          <Body>
+            <Text style={{fontSize: 12, color: '#333'}}>
+              Master Eric is a former student of World Champion Taekwondo (WCT). 
+              He is a 5th Degree Black Belt and has trained under Grandmaster B.C. Kim, a 1992 Olympic Gold Medalist. 
+              Master Eric graduated from University of Bridgeport located in Connecticut, majoring in Martial Arts Studies. 
+              Master Eric is only one of five people in the world with a Martial Arts degree from an American University. 
+              He is a multi-time State Champion as well as a Bronze Medalist at 2010 National Collegiate Taekwondo Championship held in Denver, CO. 
+              In 2014, he became the spokesperson for WCT and opened WCT Tigard. 
+              Master Eric’s World Champion Taekwondo’s vision is to find and bring out the best in everybody through Taekwondo. 
+              He believes that every single person has a special talent and a gift that can be contributed in achieving something great for our generation! 
+            </Text>
+          </Body>
+        </CardItem>
+
+        <CardItem>
+          <Body style={{flex: 1/3,}}>
+            <AutoHeightImage source={{uri: MOCK_DATA.masterImageURL}} width={width / 4}/>
+          </Body>
+          <Body style={{flex: 2/3, paddingLeft: 5}}>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2005 – Oregon State Champion
+            </Text>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2006 – New York State Champion
+            </Text>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2008 – Korean American Olympics Bronze Medalist
+            </Text>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2010 – National Collegiate Bronze Medalist
+            </Text>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2010 – Recipient of Dean’s Award from University of Bridgeport
+            </Text>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2010 – B.A. Martial Arts from University of Bridgeport, USA
+            </Text>
+            <Text style={{fontSize: 11,  color: '#333',}}>              
+              2014 – Head Master of WCT Tigard
+            </Text>
+          </Body>
+        </CardItem>
+      </Card>
+      
+      // <Card>
+      //       <CardItem header bordered>
+      //         <Text>NativeBase</Text>
+      //       </CardItem>
+      //       <CardItem bordered>
+      //         <Body>
+      //           <Text>
+      //             NativeBase is a free and open source framework that enable
+      //             developers to build
+      //             high-quality mobile apps using React Native iOS and Android
+      //             apps
+      //             with a fusion of ES6.
+      //           </Text>
+      //         </Body>
+      //       </CardItem>
+      //       <CardItem footer bordered>
+      //         <Text>GeekyAnts</Text>
+      //       </CardItem>
+      //     </Card>
+    )
   }
 
   render () {   
@@ -81,8 +161,8 @@ export default class PictureScreen extends React.Component {
           </Content>
 
           <Footer
-            // tabBarUnderlineStyle={{backgroundColor: '#666'}}
-            tabActiveBgColor = "#666"
+            // tabBarUnderlineStyle={{backgroundColor: '#333'}}
+            tabActiveBgColor = "#333"
           >
             <FooterTab>
               {this.renderFooterTab('school', 'About School')}
