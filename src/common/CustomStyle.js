@@ -22,11 +22,11 @@ export const customStyles = StyleSheet.create({
     },
     headerText:{
       fontSize: 22,
-      color: '#333',
+      color: '#FF6961',
       // alignSelf: 'center',
     },
     headerIcon:{
-      color: '#333',
+      color: '#FF6961',
       fontSize: 30,
     },
   })

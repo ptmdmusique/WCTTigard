@@ -26,10 +26,10 @@ export default class PictureScreen extends React.Component {
     return TABS.map((item, index) => (
       <Tab
         heading={item.heading}
-        textStyle={{color: '#999'}}
+        textStyle={{color: '#FF6961'}}
         tabStyle={{borderTopWidth: 1.5, borderTopColor: '#bbb'}}
-        activeTextStyle={{color: '#333'}}
-        activeTabStyle={{backgroundColor: '#ddd', borderTopWidth: 1.5, borderTopColor: '#bbb'}}
+        activeTextStyle={{color: '#FF6961'}}
+        activeTabStyle={{borderTopWidth: 1.5, borderTopColor: '#bbb'}}
         key={index}
       >
         {item.childrenComponent}
@@ -57,7 +57,7 @@ export default class PictureScreen extends React.Component {
                 style={{height: 40, width: 40}}/>
             </Right>
           </Header>
-          <Tabs tabBarPosition='bottom' tabBarUnderlineStyle={{backgroundColor: '#222'}}>
+          <Tabs tabBarPosition='bottom' tabBarUnderlineStyle={{backgroundColor: '#FF6961', top: 0}}>
             {this.renderTabs()}
           </Tabs>
 

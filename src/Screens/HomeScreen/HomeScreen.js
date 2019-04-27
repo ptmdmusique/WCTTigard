@@ -69,7 +69,7 @@ export default class HomeScreen extends React.Component {
 
   renderEventCard = (card) => {
     return (
-      <View style={{width: '80%', height: '25%', position: 'absolute', top: '50%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+      <View style={{width: '80%', height: '25%', position: 'absolute', top: '70%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
         <View style={{flexDirection: 'row', width: '100%', backgroundColor: 'white'}}>
           <View style={{flex: 1, alignItems: 'center',}}>
               <Icon name="newspaper" type="MaterialCommunityIcons" style={{color: '#fc5344'}} />
@@ -212,7 +212,7 @@ export default class HomeScreen extends React.Component {
               />
             </View>
               
-            <Swiper
+            {/* <Swiper
               cards={MOCK_EVENTS}
               renderCard={(card) => this.renderEventCard(card)}
               useViewOverflow={false}
@@ -224,7 +224,8 @@ export default class HomeScreen extends React.Component {
               // containerStyle={{flex: 1}}
               // cardStyle={{}}
             >
-            </Swiper>
+            </Swiper> */}
+            {this.renderEventCard(MOCK_EVENTS[0])}
           </View>
 
           <Footer style={customStyles.footer}>

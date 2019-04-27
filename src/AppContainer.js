@@ -12,6 +12,7 @@ import InfoScreen from './Screens/InfoScreen/InfoScreen'
 import ScheduleScreen from './Screens/ScheduleScreen/ScheduleScreen';
 import ContactUsScreen from './Screens/ContactUsScreen/ContactUsScreen';
 import AboutUsScreen from './Screens/AbousUsScreen/AboutUsScreen';
+import ReferUsScreen from './Screens/ReferUsScreen/ReferUs';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Home: {
@@ -40,9 +41,12 @@ const MyDrawerNavigator = createDrawerNavigator({
   },
   About: {
     screen: AboutUsScreen
+  },
+  Refer: {
+    screen: ReferUsScreen
   }
 }, {
-  initialRouteName: 'About',
+  initialRouteName: 'Refer',
   contentComponent: props => <SideBar {...props} />
 });
 
