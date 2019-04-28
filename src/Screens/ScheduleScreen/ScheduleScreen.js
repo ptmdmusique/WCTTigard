@@ -2,7 +2,7 @@ import React from 'react';
 import {Title, Container, Header, Button, Left, Icon, StyleProvider, Body, Right, Footer, Text, Content} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, Dimensions} from 'react-native';
+import { View, Image, Dimensions, TouchableOpacity} from 'react-native';
 import { FileSystem } from 'expo';
 
 import {customStyles} from '../../common/CustomStyle';
@@ -43,7 +43,7 @@ export default class ScheduleScreen extends React.Component {
     
                 <Right style={{flex: 1}}>
                   <Image source={require('../../../assets/images/sidebar-logo.png')} 
-                        style={{height: 40, width: 40}}/>              
+                        style={{height: 40, width: 40}}/>
                 </Right>
               </Header>
 
@@ -65,13 +65,13 @@ export default class ScheduleScreen extends React.Component {
               </Content>
 
               <Footer>
-                    <Button 
-                        light
+                    <TouchableOpacity 
                         onPress={() => this.downloadDocument()}
-                        style={{alignSelf: 'center',}}
+                        style={{alignSelf: 'center', width: '90%', height: 30, backgroundColor: '#f74242', alignItems: 'center', justifyContent: 'center', borderRadius: 5}}
+                        activeOpacity={0.7}
                     >
-                        <Text style={{color: 'black'}}>Download</Text>
-                    </Button>
+                        <Text style={{color: 'white', fontWeight: 'bold'}}>Download</Text>
+                    </TouchableOpacity>
                 </Footer>
             </Container>
           </StyleProvider>

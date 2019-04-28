@@ -1,5 +1,5 @@
 import React from 'react';
-import {Title, Body, Right, Container, Header, Button, Left, Icon, StyleProvider, Card, CardItem, Text} from 'native-base';
+import {Title, Body, Right, Container, Header, Button, Left, Icon, StyleProvider, Card, CardItem, Text, Content} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { Image, StyleSheet} from 'react-native';
@@ -28,45 +28,52 @@ export default class PictureScreen extends React.Component {
             </Right>
           </Header>
 
-          <Card>
-            <CardItem header>
-              {/* <Body style={{flex: 1/3,}}>
-                <AutoHeightImage source={{uri: MOCK_MASTER_INFO.masterImageURL}} width={width / 4}/>
-              </Body> */}
-              <Body style={{flex: 2/3, paddingLeft: 5}}>
-                <Title style={{color: "#fc5344"}}>VIP Rewards Program</Title>
-              </Body>
-            </CardItem>
+          <Content style={{flex: 1, backgroundColor: '#eee'}}>
+            <Card style={{width: '95%', alignSelf: 'center'}}>
+              <CardItem header>
+                {/* <Body style={{flex: 1/3,}}>
+                  <AutoHeightImage source={{uri: MOCK_MASTER_INFO.masterImageURL}} width={width / 4}/>
+                </Body> */}
+                <Body style={{flex: 2/3, paddingLeft: 5}}>
+                  <Title style={{color: "#fc5344"}}>VIP Rewards Program</Title>
+                </Body>
+              </CardItem>
 
-            <CardItem bordered>
-              <Body>
-                <Text>
-                  As you know, Taekwondo is a great way for children and adults to lead happier and healthier lives.
-                </Text>
-                <Text>
-                  Children will be able to improve their focus, fitness and self-control, adults will be able to improve their health and reduce stress and families are able to spend quality time together in a positive atmostphere.
-                </Text>
-              </Body>
-            </CardItem>
+              <CardItem bordered>
+                <Body>
+                  <Image
+                    source={require('../../../assets/images/refer_gift.png')}
+                    style={{width: 100, height: 100, alignSelf: 'center', marginBottom: 10}} />
+                  <Text style={{color: '#666', fontWeight: '500', fontSize: 14}}>
+                    As you know, Taekwondo is a great way for children and adults to lead happier and healthier lives.
+                  </Text>
+                  <Text style={{color: '#666', fontWeight: '500', fontSize: 14}}>
+                    Children will be able to improve their focus, fitness and self-control, adults will be able to improve their health and reduce stress and families are able to spend quality time together in a positive atmostphere.
+                  </Text>
+                </Body>
+              </CardItem>
 
-            <CardItem>
-              <Image source={require('../../../assets/images/michaelangelo.png')} style={{height: 20, width: 20, marginRight: 10,}}/>
-              <Text>
-                Thank you for using our app!
-              </Text>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem>
-              <Text>Refer us through:</Text>
-            </CardItem>
-            <CardItem style={{justifyContent: 'space-around'}}>
-              <Icon name="mail-with-circle" style={styles.icon}/>
-              <Icon name="mail-with-circle" style={styles.icon}/>
-              <Icon name="mail-with-circle" style={styles.icon}/>
-              <Icon name="mail-with-circle" style={styles.icon}/>
-            </CardItem>
-          </Card>
+              <CardItem>
+                <Image source={require('../../../assets/images/michaelangelo.png')} style={{height: 20, width: 20, marginRight: 10,}}/>
+                <Text style={{color: '#fc5344', fontWeight: 'bold'}}>
+                  Thank you for using our app!
+                </Text>
+              </CardItem>
+            </Card>
+
+            <Card style={{width: '95%', alignSelf: 'center'}}>
+              <CardItem>
+                <Text style={{fontWeight: 'bold', color: '#fc5344'}}>Refer us through:</Text>
+              </CardItem>
+              <CardItem style={{justifyContent: 'space-around'}}>
+                <Icon name="mail-with-circle" style={styles.icon}/>
+                <Icon name="mail-with-circle" style={styles.icon}/>
+                <Icon name="mail-with-circle" style={styles.icon}/>
+                <Icon name="mail-with-circle" style={styles.icon}/>
+              </CardItem>
+            </Card>
+
+          </Content>
         </Container>
       </StyleProvider>
     );

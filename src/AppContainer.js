@@ -42,11 +42,11 @@ const MyDrawerNavigator = createDrawerNavigator({
   About: {
     screen: AboutUsScreen
   },
-  Refer: {
+  ReferUs: {
     screen: ReferUsScreen
   }
 }, {
-  initialRouteName: 'Event',
+  initialRouteName: 'Schedule',
   contentComponent: props => <SideBar {...props} />
 });
 
