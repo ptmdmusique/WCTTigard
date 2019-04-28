@@ -73,7 +73,7 @@ export default class PictureScreen extends React.Component {
   };
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   icon: {
     color: "#fc5344", 
     fontSize: 35,

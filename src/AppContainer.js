@@ -5,7 +5,7 @@ import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 import SideBar from './SideBar/SideBar';
 import HomeScreen from './Screens/HomeScreen/HomeScreen';
 import VideoScreen from './Screens/VideoScreen/VideoScreen';
-import EventScreen from './Screens/EventScreen/EventScreen';
+import NewsAndEventScreen from './Screens/NewsAndEventScreen/NewsAndEventScreen';
 import PictureScreen from './Screens/PictureScreen/PictureScreen';
 import InfoScreen from './Screens/InfoScreen/InfoScreen'
 //import TrialClassScreen from './Screens/TrialClassScreen/TrialClassScreen';
@@ -22,7 +22,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: VideoScreen,
   },
   Event: {
-    screen: EventScreen,
+    screen: NewsAndEventScreen,
   },
   Picture: {
     screen: PictureScreen
@@ -46,7 +46,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: ReferUsScreen
   }
 }, {
-  initialRouteName: 'Refer',
+  initialRouteName: 'Event',
   contentComponent: props => <SideBar {...props} />
 });
 
