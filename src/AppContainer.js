@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { createAppContainer, createDrawerNavigator } from 'react-navigation';
+import { createAppContainer, createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import { Easing, Animated } from 'react-native';
 
 import SideBar from './SideBar/SideBar';
 import HomeScreen from './Screens/HomeScreen/HomeScreen';
@@ -13,6 +14,8 @@ import ScheduleScreen from './Screens/ScheduleScreen/ScheduleScreen';
 import ContactUsScreen from './Screens/ContactUsScreen/ContactUsScreen';
 import AboutUsScreen from './Screens/AbousUsScreen/AboutUsScreen';
 import ReferUsScreen from './Screens/ReferUsScreen/ReferUs';
+import NewsScreen from './Screens/NewsAndEventScreen/NewsScreen/NewsScreen';
+import EventScreen from './Screens/NewsAndEventScreen/EventScreen/EventScreen';
 
 const MyDrawerNavigator = createDrawerNavigator({
   Home: {
@@ -22,7 +25,42 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: VideoScreen,
   },
   Event: {
-    screen: NewsAndEventScreen,
+    screen: createStackNavigator({
+      NewsAndEventScreen: NewsAndEventScreen,
+      NewsScreen: NewsScreen,
+      EventScreen: EventScreen,
+    },
+    {
+      headerMode: 'none',
+      navigationOptions: {
+        headerVisible: false,
+      },
+      transitionConfig: () => ({
+        transitionSpec: {
+          duration: 300,
+          easing: Easing.out(Easing.poly(4)),
+          timing: Animated.timing,
+        },
+        screenInterpolator: sceneProps => {
+                  const {layout, position, scene} = sceneProps;
+                  const {index} = scene;
+    
+                  const width = layout.initWidth;
+                  const translateX = position.interpolate({
+                      inputRange: [index - 1, index, index + 1],
+                      outputRange: [width, 0, 0],
+                  });
+    
+                  const opacity = position.interpolate({
+                      inputRange: [index - 1, index - 0.99, index],
+                      outputRange: [0, 1, 1],
+                  });
+    
+                  return {opacity, transform: [{translateX: translateX}]};
+          },
+        })
+    }),
+    
   },
   Picture: {
     screen: PictureScreen
@@ -46,9 +84,9 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: ReferUsScreen
   }
 }, {
-  initialRouteName: 'Schedule',
-  contentComponent: props => <SideBar {...props} />
-});
+  initialRouteName: 'Event',
+  contentComponent: props => <SideBar {...props} />,
+  });
 
 const MyAppContainer = createAppContainer(MyDrawerNavigator);
 

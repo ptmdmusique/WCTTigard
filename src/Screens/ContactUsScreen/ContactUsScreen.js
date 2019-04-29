@@ -3,16 +3,13 @@ import {Title, Container, Header, Button, Left, Icon, StyleProvider,
     Body, Right, Footer, Text, Content, Spinner} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, Dimensions, StyleSheet, Linking, Platform, TouchableNativeFeedback } from 'react-native';
+import { View, Image, Linking, Platform, TouchableNativeFeedback } from 'react-native';
 import {MapView, Location, Permissions} from 'expo';
 
 import {customStyles} from '../../common/CustomStyle';
 import { scale, moderateScale, verticalScale} from '../../common/Scalling';
 
-var {height: screenHeight, width: screenWidth} = Dimensions.get('window');
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
-const label = 'Custom Label';
-
 const MOCK_CONTACT = {
     phoneNumber: '(503) 431-2034',
     address: "15660 SW Pacific Hwy",
@@ -97,7 +94,7 @@ export default class ContactUsScreen extends React.Component {
             });
     }
 
-    renderMap(){
+    renderMap(){ 
         if (this.state.finishLoading){
             return (
                 <View style={{flex: 1}}>

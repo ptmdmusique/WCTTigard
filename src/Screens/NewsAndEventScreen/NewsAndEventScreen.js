@@ -12,23 +12,32 @@ const MOCK_NEWS = [
     title: 'Duc ngu khuyen mai',
     description: 'Thang ngu tai` tro.',
     content: "hot hot hot",
-    date: '9/22/2019'
+    date: '9/22/2019',
+    address: "15660 SW Pacific Hwy",
+    locationName: 'WCTTigard',
+    image: 'https://imgur.com/B8cudDx.jpg'
   },
   {
     title: 'clgt.tv',
     description: 'ASD',
     content: "just for today!",
-    date: '9/22/2019'
+    date: '9/22/2019',
+    address: "15660 SW Pacific Hwy",
+    locationName: 'WCTTigard',
+    image: 'https://imgur.com/B8cudDx.jpg'
   }
 ];
 
 const MOCK_EVENTS = [
   {
     title: '300 Spartans',
-    description: 'Greek warriors, led by 300 Spartans, fight against a Persian army of almost...',
-    content: "hot hot hot",
+    description: 'The Battle between Spartans and Persians',
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
+    address: "15660 SW Pacific Hwy",
+    locationName: 'WCTTigard',
     dateFrom: '7/16/2008 12:15 AM',
     dateTo: '7/23/2008 05:11 PM',
+    image: 'https://imgur.com/B8cudDx.jpg'
   },
   {
     title: 'Battle of the Blackwater',
@@ -36,6 +45,9 @@ const MOCK_EVENTS = [
     content: "hot hot hot",
     dateFrom: '3/12/2008 12:15 AM',
     dateTo: '7/23/2008 05:11 PM',
+    address: "15660 SW Pacific Hwy",
+    locationName: 'WCTTigard',
+    image: 'https://imgur.com/B8cudDx.jpg'
   },
   {
     title: 'Dau truong lon',
@@ -43,13 +55,18 @@ const MOCK_EVENTS = [
     content: "hot hot hot",
     dateFrom: '9/22/2008 12:15 AM',
     dateTo: '7/23/2008 05:11 PM',
-  },
+    address: "15660 SW Pacific Hwy",
+    locationName: 'WCTTigard',
+    image: 'https://imgur.com/B8cudDx.jpg'
+  }
 ];
 
 export default class NewsAndEventScreen extends React.Component {
   renderNews(news){
     return (
-      <TouchableOpacity style={{flexDirection: 'row', height: 90, marginBottom: 10}} activeOpacity={0.8}>
+      <TouchableOpacity style={{flexDirection: 'row', height: 90, marginBottom: 10}} activeOpacity={0.8}
+        onPress={() => this.props.navigation.navigate('NewsScreen', {news})}
+      >
         <View style={{flex: 1/5, backgroundColor: '#ff5f56', justifyContent: 'center', alignItems: 'center'}}>
           <Icon name="newspaper-o" type='FontAwesome' style={{fontSize: 45, color: 'white'}} />
         </View>
@@ -85,7 +102,9 @@ export default class NewsAndEventScreen extends React.Component {
     const dateFrom = new Date(event.dateFrom);
 
     return (
-      <TouchableOpacity style={{flexDirection: 'row', height: 100, marginBottom: 10}} activeOpacity={0.8}>
+      <TouchableOpacity style={{flexDirection: 'row', height: 100, marginBottom: 10}} activeOpacity={0.8}
+        onPress={() => this.props.navigation.navigate('EventScreen', {event})}
+      >
         <View style={{flex: 1/5, backgroundColor: '#d67535', justifyContent: 'center', alignItems: 'center'}}>
           <View>
             <Icon name="calendar" type='Feather' style={{fontSize: 60, color: 'white',}}/>
@@ -104,13 +123,13 @@ export default class NewsAndEventScreen extends React.Component {
           </View>
           <View style={{flex: 1/3, flexDirection: 'row'}}>
             <View style={{flex: 5/6, justifyContent: 'center',}}>
-              <Text style={{color: '#d67535', fontSize: 12, fontWeight: '600'}}>
+              <Text style={{color: '#d67535', fontSize: 12, fontWeight: '600', paddingBottom: 5,}}>
                 Start: {event.dateFrom}
                 {'\n'}
                 End:   {event.dateTo}
               </Text>
             </View>
-            <View style={{flex: 1/6, alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flex: 1/6, alignItems: 'center', justifyContent: 'center',}}>
               <Icon name="ios-arrow-forward" type="Ionicons" style={{fontSize: 20, color: '#d67535'}} />
             </View>
           </View>
@@ -180,7 +199,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#939393', 
     color: 'white', 
     paddingVertical: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     textAlign: 'center', 
     fontSize: 22, 
     fontWeight: 'bold'
