@@ -10,16 +10,16 @@ import {MapView, Location, Permissions} from 'expo';
 var latitudeDelta = 0.0522, longitudeDelta = 0.0521;
 var {height: screenHeight, width: screenWidth} = Dimensions.get('window');
 
-export default class EventScreen extends React.Component {
+export default class newsScreen extends React.Component {
   state = {
     geoLocation: null,
-    event: null,
+    news: null,
     url: null,
   }
 
   async convertAddress() {
     try {
-      this.setState({geoLocation: await Location.geocodeAsync(this.state.event.address)});        
+      this.setState({geoLocation: await Location.geocodeAsync(this.state.news.address)});        
     } catch(e){
         console.log(e);
     } finally {
@@ -30,9 +30,9 @@ export default class EventScreen extends React.Component {
         this.setState({
           url: Platform.select({
               ios: "maps:" + this.state.geoLocation.latitude + "," + 
-                  this.state.geoLocation.longitude + "?q=" + this.state.event.locationName,
+                  this.state.geoLocation.longitude + "?q=" + this.state.news.locationName,
               android: "geo:" + this.state.geoLocation.latitude + "," + 
-                  this.state.geoLocation.longitude + "?q=" + this.state.event.locationName,           
+                  this.state.geoLocation.longitude + "?q=" + this.state.news.locationName,           
           })
       })
     }
@@ -40,8 +40,9 @@ export default class EventScreen extends React.Component {
 
 
   async componentDidMount(){ 
-    await this.setState({event: this.props.navigation.getParam('event')});
-    if (this.state.event.address){
+    await this.setState({news: this.props.navigation.getParam('news')});
+    console.log(this.state.news);
+    if (this.state.news.address){
       await Location.getProviderStatusAsync()
             .then(status => {
                 //console.log('Getting status');
@@ -73,7 +74,7 @@ export default class EventScreen extends React.Component {
   }
 
   renderMap(){
-    if (this.state.event.address && this.state.geoLocation){
+    if (this.state.news.address && this.state.geoLocation){
         return (
             <View style={{flex: 1,}}>
                 <MapView
@@ -86,8 +87,8 @@ export default class EventScreen extends React.Component {
                     }}
                     >
                     <MapView.Marker
-                        title={this.state.event.title}
-                        description={this.state.event.description}
+                        title={this.state.news.title}
+                        description={this.state.news.description}
                         coordinate={{
                             latitude: this.state.geoLocation.latitude, 
                             longitude: this.state.geoLocation.longitude
@@ -99,13 +100,13 @@ export default class EventScreen extends React.Component {
     }
   }
   renderLocationItem() {
-    if (this.state.event.address){
+    if (this.state.news.address){
       return(
         <CardItem button
           onPress={() => Linking.openURL(this.state.url)}
         >
           <Icon name="map-marker" type="FontAwesome" style={styles.icon}/>
-          <Text style={{flex: 17/20, color: "#333"}}>{this.state.event.address}</Text>
+          <Text style={{flex: 17/20, color: "#333"}}>{this.state.news.address}</Text>
           <Icon name="ios-arrow-forward" type="Ionicons" style={{fontSize: 20, flex: 1/20, color: "#333",}} />
         </CardItem>
       )
@@ -116,12 +117,12 @@ export default class EventScreen extends React.Component {
       return (
         <View style={{flex: 1}}>
           <View style={{width: screenWidth, height: screenHeight / 5, borderBottomColor: '#333', borderBottomWidth: 2}}>
-            <ImageBackground source={{uri: this.state.event.image}}
+            <ImageBackground source={{uri: this.state.news.image}}
               style={{flex: 1}}
               imageStyle={{resizeMode:'cover'}}
             >
               <View style={styles.darkOverlay} />
-              <Text style={styles.title}>{this.state.event.title}</Text>
+              <Text style={styles.title}>{this.state.news.title}</Text>
             </ImageBackground>
           </View>
 
@@ -129,7 +130,7 @@ export default class EventScreen extends React.Component {
             <Card style={styles.cardStyle}>
               <CardItem>
                 <Icon name="calendar" type="FontAwesome" style={styles.icon}/>
-                <Text style={{flex: 18/20, color: "#333"}}>{this.state.event.dateFrom} - {this.state.event.dateTo}</Text>
+                <Text style={{flex: 18/20, color: "#333"}}>Date Posted: {this.state.news.date}</Text>
               </CardItem>
               {this.renderLocationItem()}
             </Card>
@@ -138,12 +139,12 @@ export default class EventScreen extends React.Component {
               <Card style={styles.cardStyle}>
                 <CardItem bordered>
                   <Text style={styles.descriptionText}>
-                    {this.state.event.description}
+                    {this.state.news.description}
                   </Text>
                 </CardItem>
                 <CardItem>
                   <Text style={{fontSize: 13, color: "#666"}}>
-                    {this.state.event.content}
+                    {this.state.news.content}
                   </Text>
                 </CardItem>
                 
@@ -163,7 +164,7 @@ export default class EventScreen extends React.Component {
   }
 
   render () {
-    console.log(this.props.navigation.getParam('event'));
+    console.log(this.props.navigation.getParam('news'));
     return (
       <StyleProvider style={getTheme(material)}>
         <Container style={{backgroundColor: '#ddd',}}>
@@ -175,7 +176,7 @@ export default class EventScreen extends React.Component {
             </Left>
 
             <Body style={{flex:3}}>
-              <Title style={customStyles.headerText}>Event</Title>
+              <Title style={customStyles.headerText}>news</Title>
             </Body>
 
             <Right style={{flex:1}}>

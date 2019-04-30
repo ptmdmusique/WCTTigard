@@ -2,7 +2,7 @@ import React from 'react';
 import {Title, Body, Right, Container, Header, Button, Left, Icon, StyleProvider, Card, CardItem, Text, Content} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { Image, StyleSheet} from 'react-native';
+import { Image, StyleSheet, TouchableNativeFeedback, Linking} from 'react-native';
 
 import {customStyles} from '../../common/CustomStyle';
 
@@ -66,10 +66,14 @@ export default class PictureScreen extends React.Component {
                 <Text style={{fontWeight: 'bold', color: '#fc5344'}}>Refer us through:</Text>
               </CardItem>
               <CardItem style={{justifyContent: 'space-around'}}>
+              <TouchableNativeFeedback
+                  onPress={() => Linking.openURL('mailto:?subject=Refer WCT Tigard&body=Test')}
+              >
+                  <Icon name="mail-with-circle" style={styles.icon} />
+              </TouchableNativeFeedback>
+                {/* <Icon name="mail-with-circle" style={styles.icon}/>
                 <Icon name="mail-with-circle" style={styles.icon}/>
-                <Icon name="mail-with-circle" style={styles.icon}/>
-                <Icon name="mail-with-circle" style={styles.icon}/>
-                <Icon name="mail-with-circle" style={styles.icon}/>
+                <Icon name="mail-with-circle" style={styles.icon}/> */}
               </CardItem>
             </Card>
 
