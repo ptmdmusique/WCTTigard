@@ -8,52 +8,62 @@ const routes =  [
   {
     name: "Home",
     iconName: "home",
+    iconType: "AntDesign",
     displayName: "Home"
   },
   {
-    name: "Video",
-    iconName: "video",
-    displayName: "Videos"
-  },
-  {
-    name: "Picture",
-    iconName: "image",
-    displayName: "Picture Board"
+    name: "Alert",
+    iconName: "bell",
+    iconType: "Feather",
+    displayName: "Alerts"
   },
   {
     name: "Event",
-    iconName: "news",
+    iconName: "book-open",
+    iconType: "Feather",
     displayName: "Events and News"
   },
   {
     name: "Schedule",
     iconName: "calendar",
+    iconType: "Feather",
     displayName: "School Schedule"
   },
   {
-    name: "About",
-    iconName: "info",
-    displayName:  "About Us"
+    name: "Video",
+    iconName: "youtube",
+    iconType: "Feather",
+    displayName: "Videos"
+  },
+  {
+    name: "Picture",
+    iconName: "image",
+    iconType: "Feather",
+    displayName: "Picture Board"
   },
   {
     name: "Birthday",
-    iconName: "cake",
+    iconName: "gift",
+    iconType: "Feather",
     displayName: "Birthday Party"
   },
   {
     name: "ReferUs",
     iconName: "users",
+    iconType: "Feather",
     displayName: "Refer Us"
-  },
-  {
-    name: "Alert",
-    iconName: "bell",
-    displayName: "Alerts"
   },
   {
     name: "Contact",
     iconName: "globe",
+    iconType: "Feather",
     displayName: "Contact Us"
+  },
+  {
+    name: "About",
+    iconName: "info",
+    iconType: "Feather",
+    displayName:  "About Us"
   },
   // {
   //   name: "Trial",
@@ -99,7 +109,7 @@ class SideBar extends React.Component {
                   style={{marginLeft: 0}}
                   >
                   <Left>
-                    <Icon style={{ fontSize: 23, marginLeft: 10, color: '#404040' }} name={data.item.iconName}/>
+                    <Icon style={{ fontSize: 23, marginLeft: 10, color: '#404040' }} name={data.item.iconName} type={data.item.iconType}/>
                   </Left>
                   <Body>
                     <Text style={{marginLeft: 10, fontSize: 12, color: '#404040', fontWeight: '500'}}>{data.item.displayName}</Text>

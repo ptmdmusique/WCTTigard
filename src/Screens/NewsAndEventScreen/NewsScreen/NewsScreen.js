@@ -176,7 +176,7 @@ export default class newsScreen extends React.Component {
             </Left>
 
             <Body style={{flex:3}}>
-              <Title style={customStyles.headerText}>news</Title>
+              <Title style={customStyles.headerText}>News</Title>
             </Body>
 
             <Right style={{flex:1}}>
