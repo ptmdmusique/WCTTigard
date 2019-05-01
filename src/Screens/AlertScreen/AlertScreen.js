@@ -1,10 +1,10 @@
 import React from 'react';
-import { Title, Body, Right, Container, Header, Button, Left, Icon, StyleProvider, Card, CardItem, Text, Content } from 'native-base';
+import { Container, Icon, StyleProvider, Text, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { Image, StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 
-import {customStyles} from '../../common/CustomStyle';
+import CustomHeader from '../../CommonComponents/CustomHeader';
 
 const MOCK_ALERTS = [
   {
@@ -74,22 +74,7 @@ export default class AlertScreen extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header style={customStyles.header} hasTabs>
-            <Left style={{flex:1}}>    
-              <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-                <Icon style={customStyles.headerIcon} name='menu'/>
-              </Button>
-            </Left>
-
-            <Body style={{flex:3}}>
-              <Title style={customStyles.headerText}>Alerts</Title>
-            </Body>
-
-            <Right style={{flex:1}}>
-              <Image source={require('../../../assets/images/sidebar-logo.png')} 
-                style={{height: 40, width: 40}}/>
-            </Right>
-          </Header>
+          <CustomHeader title='Alerts' navigation={this.props.navigation} />
 
           <Content style={{flex: 1, backgroundColor: '#ddd'}}>
             <FlatList

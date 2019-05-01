@@ -1,13 +1,12 @@
 import React from 'react';
-import {Title, Body, Right, Content, Container, Header, Text, Button, Left, Icon, StyleProvider, Footer} from 'native-base';
+import {Container, Text, Icon, StyleProvider, Footer} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
 import Swiper from 'react-native-deck-swiper';
 
-import {customStyles} from '../../common/CustomStyle';
-import NewsCard from '../../common/NewsCard';
+import CustomHeader from '../../CommonComponents/CustomHeader';
 
 const numberOfSwiper = 3;
 
@@ -23,7 +22,7 @@ const MOCK_EVENTS = [
 const previewRoute = [
   {
     name: "Event",
-    iconName: "sidebar",
+    iconName: "book-open",
     displayName: "Events"
   },
   {
@@ -68,7 +67,7 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  render() {    
+  render() {
     //All menu
     const menuGridItems = [];
     for(let i = 0; i < previewRoute.length; i += itemPerRow){
@@ -88,7 +87,7 @@ export default class HomeScreen extends React.Component {
               >
                 <View style={styles.menu}>
                   <Icon style={{color: '#fc5344', fontSize: 24}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{color: '#fc5344', fontSize: 10, marginTop: 5}}>
+                  <Text style={{color: '#fc5344', fontSize: 10, marginTop: 5, fontFamily: 'VarelaRound'}}>
                       {previewRoute[i + j].displayName}
                   </Text>
                 </View>
@@ -115,77 +114,7 @@ export default class HomeScreen extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header style={customStyles.header}
-          >
-            <Left style={{flex:1}}>    
-              <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-                <Icon style={customStyles.headerIcon} name='menu'/>
-              </Button>
-            </Left>
-
-            <Body style={{flex:3}}>
-              <Title style={customStyles.headerText}>Home</Title>
-            </Body>
-
-            <Right style={{flex:1}}>
-              <Image source={require('../../../assets/images/sidebar-logo.png')} 
-                    style={{height: 40, width: 40}}/>
-              
-            </Right>
-          </Header>
-
-          {/* <Grid style={{
-              backgroundColor: '#fafafa',
-              zIndex: -3,
-            }}>
-
-            <Row size={5} style={{justifyContent: 'center'}}>
-              <AutoHeightImage source={{uri: "https://i.imgur.com/oZ0qFnR.jpg"}}
-                width={width}
-                style={{alignSelf: 'center'}}
-              />
-            </Row>
-
-            <Row size={5}
-              style={{
-                borderTopWidth: 1,
-                borderTopColor: '#d9d9d9',
-                }
-              }
-            >
-              <Grid>
-                <Row size={1}
-                >
-                  <Body style={{paddingBottom: 5, paddingTop: 10}}>
-                    <Title style={{color:'black', fontSize: 15}}>Latest News!</Title>
-                  </Body>              
-                </Row>
-
-                <Row size={4}>
-                  <Content
-                    contentContainerStyle={{
-                      justifyContent: 'center',
-                      alignContent: 'center',
-                      alignItems: 'center'
-                    }}
-                  >
-                    <TouchableNativeFeedback
-                      onPress={() => this.props.navigation.navigate("Event")}
-                      
-                    >
-                      <NewsCard
-                        imageLink='https://i.imgur.com/rilIkTm.png'
-                        headerText='Tournament!'
-                        date='1/1/2019'
-                        durationText='All day!'
-                        content='Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template Template '                        
-                      />
-                    </TouchableNativeFeedback>
-                  </Content>
-                </Row>
-              </Grid>
-            </Row>
-          </Grid> */}
+          <CustomHeader title='Home' navigation={this.props.navigation} isHome />
 
           <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
             <View style={{flex: 1}}>
@@ -193,7 +122,7 @@ export default class HomeScreen extends React.Component {
                 style={{alignSelf: 'center', height: '100%', width: '100%'}}
               />
             </View>
-              
+            
             {/* <Swiper
               cards={MOCK_EVENTS}
               renderCard={(card) => this.renderEventCard(card)}
@@ -210,7 +139,7 @@ export default class HomeScreen extends React.Component {
             {this.renderEventCard(MOCK_EVENTS[0])}
           </View>
 
-          <Footer style={customStyles.footer}>
+          <Footer style={styles.footer}>
             <Grid style={{
               justifyContent: 'center',
               alignContent: 'center',
@@ -236,4 +165,13 @@ const styles = StyleSheet.create({
     width: (width - 120) / itemPerRow,
     height: (width - 100) / itemPerRow,
   },
+  footer: {
+    height: 60, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+
+    shadowRadius: 5,
+    elevation: 10,
+    zIndex: 10,
+  }
 })

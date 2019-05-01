@@ -1,10 +1,9 @@
 import React from 'react';
-import {Title, Body, Right, Container, Header, Button, Left, Icon, StyleProvider, Tabs, Tab} from 'native-base';
+import { Container, StyleProvider, Tabs, Tab } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { Image } from 'react-native';
 
-import {customStyles} from '../../common/CustomStyle';
+import CustomHeader from '../../CommonComponents/CustomHeader';
 
 import AboutSchoolTab from './Tabs/AboutSchoolTab';
 import AboutMasterTab from './Tabs/AboutMasterTab';
@@ -41,22 +40,8 @@ export default class PictureScreen extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          <Header style={customStyles.header} hasTabs>
-            <Left style={{flex:1}}>    
-              <Button transparent onPress={() => this.props.navigation.openDrawer()}>
-                <Icon style={customStyles.headerIcon} name='menu'/>
-              </Button>
-            </Left>
+          <CustomHeader title='About Us' navigation={this.props.navigation} />
 
-            <Body style={{flex:3}}>
-              <Title style={customStyles.headerText}>About Us</Title>
-            </Body>
-
-            <Right style={{flex:1}}>
-              <Image source={require('../../../assets/images/sidebar-logo.png')} 
-                style={{height: 40, width: 40}}/>
-            </Right>
-          </Header>
           <Tabs tabBarPosition='bottom' tabBarUnderlineStyle={{backgroundColor: '#FF6961', top: 0}}>
             {this.renderTabs()}
           </Tabs>

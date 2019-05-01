@@ -1,16 +1,16 @@
 import React from 'react';
-import {Title, Body, Right, Container, Header, Button, Left, Icon, StyleProvider, Spinner, Content, Card, CardItem} from 'native-base';
-import material from '../../../../native-base-theme/variables/material';
-import getTheme from '../../../../native-base-theme/components';
-import { Image, View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking, ScrollView} from 'react-native';
+import { Container, Icon, StyleProvider, Spinner, Content, Card, CardItem } from 'native-base';
+import material from '../../../native-base-theme/variables/material';
+import getTheme from '../../../native-base-theme/components';
+import { View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking, } from 'react-native';
 
-import {customStyles} from '../../../common/CustomStyle';
-import {MapView, Location, Permissions} from 'expo';
+import CustomHeader from '../../CommonComponents/CustomHeader';
+import { MapView, Location, Permissions } from 'expo';
 
 var latitudeDelta = 0.0522, longitudeDelta = 0.0521;
-var {height: screenHeight, width: screenWidth} = Dimensions.get('window');
+var { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
-export default class newsScreen extends React.Component {
+export default class NewsDetailScreen extends React.Component {
   state = {
     geoLocation: null,
     news: null,
@@ -168,22 +168,7 @@ export default class newsScreen extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container style={{backgroundColor: '#ddd',}}>
-          <Header style={customStyles.header} hasTabs>
-            <Left style={{flex:1}}>    
-              <Button transparent onPress={() => this.props.navigation.goBack()}>
-                <Icon style={customStyles.headerIcon} name='chevron-left'/>
-              </Button>
-            </Left>
-
-            <Body style={{flex:3}}>
-              <Title style={customStyles.headerText}>News</Title>
-            </Body>
-
-            <Right style={{flex:1}}>
-              <Image source={require('../../../../assets/images/sidebar-logo.png')} 
-                style={{height: 40, width: 40}}/>
-            </Right>
-          </Header>
+          <CustomHeader title='News Detail' navigation={this.props.navigation} isStack />
 
           {this.renderScreen()} 
           

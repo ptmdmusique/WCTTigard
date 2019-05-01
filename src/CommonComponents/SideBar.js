@@ -21,7 +21,13 @@ const routes =  [
     name: "Event",
     iconName: "book-open",
     iconType: "Feather",
-    displayName: "Events and News"
+    displayName: "Events"
+  },
+  {
+    name: "News",
+    iconName: "file-text",
+    iconType: "Feather",
+    displayName: "News"
   },
   {
     name: "Schedule",
@@ -35,12 +41,12 @@ const routes =  [
     iconType: "Feather",
     displayName: "Videos"
   },
-  {
-    name: "Picture",
-    iconName: "image",
-    iconType: "Feather",
-    displayName: "Picture Board"
-  },
+  // {
+  //   name: "Picture",
+  //   iconName: "image",
+  //   iconType: "Feather",
+  //   displayName: "Picture Board"
+  // },
   {
     name: "Birthday",
     iconName: "gift",
@@ -112,7 +118,7 @@ class SideBar extends React.Component {
                     <Icon style={{ fontSize: 23, marginLeft: 10, color: '#404040' }} name={data.item.iconName} type={data.item.iconType}/>
                   </Left>
                   <Body>
-                    <Text style={{marginLeft: 10, fontSize: 12, color: '#404040', fontWeight: '500'}}>{data.item.displayName}</Text>
+                    <Text style={{marginLeft: 10, fontSize: 12, color: '#404040', fontFamily: 'Ubuntu-Medium'}}>{data.item.displayName}</Text>
                   </Body>
                 </ListItem>
               );
@@ -165,6 +171,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: 'white',
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: 'Ubuntu-Bold',
   }
 });

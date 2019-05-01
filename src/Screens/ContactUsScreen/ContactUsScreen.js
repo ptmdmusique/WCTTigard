@@ -1,13 +1,11 @@
 import React from 'react';
-import {Title, Container, Header, Button, Left, Icon, StyleProvider, 
-    Body, Right, Footer, Text, Content, Spinner} from 'native-base';
+import { Container, Icon, StyleProvider, Text, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, Linking, Platform, TouchableNativeFeedback } from 'react-native';
-import {MapView, Location, Permissions} from 'expo';
+import { View, Linking, Platform, TouchableNativeFeedback } from 'react-native';
+import { MapView, Location, Permissions } from 'expo';
 
-import {customStyles} from '../../common/CustomStyle';
-import { scale, moderateScale, verticalScale} from '../../common/Scalling';
+import CustomHeader from '../../CommonComponents/CustomHeader';
 
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
 const MOCK_CONTACT = {
@@ -153,22 +151,7 @@ export default class ContactUsScreen extends React.Component {
         return (
             <StyleProvider style={getTheme(material)}>
             <Container>
-              <Header style={customStyles.header}>
-                <Left style={{flex: 1}}>    
-                  <Button transparent onPress={this.props.navigation.openDrawer}>
-                    <Icon style={customStyles.headerIcon}  name='menu'/>
-                  </Button>
-                </Left>
-    
-                <Body style={{flex: 3}}>
-                  <Title style={customStyles.headerText}> Contact Us </Title>
-                </Body>
-    
-                <Right style={{flex: 1}}>
-                  <Image source={require('../../../assets/images/sidebar-logo.png')} 
-                        style={{height: 40, width: 40}}/>              
-                </Right>
-              </Header>
+                <CustomHeader title='Contact Us' navigation={this.props.navigation} />
 
                 <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
                     {this.renderMap()}

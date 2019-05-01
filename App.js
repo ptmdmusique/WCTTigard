@@ -27,6 +27,9 @@ export default class App extends React.Component {
     await Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+      'Ubuntu-Regular': require('./assets/fonts/Ubuntu/Ubuntu-Regular.ttf'),
+      'Ubuntu-Medium': require('./assets/fonts/Ubuntu/Ubuntu-Medium.ttf'),
+      'Ubuntu-Bold': require('./assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
       'VarelaRound': require('./assets/fonts/VarelaRound/VarelaRound-Regular.ttf'),
       'LiberationSans-Bold': require('./assets/fonts/LiberationSans/LiberationSans-Bold.ttf'),
       'LiberationSans-Regular': require('./assets/fonts/LiberationSans/LiberationSans-Regular.ttf'),

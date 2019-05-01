@@ -54,14 +54,15 @@ export default class VideoFolder extends React.Component {
                     flexDirection: 'row', marginTop: 20, height: 100, elevation: 2,
                     shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.8, shadowRadius: 2,
                 }}
-                onPress={() => this.props.selectVideo(video.link)}
+                // onPress={() => this.props.selectVideo(video.link)}
             >
                 <View style={{flex: 3}}>
                     <Thumbnail
                         url={video.link}
                         showPlayIcon={false}
                         style={{height: '100%', width: '100%'}}
-                        onPress={() => this.props.selectVideo(video.link)} />
+                        // onPress={() => this.props.selectVideo(video.link)}
+                    />
                 </View>
 
                 <View style={{flex: 4}}>
@@ -127,7 +128,7 @@ export default class VideoFolder extends React.Component {
         return (
             <View style={{marginTop: 10, marginBottom: 20,}}>
                 <View style={{borderBottomColor: '#888', borderBottomWidth: 2, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, marginLeft: 3, marginRight: 8,}}>
-                    <Text style={{color: '#333', fontSize: 18, fontWeight: '500', paddingLeft: 5}}>{this.props.folder.folderName}</Text>
+                    <Text style={{color: '#444', fontSize: 18, fontFamily: 'Ubuntu-Bold', paddingLeft: 5}}>{this.props.folder.folderName}</Text>
                 </View>
 
                 <FlatList 
