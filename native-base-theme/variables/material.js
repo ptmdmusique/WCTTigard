@@ -170,7 +170,7 @@ export default {
   },
 
   // Icon
-  iconFamily: "Entypo",
+  iconFamily: "Feather",
   iconFontSize: 30,
   iconHeaderSize: 25,
 

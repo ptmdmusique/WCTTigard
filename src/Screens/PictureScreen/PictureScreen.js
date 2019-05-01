@@ -165,7 +165,7 @@ export default class PictureScreen extends React.Component {
                 {this.renderModalImage()}
               </View>
               <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-                <Icon name="cross" style={{color:'white'}} onPress={this._toggleModal}/>
+                <Icon name="x" style={{color:'white'}} onPress={this._toggleModal}/>
                 <Icon name="download" style={{color: 'white',}} onPress={() => this._downloadImage(this.state.uri)}/>
               </View>
             </View>

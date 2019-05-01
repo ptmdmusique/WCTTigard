@@ -15,7 +15,7 @@ import ContactUsScreen from './Screens/ContactUsScreen/ContactUsScreen';
 import AboutUsScreen from './Screens/AbousUsScreen/AboutUsScreen';
 import ReferUsScreen from './Screens/ReferUsScreen/ReferUs';
 import NewsScreen from './Screens/NewsAndEventScreen/NewsScreen/NewsScreen';
-import EventScreen from './Screens/NewsAndEventScreen/EventScreen/EventScreen';
+import EventScreen from "./Screens/NewsAndEventScreen/EventScreen/EventScreen";
 import AlertScreen from './Screens/AlertScreen/AlertScreen';
 
 const MyDrawerNavigator = createDrawerNavigator({
@@ -63,9 +63,6 @@ const MyDrawerNavigator = createDrawerNavigator({
     }),
     
   },
-  Alert: {
-    screen: AlertScreen
-  },
   Picture: {
     screen: PictureScreen
   },
@@ -86,9 +83,12 @@ const MyDrawerNavigator = createDrawerNavigator({
   },
   ReferUs: {
     screen: ReferUsScreen
+  },
+  Alert: {
+    screen: AlertScreen,
   }
 }, {
-  initialRouteName: 'Alert',
+  initialRouteName: 'Home',
   contentComponent: props => <SideBar {...props} />,
   });
 

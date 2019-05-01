@@ -8,19 +8,19 @@ import {customStyles} from '../../common/CustomStyle';
 
 const MOCK_ALERTS = [
   {
-    title: 'Trời tuyết sml',
+    title: 'Test Alert 1',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     dateFrom: '9/22/2019',
     dateTo: '9/25/2019',
   },
   {
-    title: 'Trời sập',
+    title: 'Test Alert 1',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     dateFrom: '3/12/2019',
     dateTo: '3/12/2019',
   },
   {
-    title: 'Trời tuyết sml',
+    title: 'Test Alert 1',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     dateFrom: '9/22/2019',
     dateTo: '9/25/2019',
@@ -55,13 +55,15 @@ export default class AlertScreen extends React.Component {
           </View>
           <View style={{flex: 3/4, marginRight: 50}}>
             <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ff6060'}}>{alert.title}</Text>
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999'}}>{alert.description}</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999', paddingRight: 1,}}>{alert.description}</Text>
           </View>
         </View>
 
-        <View style={{flex: 1/5, backgroundColor: 'black', opacity: 0.6, justifyContent: 'center'}}>
-          <Text style={{color: 'white', fontWeight: 'bold', opacity: 1, marginLeft: 10}}>
-            Expired: {alert.dateFrom === alert.dateTo ? 'Same day' : alert.dateTo}
+        <View style={{flex: 1/5, backgroundColor: 'black', opacity: 0.6, flexDirection: 'row', alignContent: 'center', alignItems: 'center'}}>
+          <Icon name="clock" style={styles.icon}/>
+          <Text style={styles.dateText}>
+            {/* Expired: {alert.dateFrom === alert.dateTo ? 'Same day' : alert.dateTo} */}
+            {alert.dateFrom} - {alert.dateTo}
           </Text>
         </View>
       </View>
@@ -102,3 +104,18 @@ export default class AlertScreen extends React.Component {
     );
   };
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    fontSize: 20,
+    color: 'white',
+    paddingLeft: 10,
+  },
+  dateText: {
+    color: 'white', 
+    fontWeight: 'bold', 
+    opacity: 1, 
+    marginLeft: 10, 
+    fontSize: 15,
+  }
+})

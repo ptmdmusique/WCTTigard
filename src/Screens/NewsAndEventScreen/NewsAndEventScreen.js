@@ -9,18 +9,18 @@ import {customStyles} from '../../common/CustomStyle';
 
 const MOCK_NEWS = [
   {
-    title: 'Duc ngu khuyen mai',
-    description: 'Thang ngu tai` tro.',
-    content: "hot hot hot",
+    title: 'Test News',
+    description: 'Short description',
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
     date: '9/22/2019',
     address: "15660 SW Pacific Hwy",
     locationName: 'WCTTigard',
     image: 'https://imgur.com/B8cudDx.jpg'
   },
   {
-    title: 'clgt.tv',
-    description: 'ASD',
-    content: "just for today!",
+    title: 'Test News 2',
+    description: 'Short description 2',
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
     date: '9/22/2019',
     address: "15660 SW Pacific Hwy",
     locationName: 'WCTTigard',
@@ -30,8 +30,8 @@ const MOCK_NEWS = [
 
 const MOCK_EVENTS = [
   {
-    title: '300 Spartans',
-    description: 'The Battle between Spartans and Persians',
+    title: 'Test Event 1',
+    description: 'Short description 1',
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
     address: "15660 SW Pacific Hwy",
     locationName: 'WCTTigard',
@@ -40,23 +40,23 @@ const MOCK_EVENTS = [
     image: 'https://imgur.com/B8cudDx.jpg'
   },
   {
-    title: 'Battle of the Blackwater',
-    description: 'The largest battle in the War of the Five Kings to date.',
-    content: "hot hot hot",
-    dateFrom: '3/12/2008 12:15 AM',
-    dateTo: '7/23/2008 05:11 PM',
+    title: 'Test Event 2',
+    description: 'Short description 2',
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
     address: "15660 SW Pacific Hwy",
     locationName: 'WCTTigard',
+    dateFrom: '7/16/2008 12:15 AM',
+    dateTo: '7/23/2008 05:11 PM',
     image: 'https://imgur.com/B8cudDx.jpg'
   },
   {
-    title: 'Dau truong lon',
-    description: 'Chien dau vi lon.',
-    content: "hot hot hot",
-    dateFrom: '9/22/2008 12:15 AM',
-    dateTo: '7/23/2008 05:11 PM',
+    title: 'Test Event 3',
+    description: 'Short description 3',
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
     address: "15660 SW Pacific Hwy",
     locationName: 'WCTTigard',
+    dateFrom: '7/16/2008 12:15 AM',
+    dateTo: '7/23/2008 05:11 PM',
     image: 'https://imgur.com/B8cudDx.jpg'
   }
 ];

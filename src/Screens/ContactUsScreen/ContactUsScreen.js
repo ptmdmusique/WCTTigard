@@ -179,25 +179,25 @@ export default class ContactUsScreen extends React.Component {
                             <TouchableNativeFeedback
                                 onPress={() => Linking.openURL('mailto:' + MOCK_CONTACT.email)}
                             >
-                                <Icon name="email" type="MaterialCommunityIcons" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                                <Icon name="mail" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
                             </TouchableNativeFeedback>
 
                             <TouchableNativeFeedback
                                 onPress={() => Linking.openURL('tel:' + MOCK_CONTACT.phoneNumber)}
                             >
-                                <Icon name="phone" type="MaterialCommunityIcons" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                                <Icon name="phone" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
                             </TouchableNativeFeedback>
 
                             <TouchableNativeFeedback
                                 onPress={() => Linking.openURL(MOCK_CONTACT.website)}
                             >
-                                <Icon name="globe" type="Entypo" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                                <Icon name="globe" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
                             </TouchableNativeFeedback>
 
                             <TouchableNativeFeedback
                                 onPress={() => Linking.openURL(this.state.url)}
                             >
-                                <Icon name="location" type="Entypo" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
+                                <Icon name="map-pin" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
                             </TouchableNativeFeedback>
                         </View>
                     </View>

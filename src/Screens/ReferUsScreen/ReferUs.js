@@ -6,6 +6,8 @@ import { Image, StyleSheet, TouchableNativeFeedback, Linking} from 'react-native
 
 import {customStyles} from '../../common/CustomStyle';
 
+MOCK_MESSAGE_BODY = "Test";
+
 export default class PictureScreen extends React.Component {
   render () {
     return (
@@ -54,7 +56,8 @@ export default class PictureScreen extends React.Component {
               </CardItem>
 
               <CardItem>
-                <Image source={require('../../../assets/images/michaelangelo.png')} style={{height: 20, width: 20, marginRight: 10,}}/>
+                {/* <Image source={require('../../../assets/images/michaelangelo.png')} style={{height: 20, width: 20, marginRight: 10,}}/> */}
+                <Icon name="sun" style={{fontSize: 20, color: '#fc5344'}}/>
                 <Text style={{color: '#fc5344', fontWeight: 'bold'}}>
                   Thank you for using our app!
                 </Text>
@@ -67,9 +70,14 @@ export default class PictureScreen extends React.Component {
               </CardItem>
               <CardItem style={{justifyContent: 'space-around'}}>
               <TouchableNativeFeedback
-                  onPress={() => Linking.openURL('mailto:?subject=Refer WCT Tigard&body=Test')}
+                  onPress={() => Linking.openURL('mailto:?subject=Refer WCT Tigard&body=' + MOCK_MESSAGE_BODY)}
               >
-                  <Icon name="mail-with-circle" style={styles.icon} />
+                  <Icon name="mail" style={styles.icon} />
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback
+                  onPress={() => Linking.openURL('sms:number?&body=' + MOCK_MESSAGE_BODY)}
+              >
+                  <Icon name="message-square" style={styles.icon} />
               </TouchableNativeFeedback>
                 {/* <Icon name="mail-with-circle" style={styles.icon}/>
                 <Icon name="mail-with-circle" style={styles.icon}/>

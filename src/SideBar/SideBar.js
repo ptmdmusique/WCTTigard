@@ -119,10 +119,10 @@ class SideBar extends React.Component {
             }}
           />
           </Content>
-
+{/* 
           <Footer style={{height: 50, paddingTop: 10}}>
             <Image source={require('../../assets/images/yin-yang.png')} style={{width: 30, height: 30}}/>             
-          </Footer>
+          </Footer> */}
         </Container>
       </StyleProvider>
     );

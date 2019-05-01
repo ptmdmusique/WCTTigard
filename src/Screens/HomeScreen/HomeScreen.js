@@ -13,25 +13,7 @@ const numberOfSwiper = 3;
 
 const MOCK_EVENTS = [
   {
-    eventTitle: 'Test Title 1',
-    eventTime: '1/1/1111',
-    eventDuration: 'All week',
-    eventContent: 'Something Content!',
-  },
-  {
-    eventTitle: 'Test Title 2',
-    eventTime: '1/1/1111',
-    eventDuration: 'All week',
-    eventContent: 'Something Content!',
-  },
-  {
-    eventTitle: 'Test Title 3',
-    eventTime: '1/1/1111',
-    eventDuration: 'All week',
-    eventContent: 'Something Content!',
-  },
-  {
-    eventTitle: 'Test Title 4',
+    eventTitle: 'Latest Event',
     eventTime: '1/1/1111',
     eventDuration: 'All week',
     eventContent: 'Something Content!',
@@ -41,7 +23,7 @@ const MOCK_EVENTS = [
 const previewRoute = [
   {
     name: "Event",
-    iconName: "news",
+    iconName: "sidebar",
     displayName: "Events"
   },
   {
@@ -71,8 +53,8 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={{width: '80%', height: '25%', position: 'absolute', top: '70%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
         <View style={{flexDirection: 'row', width: '100%', backgroundColor: 'white'}}>
-          <View style={{flex: 1, alignItems: 'center',}}>
-              <Icon name="newspaper" type="MaterialCommunityIcons" style={{color: '#fc5344'}} />
+          <View style={{flex: 1, alignItems: 'center', paddingLeft: 5,}}>
+              <Icon name="newspaper-o" type="FontAwesome" style={{color: '#fc5344'}} />
           </View>
           <View style={{flex: 5, paddingRight: 15, paddingLeft: 10}}>
               <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{card.eventTitle}</Text>
