@@ -1,8 +1,8 @@
 import React from 'react';
+import { StyleSheet, View, FlatList, Platform } from 'react-native';
 import { Container, Icon, StyleProvider, Text, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { StyleSheet, View, FlatList } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
@@ -21,7 +21,7 @@ const MOCK_ALERTS = [
   },
   {
     title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     dateFrom: '9/22/2019',
     dateTo: '9/25/2019',
   },
@@ -102,5 +102,6 @@ const styles = StyleSheet.create({
     opacity: 1, 
     marginLeft: 10, 
     fontSize: 15,
+    paddingVertical: Platform.OS === 'ios' ? 10 : 5,
   }
 })

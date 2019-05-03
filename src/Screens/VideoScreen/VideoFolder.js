@@ -1,5 +1,5 @@
 import React from 'react';
-import {LayoutAnimation, UIManager, FlatList, View, TouchableOpacity, Clipboard, ScrollView, Linking} from 'react-native';
+import {LayoutAnimation, UIManager, FlatList, View, TouchableOpacity, Clipboard, ScrollView, Linking, Platform} from 'react-native';
 import {Title, Card, CardItem, Button, Text, Icon } from 'native-base';
 import { Thumbnail } from 'react-native-thumbnail-video';
 
@@ -23,13 +23,15 @@ export default class VideoFolder extends React.Component {
 
     //Props consists of "folder" 
     renderItem(video) {
+        const cardShadowOpacity = Platform.OS === 'ios' ? 0.2 : 0.8;
+
         return (
             <TouchableOpacity
                 activeOpacity={0.9}
                 style={{
                     width: '95%', alignSelf: 'center', backgroundColor: 'white',
-                    flexDirection: 'row', marginTop: 20, height: 100, elevation: 2,
-                    shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.8, shadowRadius: 2,
+                    flexDirection: 'row', marginTop: 20, height: 130, elevation: 2,
+                    shadowOffset: { width: 0, height: 2 }, shadowOpacity: cardShadowOpacity, shadowRadius: 2,
                 }}
                 // onPress={() => this.props.selectVideo(video.link)}
             >
@@ -62,7 +64,7 @@ export default class VideoFolder extends React.Component {
                     activeOpacity={0.9}
                     onPress={() => {Linking.openURL(video.link)}}
                 > 
-                    <Icon name="controller-play" type="Entypo" style={{color: 'white', backgroundColor: '#ff2b2b', fontSize: 20, padding: 7,}} />
+                    <Icon name="controller-play" type="Entypo" style={{color: 'white', backgroundColor: '#ff2b2b', fontSize: 20, padding: 7}} />
                 </TouchableOpacity>
             </TouchableOpacity>
         );

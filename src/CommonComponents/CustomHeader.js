@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    paddingTop: 0,
   },
   footer: {
     height: 60, 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, StyleProvider, Footer, Text, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, Dimensions, TouchableOpacity} from 'react-native';
+import { View, Image, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import { FileSystem } from 'expo';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -53,7 +53,7 @@ export default class ScheduleScreen extends React.Component {
               <Footer>
                     <TouchableOpacity 
                         onPress={() => this.downloadDocument()}
-                        style={{alignSelf: 'center', width: '90%', height: 30, backgroundColor: '#f74242', alignItems: 'center', justifyContent: 'center', borderRadius: 5}}
+                        style={{alignSelf: 'center', width: '90%', height: Platform.OS === 'ios' ? 45 : 30, backgroundColor: '#f74242', alignItems: 'center', justifyContent: 'center', borderRadius: 5}}
                         activeOpacity={0.7}
                     >
                         <Text style={{color: 'white', fontWeight: 'bold'}}>Download</Text>

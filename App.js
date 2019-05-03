@@ -71,8 +71,8 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducers)}>
         <Root>
-          <StatusBar hidden={!isIOS} backgroundColor='black' barStyle='dark-content' />
-          {/* <StatusBar translucent={false} /> */}
+          {/* <StatusBar hidden={!isIOS} backgroundColor='black' barStyle='dark-content' /> */}
+          <StatusBar hidden />
           <AppContainer></AppContainer>
         </Root>
       </Provider>

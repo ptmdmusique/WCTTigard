@@ -56,11 +56,13 @@ export default class HomeScreen extends React.Component {
               <Icon name="newspaper-o" type="FontAwesome" style={{color: '#fc5344'}} />
           </View>
           <View style={{flex: 5, paddingRight: 15, paddingLeft: 10}}>
-              <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{card.eventTitle}</Text>
-              <Text style={{color: '#888', fontSize: 12}}>{card.eventTime}</Text>
-              <Text style={{color: '#888', fontSize: 12}}>{card.eventDuration}</Text>
-              <Text style={{color: '#888', fontSize: 12}}>{card.eventContent}</Text>
-              {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
+            <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
+              <Text style={{color: '#fc5344', fontWeight: 'bold'}}>{card.eventTitle}</Text>
+            </View>
+            <Text style={{color: '#888', fontSize: 12}}>{card.eventTime}</Text>
+            <Text style={{color: '#888', fontSize: 12}}>{card.eventDuration}</Text>
+            <Text style={{color: '#888', fontSize: 12}}>{card.eventContent}</Text>
+            {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
           </View>
         </View>
       </View>

@@ -130,7 +130,9 @@ export default class ContactUsScreen extends React.Component {
                     <Icon name="location-on" type="MaterialIcons" style={{color: '#fc5344'}} />
                 </View>
                 <View style={{flex: 5, paddingRight: 15}}>
-                    <Text style={{color: '#fc5344', fontWeight: 'bold', borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>{this.state.contact.name}</Text>
+                    <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
+                        <Text style={{color: '#fc5344', fontWeight: 'bold'}}>{this.state.contact.name}</Text>
+                    </View>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.address}</Text>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.phoneNumber}</Text>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.email}</Text>
