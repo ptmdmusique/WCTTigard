@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, StatusBar } from 'react-native';
+import { StatusBar, Platform, StatusBarStyle } from 'react-native';
 import AppContainer from './src/AppContainer';
-import {Root, StyleProvider, Spinner, Text, Content, Container} from 'native-base';
-import {Image} from 'react-native';
+import { Root, StyleProvider, Spinner, Text, Content, Container } from 'native-base';
+import { Image } from 'react-native';
 import { Font, AppLoading } from 'expo';
 import material from './native-base-theme/variables/material';
 import getTheme from './native-base-theme/components';
@@ -40,6 +40,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    const isIOS = Platform.OS === 'ios';
+
     if (!this.state.fontLoaded) {
       return <AppLoading/>
     }
@@ -69,7 +71,8 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducers)}>
         <Root>
-          <StatusBar hidden />
+          <StatusBar hidden={!isIOS} backgroundColor='black' barStyle='dark-content' />
+          {/* <StatusBar translucent={false} /> */}
           <AppContainer></AppContainer>
         </Root>
       </Provider>

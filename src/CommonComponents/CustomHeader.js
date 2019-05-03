@@ -1,6 +1,6 @@
 import React from 'react';
-import {Title, Body, Right, Header, Button, Left, Icon } from 'native-base';
-import { StyleSheet } from 'react-native'
+import {Title, Body, Right, Header, Button, Left, Icon} from 'native-base';
+import { StyleSheet, Image } from 'react-native'
 
 
 export default class CustomHeader extends React.Component {
@@ -22,7 +22,7 @@ export default class CustomHeader extends React.Component {
 
   render () {
     return (
-      <Header style={styles.header} hasTabs>
+      <Header style={styles.header}>
         <Left style={{flex:1}}>
           {this.renderLeftIcon()}
         </Left>
@@ -34,17 +34,39 @@ export default class CustomHeader extends React.Component {
         <Right style={{flex:1}}>
           {this.props.isHome? null :
           <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
-            <Icon style={styles.headerIcon} name='home'/>
+            {/* <Icon style={styles.headerIcon} name='home'/> */}
+            <Image source={require('../../assets/images/sidebar-logo.png')} 
+              style={{
+                height: 40,
+                width: 40,
+              }}
+            />
           </Button>}
         </Right>
       </Header>
+
+      // <Header>
+      //   <Left>
+      //     <Button transparent>
+      //       <Icon name='menu' style={{backgroundColor: 'red'}}/>
+      //     </Button>
+      //   </Left>
+      //   <Body>
+      //     <Title styles={{color: 'red'}}>Header</Title>
+      //   </Body>
+      //   <Right>
+      //     <Button transparent>
+      //       <Icon name='menu' style={{backgroundColor: 'red'}} />
+      //     </Button>
+      //   </Right>
+      // </Header>
     );
   };
 }
 
 const styles = StyleSheet.create({
   header: {
-    height: 50, 
+    height: 60, 
     justifyContent: 'center', 
     alignItems: 'center',
     shadowRadius: 5,

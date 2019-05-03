@@ -2,7 +2,7 @@ import React from 'react';
 import { Content, Container, Icon, StyleProvider, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Image, StyleSheet, TouchableNativeFeedback, Dimensions, FlatList } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -67,7 +67,7 @@ export default class PictureScreen extends React.Component {
       <View 
       style={{flex: 1 / imagePerRow, aspectRatio: 1, marginBottom: 2, marginRight: 2, alignContent: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#ddd'}}
       >
-        <TouchableNativeFeedback
+        <TouchableOpacity
           onPress={() => {
             this.setState({uri: image.myUri});
             this._toggleModal();
@@ -78,18 +78,18 @@ export default class PictureScreen extends React.Component {
                 resizeMode='cover'
                 style={{width: '100%', height: '100%'}}/>
           </View>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
       </View>
     )
   }
   renderModalImage(){
     if (this.state.uri){
       return (
-        <TouchableNativeFeedback
+        <TouchableOpacity
           onPress={() => this._toggleModal()}
         >
           <AutoHeightImage width={width * 0.98} style={{alignSelf: 'center'}} source={{uri: this.state.uri}}/>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
       )
     }
   }

@@ -20,7 +20,7 @@
     "react-native-lightbox": "^0.8.0",
     "react-native-looped-carousel-improved": "^1.0.2",
     "react-native-modal": "^9.0.0",
-    "react-native-simple-toast": "0.0.8",
+    "react-native-scripts": "^2.0.1",
     "react-native-thumbnail-video": "^0.1.2",
     "react-native-view-overflow": "0.0.4",
     "react-navigation": "^3.5.1",

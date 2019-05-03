@@ -3,7 +3,7 @@ import {Title, Body, Right, Content, Container, Header, Text, Button,
         Left, Icon, StyleProvider, Footer, Item, Label, Input} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {Image, StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {Image, StyleSheet,} from 'react-native';
 import {customStyles} from '../../common/CustomStyle';
 
 import t from 'tcomb-form-native';

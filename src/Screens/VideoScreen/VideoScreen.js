@@ -20,7 +20,6 @@ export default class VideoScreen extends React.Component {
   }
 
   componentDidMount() {
-    // Toast.show("Tip: Click and hold the link to copy!", Toast.SHORT);
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 

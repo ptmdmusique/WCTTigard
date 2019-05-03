@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Text, Icon, StyleProvider, Footer} from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableNativeFeedback, Dimensions} from 'react-native';
+import {View, Image, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
 import Swiper from 'react-native-deck-swiper';
 
@@ -82,7 +82,7 @@ export default class HomeScreen extends React.Component {
               alignItems: 'center', 
             }}
             >
-              <TouchableNativeFeedback
+              <TouchableOpacity 
                 onPress={() => this.props.navigation.navigate(previewRoute[i + j].name)}
               >
                 <View style={styles.menu}>
@@ -91,7 +91,7 @@ export default class HomeScreen extends React.Component {
                       {previewRoute[i + j].displayName}
                   </Text>
                 </View>
-              </TouchableNativeFeedback>
+              </TouchableOpacity >
             </Col>
           )
         }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Icon, StyleProvider, Text, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Linking, Platform, TouchableNativeFeedback } from 'react-native';
+import { View, Linking, Platform, TouchableOpacity,  StyleSheet} from 'react-native';
 import { MapView, Location, Permissions } from 'expo';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -159,29 +159,33 @@ export default class ContactUsScreen extends React.Component {
                         <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
                         
                         <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
-                            <TouchableNativeFeedback
+                            <TouchableOpacity
                                 onPress={() => Linking.openURL('mailto:' + MOCK_CONTACT.email)}
+                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
                             >
-                                <Icon name="mail" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
-                            </TouchableNativeFeedback>
+                                <Icon name="mail" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10}} />
+                            </TouchableOpacity>
 
-                            <TouchableNativeFeedback
+                            <TouchableOpacity
                                 onPress={() => Linking.openURL('tel:' + MOCK_CONTACT.phoneNumber)}
+                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
                             >
-                                <Icon name="phone" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
-                            </TouchableNativeFeedback>
+                                <Icon name="phone" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10}} />
+                            </TouchableOpacity>
 
-                            <TouchableNativeFeedback
+                            <TouchableOpacity
                                 onPress={() => Linking.openURL(MOCK_CONTACT.website)}
+                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
                             >
-                                <Icon name="globe" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
-                            </TouchableNativeFeedback>
+                                <Icon name="globe" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10}} />
+                            </TouchableOpacity>
 
-                            <TouchableNativeFeedback
+                            <TouchableOpacity
                                 onPress={() => Linking.openURL(this.state.url)}
+                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
                             >
-                                <Icon name="map-pin" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
-                            </TouchableNativeFeedback>
+                                <Icon name="map-pin" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10}} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

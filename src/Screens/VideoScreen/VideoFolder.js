@@ -5,7 +5,6 @@ import { Thumbnail } from 'react-native-thumbnail-video';
 
 import * as actions from '../../Redux/Actions';
 import {connect} from 'react-redux';
-import Toast from 'react-native-simple-toast';
 
 
 export default class VideoFolder extends React.Component {
@@ -24,28 +23,6 @@ export default class VideoFolder extends React.Component {
 
     //Props consists of "folder" 
     renderItem(video) {
-        // return (
-        //    <CardItem
-        //         button  
-        //         onPress={() =>{
-        //             this.props.selectVideo(video.item.link);
-        //         }}
-        //         onLongPress={async () => {
-        //             await Clipboard.setString(video.item.link);
-        //             Toast.show("Toast! Link is copied!");
-        //         }}
-        //         style={{
-        //             marginTop: 0,
-        //             borderTopWidth: 1, 
-        //             borderTopColor: '#e1e1e1',
-        //             backgroundColor:  '#f9f9f9',
-        //         }}
-        //    >
-        //         <Title style={styles.text}>{video.item.name}:</Title>    
-        //         <Text style={{...styles.text, color: '#0000af'}}>   {video.item.link}</Text>
-        //    </CardItem>
-        // )
-
         return (
             <TouchableOpacity
                 activeOpacity={0.9}
@@ -81,11 +58,11 @@ export default class VideoFolder extends React.Component {
                 </View>
 
                 <TouchableOpacity
-                    style={{position: 'absolute', top: -10, right: 5, width: 30, height: 30, backgroundColor: '#ff2b2b', borderRadius: 50, flex: 1, justifyContent: 'center', alignItems: 'center', elevation: 5}}
+                    style={{position: 'absolute', top: -10, right: 5, borderRadius: 50, overflow: 'hidden', flex: 1, elevation: 5}}
                     activeOpacity={0.9}
                     onPress={() => {Linking.openURL(video.link)}}
-                >
-                    <Icon name="controller-play" type="Entypo" style={{color: 'white', fontSize: 20}} />
+                > 
+                    <Icon name="controller-play" type="Entypo" style={{color: 'white', backgroundColor: '#ff2b2b', fontSize: 20, padding: 7,}} />
                 </TouchableOpacity>
             </TouchableOpacity>
         );
