@@ -163,7 +163,6 @@ export default class EventDetailScreen extends React.Component {
   }
 
   render () {
-    console.log(this.props.navigation.getParam('event'));
     return (
       <StyleProvider style={getTheme(material)}>
         <Container style={{backgroundColor: '#ddd',}}>
@@ -190,6 +189,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
     fontSize: 20,
     paddingLeft: 8,
     // position: 'absolute',
@@ -207,6 +207,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
     fontSize: 15,
     color: "#fc5344",
   },

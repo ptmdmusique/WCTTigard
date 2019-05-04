@@ -57,7 +57,7 @@ export default class HomeScreen extends React.Component {
           </View>
           <View style={{flex: 5, paddingRight: 15, paddingLeft: 10}}>
             <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-              <Text style={{color: '#fc5344', fontWeight: 'bold'}}>{card.eventTitle}</Text>
+              <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{card.eventTitle}</Text>
             </View>
             <Text style={{color: '#888', fontSize: 12}}>{card.eventTime}</Text>
             <Text style={{color: '#888', fontSize: 12}}>{card.eventDuration}</Text>

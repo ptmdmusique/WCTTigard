@@ -61,7 +61,7 @@ export default class EventScreen extends React.Component {
         <View style={{flex: 1/5, backgroundColor: '#d67535', justifyContent: 'center', alignItems: 'center'}}>
           <View>
             <Icon name="calendar" type='Feather' style={{fontSize: 60, color: 'white',}}/>
-            <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center'}}>
+            <Text style={{fontSize: 20, color: 'white', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}}>
               {dateFrom.getDate()}
             </Text>
           </View>
@@ -71,8 +71,8 @@ export default class EventScreen extends React.Component {
         </View>
         <View style={{flex: 4/5, backgroundColor: 'white', paddingLeft: 15, paddingTop: 10}}>
           <View style={{flex: 2/3}}>
-            <Text style={{color: '#333', fontSize: 18, fontWeight: 'bold'}}>{event.title}</Text>
-            <Text style={{color: '#999', fontSize: 14, fontWeight: '600'}}>{event.description}</Text>
+            <Text style={{color: '#333', fontSize: 18, fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{event.title}</Text>
+            <Text style={{color: '#999', fontSize: 14, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>{event.description}</Text>
           </View>
           <View style={{flex: 1/3, flexDirection: 'row'}}>
             <View style={{flex: 5/6, justifyContent: 'center',}}>
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center', 
     fontSize: 22, 
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
   },
 })

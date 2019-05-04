@@ -56,7 +56,7 @@ export default class ScheduleScreen extends React.Component {
                         style={{alignSelf: 'center', width: '90%', height: Platform.OS === 'ios' ? 45 : 30, backgroundColor: '#f74242', alignItems: 'center', justifyContent: 'center', borderRadius: 5}}
                         activeOpacity={0.7}
                     >
-                        <Text style={{color: 'white', fontWeight: 'bold'}}>Download</Text>
+                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>Download</Text>
                     </TouchableOpacity>
                 </Footer>
             </Container>

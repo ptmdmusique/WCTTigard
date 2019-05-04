@@ -45,17 +45,17 @@ export default class AlertScreen extends React.Component {
           <View style={{flex: 1/4, alignItems: 'center'}}>
             <View>
               <Icon name="calendar" type='Feather' style={{fontSize: 60, color: '#ff6060',}}/>
-              <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center'}}>
+              <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}}>
                 {dateFrom.getDate()}
               </Text>
             </View>
-            <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold'}}>
+            <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>
               {monthNames_short[dateFrom.getMonth()]}
             </Text>
           </View>
           <View style={{flex: 3/4, marginRight: 50}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ff6060'}}>{alert.title}</Text>
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999', paddingRight: 1,}}>{alert.description}</Text>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ff6060', fontFamily: 'Roboto-Bold'}}>{alert.title}</Text>
+            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999', paddingRight: 1, fontFamily: 'Roboto-Bold'}}>{alert.description}</Text>
           </View>
         </View>
 

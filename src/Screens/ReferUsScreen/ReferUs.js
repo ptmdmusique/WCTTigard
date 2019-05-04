@@ -31,10 +31,10 @@ export default class ReferUsScreen extends React.Component {
                   <Image
                     source={require('../../../assets/images/refer_gift.png')}
                     style={{width: 100, height: 100, alignSelf: 'center', marginBottom: 10}} />
-                  <Text style={{color: '#666', fontWeight: '500', fontSize: 12}}>
+                  <Text style={{color: '#666', fontWeight: '500', fontSize: 12, fontFamily: 'Roboto-Bold'}}>
                     As you know, Taekwondo is a great way for children and adults to lead happier and healthier lives.
                   </Text>
-                  <Text style={{color: '#666', fontWeight: '500', fontSize: 12}}>
+                  <Text style={{color: '#666', fontWeight: '500', fontSize: 12, fontFamily: 'Roboto-Bold'}}>
                     Children will be able to improve their focus, fitness and self-control, adults will be able to improve their health and reduce stress and families are able to spend quality time together in a positive atmostphere.
                   </Text>
                 </Body>
@@ -43,7 +43,7 @@ export default class ReferUsScreen extends React.Component {
               <CardItem>
                 {/* <Image source={require('../../../assets/images/michaelangelo.png')} style={{height: 20, width: 20, marginRight: 10,}}/> */}
                 <Icon name="sun" style={{fontSize: 20, color: '#fc5344'}}/>
-                <Text style={{color: '#fc5344', fontWeight: 'bold', fontSize: 15}}>
+                <Text style={{color: '#fc5344', fontWeight: 'bold', fontSize: 15, fontFamily: 'Roboto-Bold'}}>
                   Thank you for using our app!
                 </Text>
               </CardItem>
@@ -51,7 +51,7 @@ export default class ReferUsScreen extends React.Component {
 
             <Card style={{width: '95%', alignSelf: 'center'}}>
               <CardItem>
-                <Text style={{fontWeight: 'bold', color: '#fc5344'}}>Refer us through:</Text>
+                <Text style={{fontWeight: 'bold', color: '#fc5344', fontFamily: 'Roboto-Bold'}}>Refer us through:</Text>
               </CardItem>
               <CardItem style={{justifyContent: 'space-around'}}>
               <TouchableOpacity

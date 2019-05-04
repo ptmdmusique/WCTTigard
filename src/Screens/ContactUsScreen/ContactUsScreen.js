@@ -131,7 +131,7 @@ export default class ContactUsScreen extends React.Component {
                 </View>
                 <View style={{flex: 5, paddingRight: 15}}>
                     <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-                        <Text style={{color: '#fc5344', fontWeight: 'bold'}}>{this.state.contact.name}</Text>
+                        <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{this.state.contact.name}</Text>
                     </View>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.address}</Text>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.phoneNumber}</Text>

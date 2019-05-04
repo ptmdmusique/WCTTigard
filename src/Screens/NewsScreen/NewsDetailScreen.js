@@ -164,7 +164,7 @@ export default class NewsDetailScreen extends React.Component {
   }
 
   render () {
-    console.log(this.props.navigation.getParam('news'));
+    //console.log(this.props.navigation.getParam('news'));
     return (
       <StyleProvider style={getTheme(material)}>
         <Container style={{backgroundColor: '#ddd',}}>
@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
     fontSize: 20,
     paddingLeft: 8,
     position: 'absolute',
@@ -204,6 +205,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
     fontSize: 15,
     color: "#fc5344",
   },

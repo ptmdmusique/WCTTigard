@@ -46,10 +46,10 @@ export default class VideoFolder extends React.Component {
 
                 <View style={{flex: 4}}>
                     <View style={{flex: 1, flexDirection: 'column', paddingLeft: 10, paddingVertical: 5}}>
-                        <Text style={{color: '#444', fontWeight: '600'}}>{video.name}</Text>
+                        <Text style={{color: '#444', fontWeight: '600', fontFamily: 'Roboto-Bold'}}>{video.name}</Text>
                         <View>
                             <Text numberOfLines={5} 
-                                style={{color: '#888', marginTop: 7, fontSize: 11}}>
+                                style={{color: '#888', marginTop: 7, fontSize: 11, fontFamily: 'Roboto-Regular'}}>
                                 {video.description}
                             </Text>
                         </View>

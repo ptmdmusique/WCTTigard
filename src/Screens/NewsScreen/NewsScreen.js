@@ -38,12 +38,12 @@ export default class NewsScreen extends React.Component {
         </View>
         <View style={{flex: 4/5, backgroundColor: 'white', paddingLeft: 15, paddingTop: 10}}>
           <View style={{flex: 2/3}}>
-            <Text style={{color: '#333', fontSize: 18, fontWeight: 'bold'}}>{news.title}</Text>
-            <Text style={{color: '#999', fontSize: 14, fontWeight: '600'}}>{news.description}</Text>
+            <Text style={{color: '#333', fontSize: 18, fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{news.title}</Text>
+            <Text style={{color: '#999', fontSize: 14, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>{news.description}</Text>
           </View>
           <View style={{flex: 1/3, flexDirection: 'row'}}>
             <View style={{flex: 5/6, justifyContent: 'center',}}>
-              <Text style={{color: '#ff5f56', fontSize: 12, fontWeight: '600'}}>Posted: {news.date}</Text>
+              <Text style={{color: '#ff5f56', fontSize: 12, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>Posted: {news.date}</Text>
             </View>
             <View style={{flex: 1/6, alignItems: 'center', justifyContent: 'center'}}>
               <Icon name="ios-arrow-forward" type="Ionicons" style={{fontSize: 20, color: '#ff5f56'}} />
