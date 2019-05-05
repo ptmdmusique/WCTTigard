@@ -17,6 +17,55 @@ import NewsScreen from './Screens/NewsScreen/NewsScreen';
 import NewsDetailScreen from './Screens/NewsScreen/NewsDetailScreen';
 import AlertScreen from './Screens/AlertScreen/AlertScreen';
 
+// const FadeTransition = (index, position) => {
+//   const sceneRange = [index - 1, index - 0.99, index];
+//   const outputOpacity = [0, 1, 1];
+//   const transition = position.interpolate({
+//     inputRange: sceneRange,
+//     outputRange: outputOpacity,
+//   });
+
+//   return {
+//     opacity: transition
+//   }
+// }
+
+// const BottomTransition  = (index, position, height) => {
+//   const sceneRange = [index - 1, index, index + 1];
+//   const outputHeight = [height, 0, 0];
+//   const transition = position.interpolate({
+//     inputRange: sceneRange,
+//     outputRange: outputHeight,
+//   });
+
+//   return {
+//     transform: [{
+//       translateY: transition
+//     }]
+//   }
+// }
+
+// const NavigationConfig = () => {
+//   return {
+//     transitionSpec: {
+//       duration: 300,
+//       easing: Easing.out(Easing.poly(4)),
+//       timing: Animated.timing,
+//     },
+//     screenInterpolator: (sceneProps) => {
+//       const { layout, position, scene } = sceneProps;
+//       const index = scene.index;
+//       const height = sceneProps.layout.initHeight;
+//       // const position = sceneProps.position;
+//       // const scene = sceneProps.scene;
+
+//       var opacity = FadeTransition(index, position);
+//       var transform = BottomTransition(index, position, height);
+//       return {opacity, transform};
+//     }
+//   }
+// }
+
 const MyDrawerNavigator = createDrawerNavigator({
   Home: {
     screen: HomeScreen,
@@ -33,8 +82,8 @@ const MyDrawerNavigator = createDrawerNavigator({
       headerMode: 'none',
       navigationOptions: {
         headerVisible: false,
-      }
-    })
+      },
+    }), 
   },
   News: {
     screen: createStackNavigator({
@@ -70,9 +119,9 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: AlertScreen,
   }
 }, {
-  initialRouteName: 'Video',
+  initialRouteName: 'Home',
   contentComponent: props => <SideBar {...props} />,
-  });
+});
 
 const MyAppContainer = createAppContainer(MyDrawerNavigator);
 

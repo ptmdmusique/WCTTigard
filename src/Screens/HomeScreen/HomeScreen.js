@@ -89,7 +89,7 @@ export default class HomeScreen extends React.Component {
               >
                 <View style={styles.menu}>
                   <Icon style={{color: '#fc5344', fontSize: 24}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{color: '#fc5344', fontSize: 10, marginTop: 5, fontFamily: 'VarelaRound'}}>
+                  <Text style={{color: '#fc5344', fontSize: 9, marginTop: 5, fontFamily: 'Roboto-Regular'}}>
                       {previewRoute[i + j].displayName}
                   </Text>
                 </View>

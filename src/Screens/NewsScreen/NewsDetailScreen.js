@@ -41,7 +41,6 @@ export default class NewsDetailScreen extends React.Component {
 
   async componentDidMount(){ 
     await this.setState({news: this.props.navigation.getParam('news')});
-    console.log(this.state.news);
     if (this.state.news.address){
       await Location.getProviderStatusAsync()
             .then(status => {

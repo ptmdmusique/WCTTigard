@@ -1,6 +1,7 @@
 import React from 'react';
-import {Title, Body, Right, Header, Button, Left, Icon} from 'native-base';
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, View } from 'react-native'
+import * as Animatable from 'react-native-animatable';
+import { Title, Body, Right, Header, Button, Left, Icon } from 'native-base';
 
 
 export default class CustomHeader extends React.Component {
@@ -24,24 +25,30 @@ export default class CustomHeader extends React.Component {
     return (
       <Header style={styles.header}>
         <Left style={{flex:1}}>
-          {this.renderLeftIcon()}
+          <Animatable.View animation="zoomIn">
+            {this.renderLeftIcon()}
+          </Animatable.View>
         </Left>
 
         <Body style={{flex:3}}>
-          <Title style={styles.headerText}>{this.props.title}</Title>
+          <Animatable.View animation="zoomIn">
+            <Title style={styles.headerText}>{this.props.title}</Title>
+          </Animatable.View>
         </Body>
 
         <Right style={{flex:1}}>
-          {this.props.isHome? null :
-          <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
-            {/* <Icon style={styles.headerIcon} name='home'/> */}
-            <Image source={require('../../assets/images/sidebar-logo.png')} 
-              style={{
-                height: 40,
-                width: 40,
-              }}
-            />
-          </Button>}
+          <Animatable.View animation="zoomIn">
+            {this.props.isHome? null :
+            <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
+              {/* <Icon style={styles.headerIcon} name='home'/> */}
+              <Image source={require('../../assets/images/sidebar-logo.png')} 
+                style={{
+                  height: 40,
+                  width: 40,
+                }}
+              />
+            </Button>}
+          </Animatable.View>
         </Right>
       </Header>
 
