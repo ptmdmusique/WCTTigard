@@ -60,7 +60,21 @@ export default class VideoScreen extends React.Component {
   }
 
   renderFolder = (folder) => {
-    return <VideoFolder folder={folder.item} selectVideo={(url) => this.selectVideo(url)} />
+    const folderIndex = MOCK_VIDEOS.indexOf(folder.item);
+
+    let previousVideoListLength = 0; // total videos of previous folders
+    for (let i = 0; i < folderIndex; i++) {
+      previousVideoListLength += MOCK_VIDEOS[i].videoList.length;
+    }
+
+    return(
+      <VideoFolder
+        folder={folder.item}
+        folderIndex={folderIndex}
+        previousVideoListLength={previousVideoListLength}
+        selectVideo={(url) => this.selectVideo(url)}
+      />
+    );
   }
 
   render() {

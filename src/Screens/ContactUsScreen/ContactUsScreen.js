@@ -1,8 +1,9 @@
 import React from 'react';
+import { View, Linking, Platform, TouchableOpacity,  StyleSheet} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { Container, Icon, StyleProvider, Text, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, Linking, Platform, TouchableOpacity,  StyleSheet} from 'react-native';
 import { MapView, Location, Permissions } from 'expo';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -157,7 +158,7 @@ export default class ContactUsScreen extends React.Component {
 
                 <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
                     {this.renderMap()}
-                    <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+                    <Animatable.View animation="zoomIn" delay={1500} style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
                         <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
                         
                         <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
@@ -189,7 +190,7 @@ export default class ContactUsScreen extends React.Component {
                                 <Icon name="map-pin" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10}} />
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </Animatable.View>
                 </View>
             </Container>
           </StyleProvider>

@@ -1,8 +1,9 @@
 import React from 'react';
-import {Container, Text, Icon, StyleProvider, Footer} from 'native-base';
+import { View, Image, StyleSheet, TouchableOpacity , Dimensions } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { Container, Text, Icon, StyleProvider, Footer } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
 import Swiper from 'react-native-deck-swiper';
 
@@ -50,7 +51,7 @@ export default class HomeScreen extends React.Component {
 
   renderEventCard = (card) => {
     return (
-      <View style={{width: '80%', height: '25%', position: 'absolute', top: '70%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+      <Animatable.View animation="zoomIn" delay={700} style={{width: '80%', height: '25%', position: 'absolute', top: '70%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
         <View style={{flexDirection: 'row', width: '100%', backgroundColor: 'white'}}>
           <View style={{flex: 1, alignItems: 'center', paddingLeft: 5,}}>
               <Icon name="newspaper-o" type="FontAwesome" style={{color: '#fc5344'}} />
@@ -65,7 +66,7 @@ export default class HomeScreen extends React.Component {
             {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
           </View>
         </View>
-      </View>
+      </Animatable.View>
     );
   }
 

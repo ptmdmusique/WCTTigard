@@ -1,11 +1,14 @@
 import React from 'react';
 import {LayoutAnimation, UIManager, FlatList, View, TouchableOpacity, Clipboard, ScrollView, Linking, Platform} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import {Title, Card, CardItem, Button, Text, Icon } from 'native-base';
 import { Thumbnail } from 'react-native-thumbnail-video';
 
 import * as actions from '../../Redux/Actions';
 import {connect} from 'react-redux';
 
+const videoAppearDelay = 300;
+const delayBetweenFolders = 200;
 
 export default class VideoFolder extends React.Component {
     constructor() {
@@ -25,48 +28,61 @@ export default class VideoFolder extends React.Component {
     renderItem(video) {
         const cardShadowOpacity = Platform.OS === 'ios' ? 0.2 : 0.8;
 
+        const videoIndex = this.props.previousVideoListLength + this.props.folder.videoList.indexOf(video);
+
+        let videoDelay = (videoIndex + 1) * videoAppearDelay
+
+        if (this.props.folder.videoList.indexOf(video) === 0) {
+            // Prevent first video of folder from appearing before folder title
+            videoDelay += delayBetweenFolders;
+        }
+
         return (
-            <TouchableOpacity
-                activeOpacity={0.9}
-                style={{
-                    width: '95%', alignSelf: 'center', backgroundColor: 'white',
-                    flexDirection: 'row', marginTop: 20, height: 130, elevation: 2,
-                    shadowOffset: { width: 0, height: 2 }, shadowOpacity: cardShadowOpacity, shadowRadius: 2,
-                }}
-                // onPress={() => this.props.selectVideo(video.link)}
-            >
-                <View style={{flex: 3}}>
-                    <Thumbnail
-                        url={video.link}
-                        showPlayIcon={false}
-                        style={{height: '100%', width: '100%'}}
-                        // onPress={() => this.props.selectVideo(video.link)}
-                    />
-                </View>
-
-                <View style={{flex: 4}}>
-                    <View style={{flex: 1, flexDirection: 'column', paddingLeft: 10, paddingVertical: 5}}>
-                        <Text style={{color: '#444', fontWeight: '600', fontFamily: 'Roboto-Bold'}}>{video.name}</Text>
-                        <View>
-                            <Text numberOfLines={5} 
-                                style={{color: '#888', marginTop: 7, fontSize: 11, fontFamily: 'Roboto-Regular'}}>
-                                {video.description}
-                            </Text>
-                        </View>
-                        {/* <View style={{flex: 1, justifyContent: 'center'}}>
-                            <Text style={{color: '#888', fontSize: 12}}>{video.description}</Text>
-                        </View> */}
-                    </View>
-                </View>
-
+            <Animatable.View animation="fadeInRight" delay={videoDelay}>
                 <TouchableOpacity
-                    style={{position: 'absolute', top: -10, right: 5, borderRadius: 50, overflow: 'hidden', flex: 1, elevation: 5}}
                     activeOpacity={0.9}
-                    onPress={() => {Linking.openURL(video.link)}}
-                > 
-                    <Icon name="controller-play" type="Entypo" style={{color: 'white', backgroundColor: '#ff2b2b', fontSize: 20, padding: 7}} />
+                    style={{
+                        width: '95%', alignSelf: 'center', backgroundColor: 'white',
+                        flexDirection: 'row', marginTop: 20, height: 130, elevation: 2,
+                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: cardShadowOpacity, shadowRadius: 2,
+                    }}
+                    // onPress={() => this.props.selectVideo(video.link)}
+                >
+                    <View style={{flex: 3}}>
+                        <Thumbnail
+                            url={video.link}
+                            showPlayIcon={false}
+                            style={{height: '100%', width: '100%'}}
+                            // onPress={() => this.props.selectVideo(video.link)}
+                        />
+                    </View>
+
+                    <View style={{flex: 4}}>
+                        <View style={{flex: 1, flexDirection: 'column', paddingLeft: 10, paddingVertical: 5}}>
+                            <Text style={{color: '#444', fontWeight: '600', fontFamily: 'Roboto-Bold'}}>
+                                {video.name}
+                            </Text>
+                            <View>
+                                <Text numberOfLines={5} 
+                                    style={{color: '#888', marginTop: 7, fontSize: 11, fontFamily: 'Roboto-Regular'}}>
+                                    {video.description}
+                                </Text>
+                            </View>
+                            {/* <View style={{flex: 1, justifyContent: 'center'}}>
+                                <Text style={{color: '#888', fontSize: 12}}>{video.description}</Text>
+                            </View> */}
+                        </View>
+                    </View>
+
+                    <TouchableOpacity
+                        style={{position: 'absolute', top: -10, right: 5, borderRadius: 50, overflow: 'hidden', flex: 1, elevation: 5}}
+                        activeOpacity={0.9}
+                        onPress={() => {Linking.openURL(video.link)}}
+                    > 
+                        <Icon name="controller-play" type="Entypo" style={{color: 'white', backgroundColor: '#ff2b2b', fontSize: 20, padding: 7}} />
+                    </TouchableOpacity>
                 </TouchableOpacity>
-            </TouchableOpacity>
+            </Animatable.View>
         );
     }
 
@@ -101,14 +117,18 @@ export default class VideoFolder extends React.Component {
         //             </CardItem>sắp de
         //             {this.expandVideoList()}
         //         </Card>
-        //     </TouchableWithoutFeedback>   
+        //     </TouchableWithoutFeedback>
         // )
+
+        const folderTitleDelay = this.props.previousVideoListLength * videoAppearDelay + delayBetweenFolders;
 
         return (
             <View style={{marginTop: 10, marginBottom: 20,}}>
-                <View style={{borderBottomColor: '#888', borderBottomWidth: 2, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, marginLeft: 3, marginRight: 8,}}>
-                    <Text style={{color: '#444', fontSize: 18, fontFamily: 'Ubuntu-Bold', paddingLeft: 5}}>{this.props.folder.folderName}</Text>
-                </View>
+                <Animatable.View animation="fadeInRight" delay={folderTitleDelay} style={{borderBottomColor: '#888', borderBottomWidth: 2, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, marginLeft: 3, marginRight: 8,}}>
+                    <Text style={{color: '#444', fontSize: 18, fontFamily: 'Ubuntu-Bold', paddingLeft: 5}}>
+                        {this.props.folder.folderName}
+                    </Text>
+                </Animatable.View>
 
                 <FlatList 
                     data={this.props.folder.videoList}
