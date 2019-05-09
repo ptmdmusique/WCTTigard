@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import { Container, Icon, StyleProvider, Text, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
+import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
@@ -30,10 +29,7 @@ const MOCK_NEWS = [
 
 export default class NewsScreen extends React.Component {
   renderNews(news){
-    const index = MOCK_NEWS.indexOf(news);
-
     return (
-      <Animatable.View animation="lightSpeedIn" delay={index * 150}>
       <TouchableOpacity style={{flexDirection: 'row', height: 90, marginBottom: 10}} activeOpacity={0.8}
         onPress={() => this.props.navigation.navigate('NewsDetailScreen', {news})}
       >
@@ -55,7 +51,6 @@ export default class NewsScreen extends React.Component {
           </View>
         </View>
       </TouchableOpacity>
-      </Animatable.View>
     );
   }
 

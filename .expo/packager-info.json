@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://t4-hnh.ptmdmusique.wcttigard.exp.direct",
+  "packagerNgrokUrl": "https://packager.t4-hnh.ptmdmusique.wcttigard.exp.direct",
+  "ngrokPid": 4384
 }

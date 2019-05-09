@@ -25,19 +25,19 @@ export default class CustomHeader extends React.Component {
     return (
       <Header style={styles.header}>
         <Left style={{flex:1}}>
-          <Animatable.View animation="zoomIn" duration={500}>
+          <Animatable.View animation="zoomIn">
             {this.renderLeftIcon()}
           </Animatable.View>
         </Left>
 
         <Body style={{flex:3}}>
-          <Animatable.View animation="zoomIn" duration={500}>
+          <Animatable.View animation="zoomIn">
             <Title style={styles.headerText}>{this.props.title}</Title>
           </Animatable.View>
         </Body>
 
         <Right style={{flex:1}}>
-          <Animatable.View animation="zoomIn" duration={500}>
+          <Animatable.View animation="zoomIn">
             {this.props.isHome? null :
             <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
               {/* <Icon style={styles.headerIcon} name='home'/> */}

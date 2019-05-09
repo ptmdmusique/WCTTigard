@@ -90,7 +90,6 @@ export default class AlertScreen extends React.Component {
     ]
 
     const dateFrom = new Date(alert.dateFrom);
-    
     const index = MOCK_ALERTS.indexOf(alert);
 
     return (
