@@ -6,7 +6,7 @@ import { Image, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
-const MOCK_MESSAGE_BODY = "Test";
+const MOCK_MESSAGE_BODY = "Refer WCT Tigard to your friend!";
 
 export default class ReferUsScreen extends React.Component {
   render () {
@@ -60,7 +60,7 @@ export default class ReferUsScreen extends React.Component {
                   <Icon name="mail" style={styles.icon} />
               </TouchableOpacity>
               <TouchableOpacity
-                  onPress={() => Linking.openURL('sms:number?&body=' + MOCK_MESSAGE_BODY)}
+                  onPress={() => Linking.openURL('sms:?&body=' + MOCK_MESSAGE_BODY)}
               >
                   <Icon name="message-square" style={styles.icon} />
               </TouchableOpacity>

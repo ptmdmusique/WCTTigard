@@ -4,6 +4,14 @@ import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
+import {  Grayscale,
+  Sepia,
+  Tint,
+  ColorMatrix,
+  concatColorMatrices,
+  invert,
+  contrast,
+  saturate} from 'react-native-color-matrix-image-filters';
 import Swiper from 'react-native-deck-swiper';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -120,9 +128,9 @@ export default class HomeScreen extends React.Component {
 
           <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
             <View style={{flex: 1}}>
-              <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
-                style={{alignSelf: 'center', height: '100%', width: '100%'}}
-              />
+            <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
+                  style={{alignSelf: 'center', height: '100%', width: '100%'}}
+                />
             </View>
             
             {/* <Swiper
