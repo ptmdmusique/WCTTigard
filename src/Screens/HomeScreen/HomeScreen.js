@@ -4,17 +4,10 @@ import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
-import {  Grayscale,
-  Sepia,
-  Tint,
-  ColorMatrix,
-  concatColorMatrices,
-  invert,
-  contrast,
-  saturate} from 'react-native-color-matrix-image-filters';
 import Swiper from 'react-native-deck-swiper';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
+import * as firebase from 'firebase';
 
 const numberOfSwiper = 3;
 
@@ -55,6 +48,22 @@ var {height, width} = Dimensions.get('window');
 const itemPerRow = 4;
 
 export default class HomeScreen extends React.Component {
+
+  state = {
+    imageURL: "",
+  }
+
+  componentDidMount() {
+    //TODO: Change this back
+    firebase.storage().ref("HomeScreen/" + "test").listAll()
+    .then(result => {
+      result.items[0].getDownloadURL().then(url => {
+        this.setState({ imageURL: url })
+      })})
+    .catch(err => {
+      console.error(err);
+    });
+  }
 
   renderEventCard = (card) => {
     return (
@@ -128,9 +137,11 @@ export default class HomeScreen extends React.Component {
 
           <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
             <View style={{flex: 1}}>
-            <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
-                  style={{alignSelf: 'center', height: '100%', width: '100%'}}
-                />
+              {/* <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
+                style={{alignSelf: 'center', height: '100%', width: '100%',}} */}
+              <Image source={{uri: this.state.imageURL || "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
+                style={{alignSelf: 'center', height: '100%', width: '100%',}}
+              />
             </View>
             
             {/* <Swiper

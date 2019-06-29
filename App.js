@@ -10,6 +10,7 @@ import getTheme from './native-base-theme/components';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from './src/Redux/Reducers';
+import * as firebase from 'firebase';
 
 export default class App extends React.Component {
   constructor() {
@@ -19,6 +20,17 @@ export default class App extends React.Component {
       isReady: false,
       fontLoaded: false,
     };
+    
+    
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDAN3pQfUqF5rVmz2xOcc8j2QDmeDsPO4Q",
+      authDomain: "wcttigardweb.firebaseapp.com",
+      databaseURL: "https://wcttigardweb.firebaseio.com",
+      storageBucket: "wcttigardweb.appspot.com"
+    };
+
+    firebase.initializeApp(firebaseConfig);
   }
 
   async componentDidMount() {
