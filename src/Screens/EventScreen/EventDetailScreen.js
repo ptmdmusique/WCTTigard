@@ -116,7 +116,7 @@ export default class EventDetailScreen extends React.Component {
       return (
         <View style={{flex: 1}}>
           <View style={{width: screenWidth, height: screenHeight / 5, borderBottomColor: '#333', borderBottomWidth: 2}}>
-            <ImageBackground source={{uri: this.state.event.image}}
+            <ImageBackground source={{uri: this.state.event.imageURL}}
               style={{flex: 1, justifyContent: 'flex-end'}}
               imageStyle={{resizeMode:'cover'}}
             >

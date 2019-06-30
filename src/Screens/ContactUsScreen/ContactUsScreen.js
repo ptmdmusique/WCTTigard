@@ -6,6 +6,7 @@ import { View, Linking, Platform, TouchableOpacity,  StyleSheet} from 'react-nat
 import { MapView, Location, Permissions } from 'expo';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
+import * as firebase from 'firebase';
 
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
 const MOCK_CONTACT = {
@@ -16,56 +17,30 @@ const MOCK_CONTACT = {
     name: "WCT Tigard",
 };
 
-// const CONTACT_BUTTONS = [
-//     {
-//         iconName: 'email',
-//         iconType: 'MaterialCommunityIcons',
-//         backgroundColor: '#ff7b5e',
-//     },
-//     {
-//         iconName: 'phone',
-//         iconType: 'MaterialCommunityIcons',
-//         backgroundColor: '#15db54',
-//     },
-//     {
-//         iconName: 'globe',
-//         iconType: 'Entypo',
-//         backgroundColor: '#70a1ff',
-//     },
-// ];
-
 export default class ContactUsScreen extends React.Component {
     state = {
-        contact: MOCK_CONTACT,
-        finishLoading: false,
-        geoLocation: null,
-        url: null,
+        data: MOCK_CONTACT,
+        mapURL: null,
+        isLoading: true,
     }
     
-    async convertAddress() {
-        try {
-            this.setState({geoLocation: await Location.geocodeAsync(MOCK_CONTACT.address)});        
-        } catch(e){
-            console.log(e);
-        } finally {
-            await this.setState({
-                finishLoading: true, 
-                geoLocation: this.state.geoLocation[0],
-            });
-            this.setState({
-                url: Platform.select({
-                    ios: "maps:" + this.state.geoLocation.latitude + "," + 
-                        this.state.geoLocation.longitude + "?q=" + MOCK_CONTACT.name,
-                    android: "geo:" + this.state.geoLocation.latitude + "," + 
-                        this.state.geoLocation.longitude + "?q=" + MOCK_CONTACT.name,           
-                })
-            })
-            //console.log(JSON.stringify(this.state.geoLocation) + " " + JSON.stringify(this.state.url));
-        }
+    componentDidMount() {
+
     }
 
-    async componentDidMount(){
-        await Location.getProviderStatusAsync()
+    convertAddress() {
+        this.setState({
+            mapURL: Platform.select({
+                ios: "maps:" + this.state.data.latLng.lat + "," + 
+                    this.state.data.latLng.lng + "?q=" + this.state.data.schoolName,
+                android: "geo:" + this.state.data.latLng.lat + "," + 
+                    this.state.data.latLng.lng + "?q=" + this.state.data.schoolName,           
+            })
+        }, () => this.setState({ isLoading: false }))
+    }
+
+    componentDidMount(){        
+        Location.getProviderStatusAsync()
             .then(status => {
                 //console.log('Getting status');
                 if (!status.locationServicesEnabled) {
@@ -81,8 +56,14 @@ export default class ContactUsScreen extends React.Component {
             })
             .then(_ => {
                 //console.log('Have permissions');
-                this.convertAddress();
-                //console.log(geoLocation);
+                //TODO: CHANGE THIS
+                firebase.firestore().collection('ContactUsScreen').doc("test").get()
+                .then( doc => {
+                    this.setState({data: doc.data()}, () => this.convertAddress())
+                })
+                .catch(err => {
+                    console.log(err);
+                })
             })
             .catch(error => {
                 console.log(error);
@@ -93,24 +74,24 @@ export default class ContactUsScreen extends React.Component {
     }
 
     renderMap(){ 
-        if (this.state.finishLoading){
+        if (!this.state.isLoading){
             return (
                 <View style={{flex: 1}}>
                     <MapView
                         style={{width: '100%', flex: 1}}
                         initialRegion={{
-                            latitude: this.state.geoLocation.latitude, 
-                            longitude: this.state.geoLocation.longitude, 
+                            latitude: this.state.data.latLng.lat, 
+                            longitude: this.state.data.latLng.lng, 
                             longitudeDelta, 
                             latitudeDelta
                         }}
                         >
                         <MapView.Marker
-                            title={"World Champion Taekwondo Tigard"}
-                            description={"Master Eric's World Champion Taekwondo Tigard"}
+                            title={this.state.data.schoolName}
+                            description={this.state.data.markerLabel}
                             coordinate={{
-                                latitude: this.state.geoLocation.latitude, 
-                                longitude: this.state.geoLocation.longitude
+                                latitude: this.state.data.latLng.lat, 
+                                longitude: this.state.data.latLng.lng
                             }}
                         />
                     </MapView>
@@ -131,11 +112,11 @@ export default class ContactUsScreen extends React.Component {
                 </View>
                 <View style={{flex: 5, paddingRight: 15}}>
                     <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-                        <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{this.state.contact.name}</Text>
+                        <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{this.state.data.schoolName}</Text>
                     </View>
-                    <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.address}</Text>
-                    <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.phoneNumber}</Text>
-                    <Text style={{color: '#888', fontSize: 12}}>{this.state.contact.email}</Text>
+                    <Text style={{color: '#888', fontSize: 12}}>{this.state.data.address}</Text>
+                    <Text style={{color: '#888', fontSize: 12}}>{this.state.data.phoneNumber}</Text>
+                    <Text style={{color: '#888', fontSize: 12}}>{this.state.data.email}</Text>
                     {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
                 </View>
             </View>
@@ -155,42 +136,44 @@ export default class ContactUsScreen extends React.Component {
             <Container>
                 <CustomHeader title='Contact Us' navigation={this.props.navigation} />
 
-                <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
-                    {this.renderMap()}
-                    <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
-                        <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
-                        
-                        <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
-                            <TouchableOpacity
-                                onPress={() => Linking.openURL('mailto:' + MOCK_CONTACT.email)}
-                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
-                            >
-                                <Icon name="mail" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10}} />
-                            </TouchableOpacity>
+                { this.state.isLoading ? <Spinner/> :
+                    <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
+                        {this.renderMap()}
+                        <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+                            <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
+                            
+                            <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
+                                <TouchableOpacity
+                                    onPress={() => Linking.openURL('mailto:' + this.state.data.email)}
+                                    style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
+                                >
+                                    <Icon name="mail" style={{backgroundColor: '#ff7b5e', color: 'white', fontSize: 20, padding: 10}} />
+                                </TouchableOpacity>
 
-                            <TouchableOpacity
-                                onPress={() => Linking.openURL('tel:' + MOCK_CONTACT.phoneNumber)}
-                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
-                            >
-                                <Icon name="phone" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10}} />
-                            </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => Linking.openURL('tel:' + this.state.data.phoneNumber)}
+                                    style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
+                                >
+                                    <Icon name="phone" style={{backgroundColor: '#15db54', color: 'white', fontSize: 20, padding: 10}} />
+                                </TouchableOpacity>
 
-                            <TouchableOpacity
-                                onPress={() => Linking.openURL(MOCK_CONTACT.website)}
-                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
-                            >
-                                <Icon name="globe" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10}} />
-                            </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => Linking.openURL(this.state.data.website)}
+                                    style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
+                                >
+                                    <Icon name="globe" style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10}} />
+                                </TouchableOpacity>
 
-                            <TouchableOpacity
-                                onPress={() => Linking.openURL(this.state.url)}
-                                style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
-                            >
-                                <Icon name="map-pin" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10}} />
-                            </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => Linking.openURL(this.state.mapURL)}
+                                    style={{borderRadius: 50, overflow: 'hidden', marginRight: 8, elevation: 10}}
+                                >
+                                    <Icon name="map-pin" style={{backgroundColor: '#27b7c7', color: 'white', fontSize: 20, padding: 10}} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
+                }
             </Container>
           </StyleProvider>
         );

@@ -1,17 +1,20 @@
 import React from 'react';
-import { View, Image, Dimensions, TouchableOpacity, Platform, CameraRoll } from 'react-native';
-import { Container, StyleProvider, Footer, Text, Content, Toast } from 'native-base';
+import { View, Dimensions, TouchableOpacity, Platform, CameraRoll } from 'react-native';
+import { Container, StyleProvider, Footer, Text, Content, Toast, Spinner, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
+import PDFReader from 'rn-pdf-reader-js';
 import { FileSystem, Permissions } from 'expo';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
+import * as firebase from 'firebase';
 var {height, width} = Dimensions.get('window');
 
 export default class ScheduleScreen extends React.Component {
     state = {
-        scheduleURL: "https://imgur.com/DX5HpsF.jpg",
+        scheduleURL: "http://www.pdf995.com/samples/pdf.pdf",
+        isLoading: true,
         isGrantedPermission: false
     }
 
@@ -29,18 +32,27 @@ export default class ScheduleScreen extends React.Component {
             })
             // ToastAndroid.show("You won't be able to download.");
         }
+
+        //TODO: Change this back
+        firebase.storage().ref("ScheduleScreen/" + "test" + "/schedule.pdf").getDownloadURL()
+        .then(url => {
+            console.log("Schedule Download URL: " + url);
+            this.setState({ scheduleURL: url, isLoading: false })})
+        .catch(err => {
+            console.log(err);
+        })
     }
     
     downloadDocument() {
         if (this.state.isGrantedPermission){
             FileSystem.downloadAsync(
                 this.state.scheduleURL,                             //Link tai?
-                FileSystem.documentDirectory + 'schedule.jpeg'      //Thu muc iai?
+                FileSystem.documentDirectory + 'schedule.pdf'      //Thu muc iai?
             )
             .then(({ uri }) => {
                 CameraRoll.saveToCameraRoll(uri, 'photo');
                 Toast.show({
-                    text: "Downloaded! Check your gallery.",
+                    text: "Downloaded! Check your pdf download folder.",
                     buttonText: 'Okay',
                     duration: 2500,
                 })
@@ -102,14 +114,17 @@ export default class ScheduleScreen extends React.Component {
                     alignItems: 'center', 
                     justifyContent: 'center',}}>
                 <View style={{width, height: height * 0.8}}>
-                    <Image source={{uri: this.state.scheduleURL}}
+                    {/* <Image source={{uri: this.state.scheduleURL}}
                         style={{
                             flex: 1,
                             width: null,
                             height: null,
                             resizeMode: 'contain'
                         }}
-                    />
+                    /> */}
+                    {this.state.isLoading ? 
+                          <Spinner/>
+                        : <PDFReader source={{ uri: this.state.scheduleURL }} />}
                 </View>
               </Content>
 

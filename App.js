@@ -27,14 +27,17 @@ export default class App extends React.Component {
       apiKey: "AIzaSyDAN3pQfUqF5rVmz2xOcc8j2QDmeDsPO4Q",
       authDomain: "wcttigardweb.firebaseapp.com",
       databaseURL: "https://wcttigardweb.firebaseio.com",
-      storageBucket: "wcttigardweb.appspot.com"
+      storageBucket: "wcttigardweb.appspot.com",
+      projectId: "wcttigardweb",
+
     };
 
     firebase.initializeApp(firebaseConfig);
   }
 
   async componentDidMount() {
-    setTimeout(() => {this.setState({isReady: true})}, 500);
+    //setTimeout(() => {this.setState({isReady: true})}, 500);
+    this.setState({ isReady: true });
 
     await Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),

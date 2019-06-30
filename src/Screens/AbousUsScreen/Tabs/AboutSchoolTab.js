@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native'
-import {Text} from 'native-base';
+import {Text, Spinner} from 'native-base';
 import {View, ImageBackground, ScrollView} from 'react-native';
 
 const MOCK_SCHOOL_INFO = {
@@ -12,14 +12,9 @@ const MOCK_SCHOOL_INFO = {
 }
 
 
-const AboutSchoolTab = () => {
-  const renderParagraphs = () => {
-    return MOCK_SCHOOL_INFO.paragraphs.map((item, index) => (
-      <Text style={{color: 'white', fontSize: 10, marginTop: 10}} key={index}>
-        {item}
-      </Text>
-    ))
-  }
+const AboutSchoolTab = (props) => {
+  console.log(props.schoolData);
+  console.log(props.content);
 
   return (
     <ImageBackground
@@ -30,9 +25,11 @@ const AboutSchoolTab = () => {
 
       <ScrollView style={{alignSelf: 'center', width: '90%', marginTop: 10}}>
         <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18, fontFamily: 'Roboto', borderBottomColor: 'white', borderBottomWidth: 0.5, paddingBottom: 3}}>
-          Tigard Martial Arts Classes
+          {props.schoolData.title}
         </Text>
-        {renderParagraphs()}
+        <Text style={{color: 'white', fontSize: 10, marginTop: 10}}>
+          {props.schoolData.content}
+        </Text>
       </ScrollView>
     </ImageBackground>
   );

@@ -1,10 +1,12 @@
 import React from 'react';
-import { Container, Icon, StyleProvider, Text, Content } from 'native-base';
+import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
+import * as firebase from 'firebase';
+import '@firebase/firestore';
 
 const MOCK_NEWS = [
   {
@@ -28,6 +30,22 @@ const MOCK_NEWS = [
 ];
 
 export default class NewsScreen extends React.Component {
+  state = {
+    data: [],
+    isLoading: true,
+  }
+
+  componentDidMount() {
+    //TODO: CHANGE THIS
+    firebase.firestore().collection('NewsScreen').doc("test").get()
+    .then( doc =>
+      this.setState({data: doc.data().list, isLoading: false})
+    )
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
   renderNews(news){
     return (
       <TouchableOpacity style={{flexDirection: 'row', height: 90, marginBottom: 10}} activeOpacity={0.8}
@@ -65,11 +83,14 @@ export default class NewsScreen extends React.Component {
               NEWS
             </Text>
             <View style={{marginBottom: 10}}>
-              <FlatList 
-                keyExtractor={item => item.title}
-                data={MOCK_NEWS}
-                renderItem={data => this.renderNews(data.item)}
-              />
+            {this.state.isLoading ? 
+                  <Spinner/>
+                : <FlatList 
+                  keyExtractor={item => item.title}
+                  data={this.state.data}
+                  renderItem={data => this.renderNews(data.item)}
+                />
+              }
             </View>
           </Content>
 

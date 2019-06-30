@@ -43,13 +43,13 @@ const MOCK_MASTER_ACHIEVEMENTS = [
   },
 ]
 
-const AboutMasterTab = () => {
+const AboutMasterTab = (props) => {
 
   renderAchievements = () => {
-    return MOCK_MASTER_ACHIEVEMENTS.map((item, index) => (
+    return props.masterData.achievementList.map((item, index) => (
       <Text key={index}>
         <Text style={{fontWeight: '500', fontSize: 11,  color: '#333'}}>{item.year}</Text>
-        <Text style={{fontSize: 10,  color: '#333'}}> - {item.title}</Text>
+        <Text style={{fontSize: 10,  color: '#333'}}> - {item.award}</Text>
       </Text>
     ));
   }
@@ -58,20 +58,20 @@ const AboutMasterTab = () => {
     <ScrollView style={{height: '100%', backgroundColor: '#eee'}}>
       <Card style={{width: '95%', alignSelf: 'center'}}>
         <CardItem header bordered>
-          <Text style={{color: '#fc5344'}}>{MOCK_MASTER_INFO.masterName}</Text>
+          <Text style={{color: '#fc5344'}}>{props.masterData.title}</Text>
         </CardItem>
         
         <CardItem bordered>
           <Body>
             <Text style={{fontSize: 12, color: '#333'}}>
-              {MOCK_MASTER_INFO.masterDescription}
+              {props.masterData.content}
             </Text>
           </Body>
         </CardItem>
 
         <CardItem>
           <Body style={{flex: 1/3,}}>
-            <AutoHeightImage source={{uri: MOCK_MASTER_INFO.masterImageURL}} width={width / 4}/>
+            <AutoHeightImage source={{uri: props.masterImageURL}} width={width / 4}/>
           </Body>
           <Body style={{flex: 2/3, paddingLeft: 5}}>
             {renderAchievements()}

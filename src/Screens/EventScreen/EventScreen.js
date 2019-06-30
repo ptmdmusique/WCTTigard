@@ -1,10 +1,12 @@
 import React from 'react';
-import { Container, Icon, StyleProvider, Text, Content } from 'native-base';
+import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
+import * as firebase from 'firebase';
+import '@firebase/firestore';
 
 const MOCK_EVENTS = [
   {
@@ -40,6 +42,22 @@ const MOCK_EVENTS = [
 ];
 
 export default class EventScreen extends React.Component {
+
+  state = {
+    data: [],
+    isLoading: true,
+  }
+
+  componentDidMount() {
+    //TODO: CHANGE THIS
+    firebase.firestore().collection('EventScreen').doc("test").get()
+    .then( doc =>
+      this.setState({data: doc.data().list, isLoading: false})
+    )
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
   renderEvents(event){
     // const monthNames = [
@@ -102,11 +120,14 @@ export default class EventScreen extends React.Component {
               EVENTS
             </Text>
             <View>
-              <FlatList 
-                keyExtractor={item => item.title}
-                data={MOCK_EVENTS}
-                renderItem={data => this.renderEvents(data.item)}
-              />
+              {this.state.isLoading ? 
+                  <Spinner/>
+                : <FlatList 
+                  keyExtractor={item => item.title}
+                  data={this.state.data}
+                  renderItem={data => this.renderEvents(data.item)}
+                />
+              }
             </View>
           </Content>
 
