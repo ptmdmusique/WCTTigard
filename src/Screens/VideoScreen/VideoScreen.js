@@ -1,26 +1,37 @@
 import React from 'react';
-import { Container, StyleProvider, } from 'native-base';
+import { Container, StyleProvider, Spinner, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { WebView, AppState, View, FlatList, } from 'react-native';
+import { AppState, View, FlatList, } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import { WebView } from 'react-native-webview';
 
 import VideoFolder from './VideoFolder';
-
-import MOCK_VIDEOS from '../../../Database/Videos/VideoList.json';
-
 import CustomHeader from '../../CommonComponents/CustomHeader';
+
+import * as firebase from 'firebase'
 
 export default class VideoScreen extends React.Component {
   state = {
     appState: AppState.currentState,
     screenSwitched: false,
     currentVidUrl: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc"),
-    // defaultURL: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc")
+    
+    videoFolderList: null,
+    isLoading: true,
   }
 
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
+
+    //TODO: Change this
+    firebase.firestore().collection('VideoScreen').doc("test").get()
+    .then( doc => 
+      this.setState({ videoFolderList: doc.data().videoFolderList }, 
+        () => this.setState({ isLoading: false })))
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   componentWillUnmount() {
@@ -93,13 +104,15 @@ export default class VideoScreen extends React.Component {
             </Row>
           </Grid> */}
 
-          <View style={{backgroundColor: '#ddd'}}>
-            <FlatList
-              data = {MOCK_VIDEOS}
-              renderItem={this.renderFolder}
-              keyExtractor={folder => folder.folderName.toString()}
-            />
-          </View>
+          { this.state.isLoading ? <Spinner/> : 
+              <View style={{backgroundColor: '#ddd'}}>
+                <FlatList
+                  data = {this.state.videoFolderList}
+                  renderItem={this.renderFolder}
+                  keyExtractor={folder => folder.folderName.toString()}
+                />
+              </View>
+          }
 
         </Container>
       </StyleProvider>

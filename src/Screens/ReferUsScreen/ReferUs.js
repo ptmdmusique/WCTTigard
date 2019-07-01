@@ -18,7 +18,7 @@ export default class ReferUsScreen extends React.Component {
   componentDidMount() {
     firebase.firestore().collection('ReferUsScreen').doc("test").get()
     .then( doc => {
-      this.setState({data: doc.data(), isLoading: false})
+      this.setState({data: doc.data()}, () => this.setState({ isLoading: false }))
     })
     .catch(err => {
       console.log(err);

@@ -12,6 +12,8 @@ import {Provider} from 'react-redux';
 import reducers from './src/Redux/Reducers';
 import * as firebase from 'firebase';
 
+import { Permissions, Notifications } from 'expo';
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -20,7 +22,6 @@ export default class App extends React.Component {
       isReady: false,
       fontLoaded: false,
     };
-    
     
     // Initialize Firebase
     const firebaseConfig = {
@@ -66,18 +67,18 @@ export default class App extends React.Component {
       return (
         <StyleProvider style={getTheme(material)}>
             <Container>
-            <Content 
-                contentContainerStyle={{
-                    flex: 1, 
-                    alignContent: 'center', 
-                    justifyContent: 'center', 
-                    alignItems: 'center',
-                }}
-            >
-                    <Image source={require('./assets/images/sidebar-logo.png')}/>
-                    <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{"\n"}World Champion Taekwondo</Text>
-                    <Spinner color='red'/>
-                </Content>
+              <Content 
+                  contentContainerStyle={{
+                      flex: 1, 
+                      alignContent: 'center', 
+                      justifyContent: 'center', 
+                      alignItems: 'center',
+                  }}
+              >
+                  <Image source={require('./assets/images/sidebar-logo.png')}/>
+                  <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{"\n"}World Champion Taekwondo</Text>
+                  <Spinner color='red'/>
+              </Content>
             </Container>
         </StyleProvider>
       );

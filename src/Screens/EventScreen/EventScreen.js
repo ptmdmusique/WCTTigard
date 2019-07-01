@@ -8,39 +8,6 @@ import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase';
 import '@firebase/firestore';
 
-const MOCK_EVENTS = [
-  {
-    title: 'Test Event 1',
-    description: 'Short description 1',
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
-    address: "15660 SW Pacific Hwy",
-    locationName: 'WCTTigard',
-    dateFrom: '7/16/2008 12:15 AM',
-    dateTo: '7/23/2008 05:11 PM',
-    image: 'https://imgur.com/B8cudDx.jpg'
-  },
-  {
-    title: 'Test Event 2',
-    description: 'Short description 2',
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
-    address: "15660 SW Pacific Hwy",
-    locationName: 'WCTTigard',
-    dateFrom: '7/16/2008 12:15 AM',
-    dateTo: '7/23/2008 05:11 PM',
-    image: 'https://imgur.com/B8cudDx.jpg'
-  },
-  {
-    title: 'Test Event 3',
-    description: 'Short description 3',
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
-    address: "15660 SW Pacific Hwy",
-    locationName: 'WCTTigard',
-    dateFrom: '7/16/2008 12:15 AM',
-    dateTo: '7/23/2008 05:11 PM',
-    image: 'https://imgur.com/B8cudDx.jpg'
-  }
-];
-
 export default class EventScreen extends React.Component {
 
   state = {
@@ -52,7 +19,7 @@ export default class EventScreen extends React.Component {
     //TODO: CHANGE THIS
     firebase.firestore().collection('EventScreen').doc("test").get()
     .then( doc =>
-      this.setState({data: doc.data().list, isLoading: false})
+      this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
     )
     .catch(err => {
       console.log(err);
@@ -123,7 +90,7 @@ export default class EventScreen extends React.Component {
               {this.state.isLoading ? 
                   <Spinner/>
                 : <FlatList 
-                  keyExtractor={item => item.title}
+                  keyExtractor={(item, index) => item.title + index}
                   data={this.state.data}
                   renderItem={data => this.renderEvents(data.item)}
                 />

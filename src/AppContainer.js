@@ -16,6 +16,7 @@ import EventDetailScreen from './Screens/EventScreen/EventDetailScreen';
 import NewsScreen from './Screens/NewsScreen/NewsScreen';
 import NewsDetailScreen from './Screens/NewsScreen/NewsDetailScreen';
 import AlertScreen from './Screens/AlertScreen/AlertScreen';
+import BirdthdayScreen, { BirthdayScreen } from './Screens/BirthdayScreen/BirthdayScreen';
 
 // const FadeTransition = (index, position) => {
 //   const sceneRange = [index - 1, index - 0.99, index];
@@ -117,6 +118,9 @@ const MyDrawerNavigator = createDrawerNavigator({
   },
   Alert: {
     screen: AlertScreen,
+  },
+  Birthday: {
+    screen: BirthdayScreen,
   }
 }, {
   initialRouteName: 'Home',

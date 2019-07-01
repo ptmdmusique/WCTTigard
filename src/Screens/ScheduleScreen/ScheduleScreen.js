@@ -37,7 +37,7 @@ export default class ScheduleScreen extends React.Component {
         firebase.storage().ref("ScheduleScreen/" + "test" + "/schedule.pdf").getDownloadURL()
         .then(url => {
             console.log("Schedule Download URL: " + url);
-            this.setState({ scheduleURL: url, isLoading: false })})
+            this.setState({ scheduleURL: url }, () => this.setState({ isLoading: false }))})
         .catch(err => {
             console.log(err);
         })

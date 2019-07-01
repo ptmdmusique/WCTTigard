@@ -1,96 +1,38 @@
 import React from 'react';
 import { StyleSheet, View, FlatList, Platform } from 'react-native';
-import { Container, Icon, StyleProvider, Text, Content } from 'native-base';
+import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
+import Moment from 'moment';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as Animatable from 'react-native-animatable';
-const MOCK_ALERTS = [
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '3/12/2019',
-    dateTo: '3/12/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '3/12/2019',
-    dateTo: '3/12/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '3/12/2019',
-    dateTo: '3/12/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '3/12/2019',
-    dateTo: '3/12/2019',
-  },
-  {
-    title: 'Test Alert 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    dateFrom: '9/22/2019',
-    dateTo: '9/25/2019',
-  },
-]
+import * as firebase from 'firebase';
 
 export default class AlertScreen extends React.Component {
-  renderAlerts(alert) {
+  state = {
+    isLoading: false,
+    data: null,
+  }
+  
+  componentDidMount() {
+    //TODO: CHANGE THIS
+    firebase.firestore().collection('AlertScreen').doc("test").get()
+    .then( doc =>
+      this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
+    )
+    .catch(err => {
+      console.log(err);
+    })
+  }
 
+  renderAlerts(alert, index) {
     const monthNames_short = [
       "Jan", "Feb", "Mar", "Apr", "May", "Jun",
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ]
 
-    const dateFrom = new Date(alert.dateFrom);
-    const index = MOCK_ALERTS.indexOf(alert);
+    const date = new Date(alert.date);
 
     return (
       <Animatable.View animation="lightSpeedIn" delay={index * 200}>
@@ -102,16 +44,16 @@ export default class AlertScreen extends React.Component {
               <View>
                 <Icon name="calendar" type='Feather' style={{fontSize: 60, color: '#ff6060',}}/>
                 <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}}>
-                  {dateFrom.getDate()}
+                  {date.getDate()}
                 </Text>
               </View>
               <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>
-                {monthNames_short[dateFrom.getMonth()]}
+                {monthNames_short[date.getMonth()]}
               </Text>
             </View>
             <View style={{flex: 3/4, marginRight: 50}}>
               <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ff6060', fontFamily: 'Roboto-Bold'}}>{alert.title}</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999', paddingRight: 1, fontFamily: 'Roboto-Bold'}}>{alert.description}</Text>
+              <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999', paddingRight: 1, fontFamily: 'Roboto-Bold'}}>{alert.content}</Text>
             </View>
           </View>
 
@@ -119,7 +61,7 @@ export default class AlertScreen extends React.Component {
             <Icon name="clock" style={styles.icon}/>
             <Text style={styles.dateText}>
               {/* Expired: {alert.dateFrom === alert.dateTo ? 'Same day' : alert.dateTo} */}
-              {alert.dateFrom} - {alert.dateTo}
+              Effective Date: {Moment(alert.date).format("MM-DD-YYYY")}
             </Text>
           </View>
         </View>
@@ -134,11 +76,13 @@ export default class AlertScreen extends React.Component {
           <CustomHeader title='Alerts' navigation={this.props.navigation} />
 
           <Content style={{flex: 1, backgroundColor: '#ddd'}}>
-            <FlatList
-              data={MOCK_ALERTS}
-              keyExtractor={data => MOCK_ALERTS.indexOf(data).toString()}
-              renderItem={data => this.renderAlerts(data.item)}
-            />
+            {this.state.isLoading ? <Spinner/> :
+              <FlatList
+                data={this.state.data}
+                keyExtractor={(data, index) => index.toString()}
+                renderItem={(data, index) => this.renderAlerts(data.item, index)}
+              />   
+            }
           </Content>
 
         </Container>

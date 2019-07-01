@@ -9,25 +9,14 @@ import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase';
 
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
-const MOCK_CONTACT = {
-    phoneNumber: '(503) 431-2034',
-    address: "15660 SW Pacific Hwy",
-    website: 'http://wcttigard.com/',
-    email: 'wcttigard@yahoo.com',
-    name: "WCT Tigard",
-};
 
 export default class ContactUsScreen extends React.Component {
     state = {
-        data: MOCK_CONTACT,
+        data: null,
         mapURL: null,
         isLoading: true,
     }
     
-    componentDidMount() {
-
-    }
-
     convertAddress() {
         this.setState({
             mapURL: Platform.select({

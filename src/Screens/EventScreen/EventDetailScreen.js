@@ -129,7 +129,7 @@ export default class EventDetailScreen extends React.Component {
             <Card style={styles.cardStyle}>
               <CardItem>
                 <Icon name="calendar" type="FontAwesome" style={styles.icon}/>
-                <Text style={{flex: 18/20, color: "#333", fontSize: 13}}>{this.state.event.dateFrom} - {this.state.event.dateTo}</Text>
+                <Text style={{flex: 18/20, color: "#333", fontSize: 11}}>{this.state.event.dateFrom} - {this.state.event.dateTo}</Text>
               </CardItem>
               {this.renderLocationItem()}
             </Card>
@@ -142,7 +142,7 @@ export default class EventDetailScreen extends React.Component {
                   </Text>
                 </CardItem>
                 <CardItem>
-                  <Text style={{fontSize: 12, color: "#666"}}>
+                  <Text style={{fontSize: 11, color: "#666"}}>
                     {this.state.event.content}
                   </Text>
                 </CardItem>

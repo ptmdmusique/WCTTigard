@@ -16,7 +16,7 @@ export default class VideoFolder extends React.Component {
         UIManager.setLayoutAnimationEnabledExperimental && 
             UIManager.setLayoutAnimationEnabledExperimental(true);
     }
-    
+
     componentDidUpdate() {
         LayoutAnimation.spring();
     }

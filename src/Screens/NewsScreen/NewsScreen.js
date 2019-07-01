@@ -39,7 +39,7 @@ export default class NewsScreen extends React.Component {
     //TODO: CHANGE THIS
     firebase.firestore().collection('NewsScreen').doc("test").get()
     .then( doc =>
-      this.setState({data: doc.data().list, isLoading: false})
+      this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
     )
     .catch(err => {
       console.log(err);

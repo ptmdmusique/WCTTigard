@@ -8,7 +8,7 @@ const routes =  [
   {
     name: "Home",
     iconName: "home",
-    iconType: "AntDesign",
+    iconType: "Feather",
     displayName: "Home"
   },
   {
