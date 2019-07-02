@@ -14,6 +14,17 @@ import * as firebase from 'firebase';
 
 import { Permissions, Notifications } from 'expo';
 
+var FIREBASE_ENDPOINT = "https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/<TOPIC_NAME> ";
+//Should be this?
+// https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/<TOPIC_NAME> 
+// https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/wcttigard 
+//Or this, using the old schema, doc as device token + query for group field
+// "https://firestore.googleapis.com/v1/projects/wcttigardweb/databases/(default)/documents"
+//                                      projects/wcttigardweb/databases/(default)/documents
+// POST https://firestore.googleapis.com/v1/projects/wcttigardweb/databases/(default)/documents/FCMToken?documentId=someID2&key={YOUR_API_KEY}
+// https://developers.google.com/apis-explorer/#search/firestore/firestore/v1/firestore.projects.databases.documents.createDocument?parent=projects%252Fwcttigardweb%252Fdatabases%252F(default)%252Fdocuments&collectionId=FCMToken&documentId=someID2&_h=2&resource=%257B%250A++%2522fields%2522%253A+%250A++%257B%250A++++%2522group%2522%253A+%250A++++%257B%250A++++++%2522stringValue%2522%253A+%2522myGroup2%2522%250A++++%257D%250A++%257D%250A%257D&
+//https://firebase.google.com/docs/cloud-messaging/js/send-multiple  <----- Subscription
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -21,6 +32,8 @@ export default class App extends React.Component {
     this.state = {
       isReady: false,
       fontLoaded: false,
+      
+      notification: null,
     };
     
     // Initialize Firebase
@@ -30,14 +43,56 @@ export default class App extends React.Component {
       databaseURL: "https://wcttigardweb.firebaseio.com",
       storageBucket: "wcttigardweb.appspot.com",
       projectId: "wcttigardweb",
-
     };
 
     firebase.initializeApp(firebaseConfig);
   }
 
+  async registerForPushNotificationsAsync() {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+  
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+  
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== 'granted') {
+      //TODO: WARN THE USER HERE
+      return;
+    }
+
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+
+    // POST the token to your backend server from where you can retrieve it to send push notifications.
+    //TODO: CHANGE THIS
+    let docRef = firebase.firestore().collection('FCMToken').doc('test');
+    docRef.set({
+      list: firebase.firestore.FieldValue.arrayUnion(token)
+    }, { merge: true }).then(
+      console.log("Add Token successfully!")
+    ).catch(err => {
+      console.log(err);
+    })
+
+    this.notificationSubscription = Notifications.addListener(this.handleNotification);
+  }
+
+  handleNotification = (notification) => {
+    this.setState({ notification });
+  }
+
   async componentDidMount() {
     //setTimeout(() => {this.setState({isReady: true})}, 500);
+    
     this.setState({ isReady: true });
 
     await Font.loadAsync({
@@ -54,6 +109,8 @@ export default class App extends React.Component {
       'VarelaRound': require('./assets/fonts/VarelaRound/VarelaRound-Regular.ttf'),
     });
     this.setState({ fontLoaded: true });
+ 
+    this.registerForPushNotificationsAsync();
   }
 
   render() {
