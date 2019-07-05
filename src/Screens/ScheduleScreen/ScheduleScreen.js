@@ -4,7 +4,8 @@ import { Container, StyleProvider, Footer, Text, Content, Toast, Spinner, } from
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import PDFReader from 'rn-pdf-reader-js';
-import { FileSystem, Permissions } from 'expo';
+import { FileSystem, } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 

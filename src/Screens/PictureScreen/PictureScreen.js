@@ -9,7 +9,7 @@ import CustomHeader from '../../CommonComponents/CustomHeader';
 import MOCK_IMAGES from '../../../Database/Images/ImageList.json'; //Temporarily, use this as name
 import Modal from "react-native-modal";
 import AutoHeightImage from 'react-native-auto-height-image';
-import { FileSystem } from 'expo';
+import * as FileSystem from 'expo-file-system'
 
 const imagePerRow = 3;
 const {height, width} = Dimensions.get('window');

@@ -3,7 +3,8 @@ import { Container, Icon, StyleProvider, Text, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { View, Linking, Platform, TouchableOpacity,  StyleSheet} from 'react-native';
-import { MapView, Location, Permissions } from 'expo';
+import { MapView, Location, } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase';

@@ -3,7 +3,8 @@ import { StatusBar, Platform, StatusBarStyle } from 'react-native';
 import AppContainer from './src/AppContainer';
 import { Root, StyleProvider, Spinner, Text, Content, Container } from 'native-base';
 import { Image } from 'react-native';
-import { Font, AppLoading } from 'expo';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font'
 import material from './native-base-theme/variables/material';
 import getTheme from './native-base-theme/components';
 
@@ -12,7 +13,8 @@ import {Provider} from 'react-redux';
 import reducers from './src/Redux/Reducers';
 import * as firebase from 'firebase';
 
-import { Permissions, Notifications } from 'expo';
+import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 var FIREBASE_ENDPOINT = "https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/<TOPIC_NAME> ";
 //Should be this?

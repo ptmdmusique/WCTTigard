@@ -5,7 +5,8 @@ import getTheme from '../../../../native-base-theme/components';
 import { Image, View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking, ScrollView} from 'react-native';
 
 import {customStyles} from '../../../common/CustomStyle';
-import {MapView, Location, Permissions} from 'expo';
+import {MapView, Location, } from 'expo';
+import * as Permissions from 'expo-permissions';
 
 var latitudeDelta = 0.0522, longitudeDelta = 0.0521;
 var {height: screenHeight, width: screenWidth} = Dimensions.get('window');
