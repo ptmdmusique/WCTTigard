@@ -5,7 +5,7 @@ import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import '@firebase/firestore';
 
 export default class EventScreen extends React.Component {
@@ -17,7 +17,7 @@ export default class EventScreen extends React.Component {
 
   componentDidMount() {
     //TODO: CHANGE THIS
-    firebase.firestore().collection('EventScreen').doc("test").get()
+    firebase.firestore().collection('EventScreen').doc(global.uid).get()
     .then( doc =>
       this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
     )

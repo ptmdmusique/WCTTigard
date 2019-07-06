@@ -7,7 +7,7 @@ import { MapView, Location, } from 'expo';
 import * as Permissions from 'expo-permissions';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
 
@@ -47,7 +47,7 @@ export default class ContactUsScreen extends React.Component {
             .then(_ => {
                 //console.log('Have permissions');
                 //TODO: CHANGE THIS
-                firebase.firestore().collection('ContactUsScreen').doc("test").get()
+                firebase.firestore().collection('ContactUsScreen').doc(global.uid).get()
                 .then( doc => {
                     this.setState({data: doc.data()}, () => this.convertAddress())
                 })

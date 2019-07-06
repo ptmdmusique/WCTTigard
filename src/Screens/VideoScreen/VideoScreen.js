@@ -25,7 +25,7 @@ export default class VideoScreen extends React.Component {
     AppState.addEventListener('change', this._handleAppStateChange);
 
     //TODO: Change this
-    firebase.firestore().collection('VideoScreen').doc("test").get()
+    firebase.firestore().collection('VideoScreen').doc(global.uid).get()
     .then( doc => 
       this.setState({ videoFolderList: doc.data().videoFolderList }, 
         () => this.setState({ isLoading: false })))

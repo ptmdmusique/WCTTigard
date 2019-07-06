@@ -11,7 +11,7 @@ import getTheme from './native-base-theme/components';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducers from './src/Redux/Reducers';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
@@ -37,6 +37,10 @@ export default class App extends React.Component {
       
       notification: null,
     };
+
+    //USER ID
+    //global.uid = "rtJagOTuloWzHv8H4Q9zkH9Ugei2";
+    global.uid = "test";
     
     // Initialize Firebase
     const firebaseConfig = {
@@ -94,7 +98,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     //setTimeout(() => {this.setState({isReady: true})}, 500);
-    
+    console.log("HAHA: " + global.uid);
     this.setState({ isReady: true });
 
     await Font.loadAsync({

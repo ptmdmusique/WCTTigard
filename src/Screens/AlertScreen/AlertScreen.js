@@ -7,7 +7,7 @@ import Moment from 'moment';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as Animatable from 'react-native-animatable';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 export default class AlertScreen extends React.Component {
   state = {
@@ -17,7 +17,7 @@ export default class AlertScreen extends React.Component {
   
   componentDidMount() {
     //TODO: CHANGE THIS
-    firebase.firestore().collection('AlertScreen').doc("test").get()
+    firebase.firestore().collection('AlertScreen').doc(global.uid).get()
     .then( doc =>
       this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
     )

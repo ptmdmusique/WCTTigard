@@ -7,7 +7,7 @@ import { Row, Grid, Col } from "react-native-easy-grid";
 import Swiper from 'react-native-deck-swiper';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 const numberOfSwiper = 3;
 //This should be dynamically retrieved from database for the "More" section
@@ -51,8 +51,9 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    console.log(global.uid);
     //TODO: Change this back
-    firebase.storage().ref("HomeScreen/" + "test").listAll()
+    firebase.storage().ref("HomeScreen/" + global.uid).listAll()
     .then(result => {
       result.items[0].getDownloadURL().then(url => {
         this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
@@ -61,7 +62,7 @@ export default class HomeScreen extends React.Component {
       console.error(err);
     });
 
-    firebase.firestore().collection('EventScreen').doc("test").get()
+    firebase.firestore().collection('EventScreen').doc("rtJagOTuloWzHv8H4Q9zkH9Ugei2").get()
     .then( doc => {
       tempList = doc.data().list;
       tempList.sort((a, b) => {

@@ -7,7 +7,7 @@ import CustomHeader from '../../CommonComponents/CustomHeader';
 
 import AboutSchoolTab from './Tabs/AboutSchoolTab';
 import AboutMasterTab from './Tabs/AboutMasterTab';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 export default class PictureScreen extends React.Component {
   state = {
@@ -20,18 +20,18 @@ export default class PictureScreen extends React.Component {
 
   componentDidMount() {
     //TODO: Change this
-    firebase.firestore().collection('AboutSchool').doc("test").get()
+    firebase.firestore().collection('AboutSchool').doc(global.uid).get()
     .then( doc => this.setState({ aboutSchoolData: doc.data() }, () => this.setState({ isSchoolLoading: false })))
     .catch(err => {
       console.log(err);
     })
 
     //TODO: Change this
-    firebase.firestore().collection('AboutMaster').doc("test").get()
+    firebase.firestore().collection('AboutMaster').doc(global.uid).get()
     .then( doc => {
       this.setState({ aboutMasterData: doc.data() }, () => {
         //TODO: Change this back
-        firebase.storage().ref("AboutMasterScreen/" + "test").listAll()
+        firebase.storage().ref("AboutMasterScreen/" + global.uid).listAll()
         .then(result => {
           result.items[0].getDownloadURL().then(url => {
             this.setState({ masterImageURL: url }, () => {

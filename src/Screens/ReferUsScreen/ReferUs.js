@@ -5,7 +5,7 @@ import getTheme from '../../../native-base-theme/components';
 import { Image, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 const MOCK_MESSAGE_BODY = "Refer WCT Tigard to your friend!";
 
@@ -16,7 +16,7 @@ export default class ReferUsScreen extends React.Component {
   }
 
   componentDidMount() {
-    firebase.firestore().collection('ReferUsScreen').doc("test").get()
+    firebase.firestore().collection('ReferUsScreen').doc(global.uid).get()
     .then( doc => {
       this.setState({data: doc.data()}, () => this.setState({ isLoading: false }))
     })

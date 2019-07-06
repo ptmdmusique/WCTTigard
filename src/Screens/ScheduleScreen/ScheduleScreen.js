@@ -9,7 +9,7 @@ import * as Permissions from 'expo-permissions';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 var {height, width} = Dimensions.get('window');
 
 export default class ScheduleScreen extends React.Component {
@@ -35,7 +35,7 @@ export default class ScheduleScreen extends React.Component {
         }
 
         //TODO: Change this back
-        firebase.storage().ref("ScheduleScreen/" + "test" + "/schedule.pdf").getDownloadURL()
+        firebase.storage().ref("ScheduleScreen/" + global.uid + "/schedule.pdf").getDownloadURL()
         .then(url => {
             console.log("Schedule Download URL: " + url);
             this.setState({ scheduleURL: url }, () => this.setState({ isLoading: false }))})
