@@ -56,8 +56,8 @@ export default class EventScreen extends React.Component {
         </View>
         <View style={{flex: 4/5, backgroundColor: 'white', paddingLeft: 15, paddingTop: 10}}>
           <View style={{flex: 2/3}}>
-            <Text style={{color: '#333', fontSize: 16, fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{event.title}</Text>
-            <Text style={{color: '#999', fontSize: 13, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>{event.description}</Text>
+            <Text style={{color: '#333', fontSize: 18, fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{event.title}</Text>
+            <Text style={{color: '#999', fontSize: 14, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>{event.description}</Text>
           </View>
           <View style={{flex: 1/3, flexDirection: 'row'}}>
             <View style={{flex: 5/6, justifyContent: 'center',}}>
