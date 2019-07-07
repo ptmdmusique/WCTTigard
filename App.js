@@ -37,8 +37,12 @@ export default class App extends React.Component {
     };
 
     //USER ID
-    //global.uid = "rtJagOTuloWzHv8H4Q9zkH9Ugei2";
-    global.uid = "test";
+    //ptmdmusique
+    global.uid = "rtJagOTuloWzHv8H4Q9zkH9Ugei2";
+    //WCTTigard 
+    //global.uid = "up9uVP8l43csXumPi9okIWTUcuH2";
+    //Test
+    //global.uid = "test";
     
     // Initialize Firebase
     const firebaseConfig = {
@@ -78,7 +82,7 @@ export default class App extends React.Component {
 
     // POST the token to your backend server from where you can retrieve it to send push notifications.
     //TODO: CHANGE THIS
-    let docRef = firebase.firestore().collection('FCMToken').doc('test');
+    let docRef = firebase.firestore().collection('FCMToken').doc(global.uid);
     docRef.set({
       list: firebase.firestore.FieldValue.arrayUnion(token)
     }, { merge: true }).then(
@@ -96,7 +100,6 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     //setTimeout(() => {this.setState({isReady: true})}, 500);
-    console.log("HAHA: " + global.uid);
     this.setState({ isReady: true });
 
     await Font.loadAsync({

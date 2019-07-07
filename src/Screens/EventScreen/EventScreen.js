@@ -22,6 +22,9 @@ export default class EventScreen extends React.Component {
       this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
     )
     .catch(err => {
+      //TODO: Add some alert here
+      this.setState({ isLoading: false });
+      console.log("--No Event to load");
       console.log(err);
     })
   }

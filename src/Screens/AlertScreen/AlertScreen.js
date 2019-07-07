@@ -22,6 +22,9 @@ export default class AlertScreen extends React.Component {
       this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
     )
     .catch(err => {
+      //TODO: Add some alert here
+      this.setState({ isLoading: false });
+      console.log("--No Alert to load");
       console.log(err);
     })
   }
@@ -32,7 +35,7 @@ export default class AlertScreen extends React.Component {
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ]
 
-    const date = new Date(alert.date);
+    Moment(alert.date).format("MM-DD-YYYY")
 
     return (
       <Animatable.View animation="lightSpeedIn" delay={index * 200}>
@@ -44,11 +47,11 @@ export default class AlertScreen extends React.Component {
               <View>
                 <Icon name="calendar" type='Feather' style={{fontSize: 60, color: '#ff6060',}}/>
                 <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}}>
-                  {date.getDate()}
+                  {Moment(alert.date).format("D")}
                 </Text>
               </View>
               <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>
-                {monthNames_short[date.getMonth()]}
+                {monthNames_short[Moment(alert.date).format("M")]}
               </Text>
             </View>
             <View style={{flex: 3/4, marginRight: 50}}>

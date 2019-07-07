@@ -50,21 +50,44 @@ export default class HomeScreen extends React.Component {
     isEventLoading: true,
   }
 
-  componentDidMount() {
-    console.log(global.uid);
+  componentDidMount() {    
     //TODO: Change this back
     firebase.storage().ref("HomeScreen/" + global.uid).listAll()
     .then(result => {
+      if (!result.items || result.items.length === 0){
+        console.log("--No homescreen image");
+        firebase.storage().ref("HomeScreen/test").listAll()
+        .then(result => {
+        result.items[0].getDownloadURL().then(url => {
+          this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
+        })})
+        return;
+      }
+
       result.items[0].getDownloadURL().then(url => {
         this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
       })})
     .catch(err => {
+      console.log("--No homescreen image");
+      firebase.storage().ref("HomeScreen/test").listAll()
+      .then(result => {
+        result.items[0].getDownloadURL().then(url => {
+          this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
+        })})
       console.error(err);
     });
-
-    firebase.firestore().collection('EventScreen').doc("rtJagOTuloWzHv8H4Q9zkH9Ugei2").get()
-    .then( doc => {
+    
+    firebase.firestore().collection('EventScreen').doc(global.uid).get()
+    .then( doc => {      
       tempList = doc.data().list;
+      console.log("--Getting latest event"); 
+      //console.log(tempList);
+      if (!tempList || tempList.length === 0){
+        console.log("--Empty latest event");
+        this.setState({ isEventLoading: false } );
+        return;
+      }
+
       tempList.sort((a, b) => {
         var returnVal = new Date(b.dateFrom) - new Date(a.dateFrom);
         if (returnVal === 0) {
@@ -76,6 +99,8 @@ export default class HomeScreen extends React.Component {
       this.setState({latestEvent: tempList[0]}, () => this.setState({ isEventLoading: false }))
     })
     .catch(err => {
+      console.log("--Empty latest event");
+      this.setState({ isEventLoading: false } );
       console.log(err);
     })
 
@@ -92,6 +117,7 @@ export default class HomeScreen extends React.Component {
               <Icon name="newspaper-o" type="FontAwesome" style={{color: '#fc5344'}} />
           </View>
           
+          {this.state.latestEvent ? 
           <View style={{flex: 5, paddingRight: 15, paddingLeft: 11}}>
             <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
               <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold', fontSize: 13, }}>
@@ -103,7 +129,9 @@ export default class HomeScreen extends React.Component {
             <Text style={{color: '#888', fontSize: 10, marginTop: 5, }}> Start: {this.state.latestEvent.dateFrom}</Text>
             <Text style={{color: '#888', fontSize: 10}}> End: {this.state.latestEvent.dateTo}</Text>
             {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
-          </View>  
+          </View>  : 
+          null
+          }
         </View>     
       </View>
     );

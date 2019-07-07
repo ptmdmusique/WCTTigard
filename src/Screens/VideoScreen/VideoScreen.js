@@ -26,10 +26,14 @@ export default class VideoScreen extends React.Component {
 
     //TODO: Change this
     firebase.firestore().collection('VideoScreen').doc(global.uid).get()
-    .then( doc => 
+    .then( doc => {
+      console.log("--Video loaded!");
       this.setState({ videoFolderList: doc.data().videoFolderList }, 
-        () => this.setState({ isLoading: false })))
+        () => this.setState({ isLoading: false }))
+    })
     .catch(err => {
+      console.log("--No video to load!'")
+      this.setState({ isLoading: false })
       console.log(err);
     })
   }
@@ -85,25 +89,6 @@ export default class VideoScreen extends React.Component {
               onWillBlur={() => this.setState({ screenSwitched: true })}
             />
 
-          {/* <Grid>
-            <Row size={4} style={{borderBottomColor: '#666', borderBottomWidth: 4, elevation: 5}}>
-              {this.renderVideo()}
-            </Row>
-
-            <Row size={6} style={{backgroundColor: '#ddd'}}>
-              <Grid>
-               
-                <Row style={{}}>
-                  <FlatList
-                    data = {MOCK_VIDEOS}
-                    renderItem={this.renderFolder}
-                    keyExtractor={folder => folder.folderName.toString()}
-                  />
-                </Row>
-              </Grid>
-            </Row>
-          </Grid> */}
-
           { this.state.isLoading ? <Spinner/> : 
               <View style={{backgroundColor: '#ddd'}}>
                 <FlatList
@@ -119,11 +104,3 @@ export default class VideoScreen extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = (state) => {
-//   const vidURL = state.selectedItem.vidURL;
-  
-//   return {vidURL}
-// };
-
-// export default connect(mapStateToProps)(VideoScreen);

@@ -39,6 +39,9 @@ export default class ScheduleScreen extends React.Component {
             console.log("Schedule Download URL: " + url);
             this.setState({ scheduleURL: url }, () => this.setState({ isLoading: false }))})
         .catch(err => {
+            //TODO: Add some alert here
+            this.setState({ isLoading: false });
+            console.log("--No Schedule to load");
             console.log(err);
         })
     }
