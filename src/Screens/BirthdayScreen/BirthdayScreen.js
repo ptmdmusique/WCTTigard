@@ -20,6 +20,8 @@ export class BirthdayScreen extends Component {
       this.setState({data: doc.data().birthdayContent }, () => this.setState({isLoading: false}))
     )
     .catch(err => {
+      console.log("--No birthday to load");
+      this.setState({ isLoading: false });
       console.log(err);
     })
   }
@@ -32,7 +34,7 @@ export class BirthdayScreen extends Component {
 
         {this.state.isLoading ? <Spinner/> : 
           <WebView
-            source={{ html: this.state.data}}
+            source={{ html: this.state.data || ""}}
           />}
         </Container>
       </StyleProvider>

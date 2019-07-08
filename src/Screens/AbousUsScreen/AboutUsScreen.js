@@ -23,26 +23,34 @@ export default class PictureScreen extends React.Component {
     firebase.firestore().collection('AboutSchool').doc(global.uid).get()
     .then( doc => this.setState({ aboutSchoolData: doc.data() }, () => this.setState({ isSchoolLoading: false })))
     .catch(err => {
+      console.log("--No about school data to load in AboutUsScreen")
+      this.setState({ isSchoolLoading: false });
       console.log(err);
     })
 
     //TODO: Change this
     firebase.firestore().collection('AboutMaster').doc(global.uid).get()
     .then( doc => {
-      this.setState({ aboutMasterData: doc.data() }, () => {
-        //TODO: Change this back
-        firebase.storage().ref("AboutMasterScreen/" + global.uid).listAll()
-        .then(result => {
-          result.items[0].getDownloadURL().then(url => {
-            this.setState({ masterImageURL: url }, () => {
-              this.setState({ isMasterLoading: false })
-            })              
-          })})
-        .catch(err => {
-          console.error(err);
-        });
-        
-      })
+      if (doc.data()){
+        this.setState({ aboutMasterData: doc.data() }, () => {
+          //TODO: Change this back
+          firebase.storage().ref("AboutMasterScreen/" + global.uid).listAll()
+          .then(result => {
+            result.items[0].getDownloadURL().then(url => {
+              this.setState({ masterImageURL: url }, () => {
+                this.setState({ isMasterLoading: false })
+              })              
+            })})
+          .catch(err => {
+            console.log("--Can't load master image in AboutUsScreen");
+            console.error(err);
+          });
+          
+        })
+      } else {
+        console.log("--No master image to load in AboutUsScreen");
+        this.setState({ isMasterLoading: false });
+      }
     })
   }
   

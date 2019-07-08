@@ -4,19 +4,24 @@ import {Text, Spinner} from 'native-base';
 import {View, ImageBackground, ScrollView} from 'react-native';
 
 const AboutSchoolTab = (props) => {
+  if (!props.schoolData){
+    return null;
+  }
+
   return (
     <ImageBackground
-      source={{uri: 'https://i.pinimg.com/originals/fe/79/3e/fe793ed2d97dee602f1ef3d58eeba1f0.jpg'}}
+      //source={{uri: 'https://i.pinimg.com/originals/fe/79/3e/fe793ed2d97dee602f1ef3d58eeba1f0.jpg'}}
+      source={{ uri: 'http://wcttigard.com/assets/wp-content/screens/IMG_5396.JPG' }}
       style={{height: '100%', width: 'auto'}}
     >
-      <View style={{backgroundColor: 'black', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', opacity: (Platform.OS === 'ios' ? 0.5 : 0.8)}}></View>
+      <View style={{backgroundColor: 'black', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', opacity: (Platform.OS === 'ios' ? 0.8 : 0.8)}}></View>
 
       <ScrollView style={{alignSelf: 'center', width: '90%', marginTop: 10}}>
         <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18, fontFamily: 'Roboto', borderBottomColor: 'white', borderBottomWidth: 0.5, paddingBottom: 3}}>
-          {props.schoolData.title}
+          {props.schoolData.title || ""}
         </Text>
         <Text style={{color: 'white', fontSize: 10, marginTop: 10}}>
-          {props.schoolData.content}
+          {props.schoolData.content || ""}
         </Text>
       </ScrollView>
     </ImageBackground>

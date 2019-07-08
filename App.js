@@ -38,9 +38,9 @@ export default class App extends React.Component {
 
     //USER ID
     //ptmdmusique
-    global.uid = "rtJagOTuloWzHv8H4Q9zkH9Ugei2";
+    //global.uid = "rtJagOTuloWzHv8H4Q9zkH9Ugei2";
     //WCTTigard 
-    //global.uid = "up9uVP8l43csXumPi9okIWTUcuH2";
+    global.uid = "up9uVP8l43csXumPi9okIWTUcuH2";
     //Test
     //global.uid = "test";
     

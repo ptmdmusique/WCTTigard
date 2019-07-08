@@ -7,8 +7,15 @@ import AutoHeightImage from 'react-native-auto-height-image';
 const {height, width} = Dimensions.get('window');
 
 const AboutMasterTab = (props) => {
+  if (!props.masterData) {
+    return null;
+  }
 
   renderAchievements = () => {
+    if (!props.masterData.achievementList){
+      return null;
+    }
+    
     return props.masterData.achievementList.map((item, index) => (
       <Text key={index}>
         <Text style={{fontWeight: '500', fontSize: 11,  color: '#333'}}>{item.year}</Text>
@@ -21,13 +28,13 @@ const AboutMasterTab = (props) => {
     <ScrollView style={{height: '100%', backgroundColor: '#eee'}}>
       <Card style={{width: '95%', alignSelf: 'center'}}>
         <CardItem header bordered>
-          <Text style={{color: '#fc5344'}}>{props.masterData.title}</Text>
+          <Text style={{color: '#fc5344'}}>{props.masterData.title || ""}</Text>
         </CardItem>
         
         <CardItem bordered>
           <Body>
             <Text style={{fontSize: 12, color: '#333'}}>
-              {props.masterData.content}
+              {props.masterData.content || ""}
             </Text>
           </Body>
         </CardItem>

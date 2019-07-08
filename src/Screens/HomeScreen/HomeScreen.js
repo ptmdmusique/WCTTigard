@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Text, Icon, StyleProvider, Footer, Spinner, Content } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
+import {View, Image, StyleSheet, TouchableOpacity , Dimensions, Platform } from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
 import Swiper from 'react-native-deck-swiper';
 
@@ -120,14 +120,14 @@ export default class HomeScreen extends React.Component {
           {this.state.latestEvent ? 
           <View style={{flex: 5, paddingRight: 15, paddingLeft: 11}}>
             <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-              <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold', fontSize: 13, }}>
+              <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold', fontSize: Platform.OS === 'ios' ? 17 : 13, }}>
                 Latest Event: {this.state.latestEvent.title}
               </Text>
             </View>
 
-            <Text style={{color: '#888', fontSize: 10, marginTop: 5, }}>{this.state.latestEvent.description}</Text>
-            <Text style={{color: '#888', fontSize: 10, marginTop: 5, }}> Start: {this.state.latestEvent.dateFrom}</Text>
-            <Text style={{color: '#888', fontSize: 10}}> End: {this.state.latestEvent.dateTo}</Text>
+            <Text style={{color: '#888', fontSize: Platform.OS === 'ios' ? 13 : 10, marginTop: 5, }}>{this.state.latestEvent.description}</Text>
+            <Text style={{color: '#888', fontSize: Platform.OS === 'ios' ? 13 : 10, marginTop: 5, }}> Start: {this.state.latestEvent.dateFrom}</Text>
+            <Text style={{color: '#888', fontSize: Platform.OS === 'ios' ? 13 : 10}}> End: {this.state.latestEvent.dateTo}</Text>
             {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
           </View>  : 
           null
@@ -207,10 +207,11 @@ export default class HomeScreen extends React.Component {
             <CustomHeader title='Home' navigation={this.props.navigation} isHome />
 
             <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
-              <View style={{flex: 1}}>
+              <View style={{flex: 1}}>               
                 <Image source={{uri: this.state.imageURL || "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
                   style={{alignSelf: 'center', height: '100%', width: '100%',}}
                 />
+                {/* <View style={{backgroundColor: 'black', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', opacity: (Platform.OS === 'ios' ? 0.8 : 0.8)}}/> */}
               </View>
               
               {/* <Swiper
