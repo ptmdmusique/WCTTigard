@@ -29,37 +29,13 @@ export default class ContactUsScreen extends React.Component {
     }
 
     componentDidMount(){        
-        Location.getProviderStatusAsync()
-            .then(status => {
-                //console.log('Getting status');
-                if (!status.locationServicesEnabled) {
-                    throw new Error('Location services disabled');
-                }
-            })
-            .then(_ => Permissions.askAsync(Permissions.LOCATION))
-            .then(permissions => {
-                //console.log('Getting permissions');
-                if (permissions.status !== 'granted') {
-                    throw new Error('Ask for permissions');
-                }
-            })
-            .then(_ => {
-                //console.log('Have permissions');
-                //TODO: CHANGE THIS
-                firebase.firestore().collection('ContactUsScreen').doc(global.uid).get()
-                .then( doc => {
-                    this.setState({data: doc.data()}, () => this.convertAddress())
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({
-                    errorMessage: 'Permission to access location was denied',
-                });
-            });
+        firebase.firestore().collection('ContactUsScreen').doc(global.uid).get()
+        .then( doc => {
+            this.setState({data: doc.data()}, () => this.convertAddress())
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
 
     renderMap(){ 

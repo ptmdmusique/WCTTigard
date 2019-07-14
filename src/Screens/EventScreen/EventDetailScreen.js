@@ -5,97 +5,54 @@ import getTheme from '../../../native-base-theme/components';
 import { View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
-import { MapView, Location, Permissions } from 'expo';
+import { MapView, Location, } from 'expo';
 
 var latitudeDelta = 0.0522, longitudeDelta = 0.0521;
 var { height: screenHeight, width: screenWidth } = Dimensions.get('window');
 
 export default class EventDetailScreen extends React.Component {
   state = {
-    geoLocation: null,
     event: null,
     url: null,
   }
 
-  async convertAddress() {
-    try {
-      this.setState({geoLocation: await Location.geocodeAsync(this.state.event.address)});        
-    } catch(e){
-        console.log(e);
-    } finally {
-        await this.setState({
-            finishLoading: true, 
-            geoLocation: this.state.geoLocation[0],
-        });
-        this.setState({
-          url: Platform.select({
-              ios: "maps:" + this.state.geoLocation.latitude + "," + 
-                  this.state.geoLocation.longitude + "?q=" + this.state.event.locationName,
-              android: "geo:" + this.state.geoLocation.latitude + "," + 
-                  this.state.geoLocation.longitude + "?q=" + this.state.event.locationName,           
-          })
-      })
-    }
+  componentDidMount(){ 
+    this.setState({event: this.props.navigation.getParam('event')}, () =>{
+      this.setState({
+        url: Platform.select({
+          ios: "maps:" + this.state.event.latLng.lat + "," + 
+            this.state.event.latLng.lng + "?q=" + this.state.event.locationName,
+          android: "geo:" + this.state.event.latLng.lat + "," + 
+            this.state.event.latLng.lng + "?q=" + this.state.event.locationName,           
+        })
+      }, () => this.setState({ finishLoading: true }))
+    });
   }
 
-
-  async componentDidMount(){ 
-    await this.setState({event: this.props.navigation.getParam('event')});
+  renderMap(){   
     if (this.state.event.address){
-      await Location.getProviderStatusAsync()
-            .then(status => {
-                //console.log('Getting status');
-                if (!status.locationServicesEnabled) {
-                    throw new Error('Location services disabled');
-                }
-            })
-            .then(_ => Permissions.askAsync(Permissions.LOCATION))
-            .then(permissions => {
-                //console.log('Getting permissions');
-                if (permissions.status !== 'granted') {
-                    throw new Error('Ask for permissions');
-                }
-            })
-            .then(_ => {
-                //console.log('Have permissions');
-                this.convertAddress();
-                //console.log(geoLocation);
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({
-                    errorMessage: 'Permission to access location was denied',
-                });
-            });
-    } else {
-      this.setState({finishLoading: true});
-    }
-  }
-
-  renderMap(){
-    if (this.state.event.address && this.state.geoLocation){
-        return (
-            <View style={{flex: 1,}}>
-                <MapView
-                    style={{width: '100%', height: screenHeight / 4, alignSelf: 'center'}}
-                    initialRegion={{
-                        latitude: this.state.geoLocation.latitude, 
-                        longitude: this.state.geoLocation.longitude, 
-                        longitudeDelta, 
-                        latitudeDelta
-                    }}
-                    >
-                    <MapView.Marker
-                        title={this.state.event.title}
-                        description={this.state.event.description}
-                        coordinate={{
-                            latitude: this.state.geoLocation.latitude, 
-                            longitude: this.state.geoLocation.longitude
-                        }}
-                    />
-                </MapView>
-            </View>
-        )
+      return (
+          <View style={{flex: 1,}}>
+              <MapView
+                  style={{width: '100%', height: screenHeight / 3, alignSelf: 'center'}}
+                  initialRegion={{
+                      latitude: this.state.event.latLng.lat, 
+                      longitude: this.state.event.latLng.lng, 
+                      longitudeDelta, 
+                      latitudeDelta
+                  }}
+                  >
+                  <MapView.Marker
+                      title={this.state.event.title}
+                      description={this.state.event.description}
+                      coordinate={{
+                          latitude: this.state.event.latLng.lat, 
+                          longitude: this.state.event.latLng.lng
+                      }}
+                  />
+              </MapView>
+          </View>
+      )
     }
   }
   renderLocationItem() {

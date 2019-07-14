@@ -39,48 +39,28 @@ export default class NewsDetailScreen extends React.Component {
   }
 
 
-  async componentDidMount(){ 
-    await this.setState({news: this.props.navigation.getParam('news')});
-    if (this.state.news.address){
-      await Location.getProviderStatusAsync()
-            .then(status => {
-                //console.log('Getting status');
-                if (!status.locationServicesEnabled) {
-                    throw new Error('Location services disabled');
-                }
-            })
-            .then(_ => Permissions.askAsync(Permissions.LOCATION))
-            .then(permissions => {
-                //console.log('Getting permissions');
-                if (permissions.status !== 'granted') {
-                    throw new Error('Ask for permissions');
-                }
-            })
-            .then(_ => {
-                //console.log('Have permissions');
-                this.convertAddress();
-                //console.log(geoLocation);
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({
-                    errorMessage: 'Permission to access location was denied',
-                });
-            });
-    } else {
-      this.setState({finishLoading: true});
-    }
+  componentDidMount(){ 
+    this.setState({news: this.props.navigation.getParam('news')}, () =>{
+      this.setState({
+        url: Platform.select({
+          ios: "maps:" + this.state.news.latLng.lat + "," + 
+            this.state.news.latLng.lng + "?q=" + this.state.news.locationName,
+          android: "geo:" + this.state.news.latLng.lat + "," + 
+            this.state.news.latLng.lng + "?q=" + this.state.news.locationName,           
+        })
+      }, () => this.setState({ finishLoading: true }))
+    });
   }
 
   renderMap(){
-    if (this.state.news.address && this.state.geoLocation){
+    if (this.state.news.address){
         return (
             <View style={{flex: 1,}}>
                 <MapView
-                    style={{width: '100%', height: screenHeight / 4, alignSelf: 'center'}}
+                    style={{width: '100%', height: screenHeight / 3, alignSelf: 'center'}}
                     initialRegion={{
-                        latitude: this.state.geoLocation.latitude, 
-                        longitude: this.state.geoLocation.longitude, 
+                        latitude: this.state.news.latLng.lat, 
+                        longitude: this.state.news.latLng.lng, 
                         longitudeDelta, 
                         latitudeDelta
                     }}
@@ -89,8 +69,8 @@ export default class NewsDetailScreen extends React.Component {
                         title={this.state.news.title}
                         description={this.state.news.description}
                         coordinate={{
-                            latitude: this.state.geoLocation.latitude, 
-                            longitude: this.state.geoLocation.longitude
+                            latitude: this.state.news.latLng.lat, 
+                            longitude: this.state.news.latLng.lng
                         }}
                     />
                 </MapView>
