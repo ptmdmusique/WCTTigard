@@ -121,6 +121,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.disableYellowBox = true;
+
     const isIOS = Platform.OS === 'ios';
 
     if (!this.state.fontLoaded) {

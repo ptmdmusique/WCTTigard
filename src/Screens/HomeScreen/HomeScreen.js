@@ -1,10 +1,11 @@
 import React from 'react';
-import {Container, Text, Icon, StyleProvider, Footer, Spinner, Content } from 'native-base';
+import {Container, Text, Icon, StyleProvider, Footer, Spinner, Content, Button } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableOpacity , Dimensions, Platform } from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
-import Swiper from 'react-native-deck-swiper';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase/app';
@@ -12,10 +13,15 @@ import * as firebase from 'firebase/app';
 const numberOfSwiper = 3;
 //This should be dynamically retrieved from database for the "More" section
 const previewRoute = [
+  // {
+  //   name: "Contact",
+  //   iconName: "globe",
+  //   displayName: "Contact Us"
+  // },
   {
-    name: "Event",
-    iconName: "book-open",
-    displayName: "Events"
+    name: "Schedule",
+    iconName: "calendar",
+    displayName: "Schedule"
   },
   {
     name: "Alert",
@@ -23,14 +29,9 @@ const previewRoute = [
     displayName: "Alerts"
   },
   {
-    name: "Schedule",
-    iconName: "calendar",
-    displayName: "Schedule"
-  },
-  {
-    name: "Contact",
-    iconName: "globe",
-    displayName: "Contact Us"
+    name: "Event",
+    iconName: "book-open",
+    displayName: "Events"
   },
 ]
 
@@ -79,7 +80,7 @@ export default class HomeScreen extends React.Component {
     
     firebase.firestore().collection('EventScreen').doc(global.uid).get()
     .then( doc => {      
-      tempList = doc.data().list;
+      let tempList = doc.data().list;
       console.log("--Getting latest event"); 
       //console.log(tempList);
       if (!tempList || tempList.length === 0){
@@ -104,7 +105,6 @@ export default class HomeScreen extends React.Component {
       console.log(err);
     })
 
-    this.renderPreviewRoute();
   }
 
   renderEventCard = () => {
@@ -137,54 +137,20 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  renderPreviewRoute() {
-    //All menu
-    const tempMenu = [];
-    for(let i = 0; i < previewRoute.length; i += itemPerRow){
-      const row = [];      
-      for(let j = 0; j < itemPerRow; j++){
-        if (i + j < previewRoute.length){
-          //Push a card
-          row.push(
-            <Col key={previewRoute[i + j].displayName}
-            style={{
-              alignContent: 'center',
-              alignItems: 'center', 
-            }}
-            >
-              <TouchableOpacity 
-                onPress={() => this.props.navigation.navigate(previewRoute[i + j].name)}
-              >
-                <View style={styles.menu}>
-                  <Icon style={{color: '#fc5344', fontSize: 24}} name={previewRoute[i + j].iconName}/>
-                  <Text style={{color: '#fc5344', fontSize: 9, marginTop: 5, fontFamily: 'Roboto-Regular'}}>
-                      {previewRoute[i + j].displayName}
-                  </Text>
-                </View>
-              </TouchableOpacity >
-            </Col>
-          )
-        }
-      }
-
-      tempMenu.push(
-        <Row 
-          key={previewRoute[i].name} 
-          style={{
-            justifyContent: 'center',
-            alignContent: 'center',
-            alignItems: 'center',
-            width: '100%'
-          }}>
-          {row}
-        </Row>
-      )
-    }
-
-    this.setState({ menuGridItems: tempMenu });
+  renderMenuButton() {
+    return previewRoute.map((route, index) => (
+      <TouchableOpacity
+        style={styles.menuButton}
+        key={route.name}
+        onPress={() => this.props.navigation.navigate(previewRoute[index].name)}
+      >
+        <Icon style={[styles.menuButtonIcon, styles.glowing]} name={route.iconName}></Icon>
+        <Text style={[styles.menuButtonText, styles.glowing]}>{route.displayName}</Text>
+      </TouchableOpacity>
+    ))
   }
 
-  render() {        
+  render() {
     return (
       <StyleProvider style={getTheme(material)}>
         {this.state.isImageLoading || this.state.isEventLoading ? 
@@ -203,43 +169,39 @@ export default class HomeScreen extends React.Component {
             </Content>
           </Container> : 
 
-          <Container>
-            <CustomHeader title='Home' navigation={this.props.navigation} isHome />
+          <Container style={{backgroundColor: '#0f0f0f'}}>
+            <CustomHeader title="Ricardo Milos" navigation={this.props.navigation} isHome />
 
-            <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
-              <View style={{flex: 1}}>               
-                <Image source={{uri: this.state.imageURL || "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
-                  style={{alignSelf: 'center', height: '100%', width: '100%',}}
-                />
-                {/* <View style={{backgroundColor: 'black', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%', opacity: (Platform.OS === 'ios' ? 0.8 : 0.8)}}/> */}
+            <View style={{ width: '100%', height: '100%' }}>
+              <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
+                style={{position: 'absolute', top: 0, left: 0, alignSelf: 'center', height: '75%', width: '100%',}}
+              />
+              <LinearGradient
+                colors={['#0f0f0f', 'transparent', '#0f0f0f']}
+                style={{ alignItems: 'center', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }}
+                locations={[0, 0.1, 0.6]}>
+              </LinearGradient>
+
+              <View style={styles.menuButtonsContainer}>
+                {this.renderMenuButton()}
               </View>
-              
-              {/* <Swiper
-                cards={MOCK_EVENTS}
-                renderCard={(card) => this.renderEventCard(card)}
-                useViewOverflow={false}
-                backgroundColor="transparent"
-                cardVerticalMargin={0}
-                cardHorizontalMargin={0}
-                infinite={true}
-                stackSize={numberOfSwiper}
-                // containerStyle={{flex: 1}}
-                // cardStyle={{}}
-              >
-              </Swiper> */}
-              {this.renderEventCard()}
-            </View>
 
-            <Footer style={styles.footer}>
-              <Grid style={{
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                padding: 10,
-              }}>
-                {this.state.menuGridItems}
-              </Grid>
-            </Footer>
+              <View style={styles.eventContainer}>
+                <View style={{flex: 1}}>
+                  <Icon style={[styles.eventIcon, styles.glowing]} name='book-open'></Icon>
+                </View>
+                <View style={{flex: 3}}>
+                  <Text style={[styles.eventTitle, styles.glowing]}>{this.state.latestEvent.title}</Text>
+                  <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                    <Text style={[styles.eventDescription, styles.glowing]}>{this.state.latestEvent.description}</Text>
+                    <View style={{flex: 1,}}>
+                      <Text style={[styles.eventDate, styles.glowing]}>Start Date: {this.state.latestEvent.dateFrom}</Text>
+                      <Text style={[styles.eventDate, styles.glowing]}>End Date: {this.state.latestEvent.dateTo}</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
           </Container>
         }
       </StyleProvider>
@@ -247,23 +209,83 @@ export default class HomeScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({ 
-  menu: {
-    elevation: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    width: (width - 120) / itemPerRow,
-    height: (width - 100) / itemPerRow,
+const styles = StyleSheet.create({
+  glowing: {
+    textShadowColor: 'rgba(255, 255, 255, 0.8)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
   },
-  footer: {
-    height: 60, 
-    justifyContent: 'center', 
+  // Menu buttons (Left)
+  menuButtonsContainer: {
+    position: 'absolute',
+    bottom: '15%',
+    left: 0,
+    backgroundColor: 'transparent',
+    width: '25%',
+    flexDirection: 'column-reverse',
+  },
+  menuButton: {
+    flex: 1,
+    width: '100%',
+    borderColor: '#e02b34',
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    borderRadius: 5,
+    borderTopStartRadius: 0,
+    borderBottomStartRadius: 0,
+    borderStartWidth: 0,
+    flexDirection: 'column',
     alignItems: 'center',
-
-    shadowRadius: 5,
-    elevation: 10,
-    zIndex: 10,
+    paddingVertical: 5,
+    marginVertical: 5,
+  },
+  menuButtonIcon: {
+    flex: 2,
+    color: '#fff',
+    fontSize: 18,
+  },
+  menuButtonText: {
+    flex: 1,
+    color: '#fff',
+    fontSize: 12,
+  },
+  
+  // Event Card (Right)
+  eventContainer: {
+    position: 'absolute',
+    bottom: '15%',
+    right: 0,
+    height: '25%',
+    width: '65%',
+    borderColor: '#e02b34',
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    borderRadius: 5,
+    borderTopEndRadius: 0,
+    borderBottomEndRadius: 0,
+    borderEndWidth: 0,
+    marginBottom: 5,
+    flexDirection: 'row',
+    padding: 10,
+  },
+  eventIcon: {
+    color: '#fff',
+    fontSize: 44,
+  },
+  eventTitle: {
+    color: '#fff',
+    fontSize: 16,
+    borderBottomColor: '#fff',
+    borderBottomWidth: 1,
+  },
+  eventDescription: {
+    color: '#fff',
+    flex: 3,
+    fontSize: 12,
+    marginTop: 10,
+  },
+  eventDate: {
+    color: '#fff',
+    fontSize: 10,
   }
 })
