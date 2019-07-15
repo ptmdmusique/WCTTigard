@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 716,
+  "expoServerNgrokUrl": "https://ns-hfr.willow614.wcttigard.exp.direct",
+  "packagerNgrokUrl": "https://packager.ns-hfr.willow614.wcttigard.exp.direct",
+  "ngrokPid": 15628,
   "webpackServerPort": null
 }
