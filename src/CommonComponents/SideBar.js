@@ -80,6 +80,7 @@ const routes =  [
 
 class SideBar extends React.Component {
   render() {
+    // TODO: Get sidebar Image from database
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
@@ -97,33 +98,33 @@ class SideBar extends React.Component {
             <Text style={styles.title}>Master Eric's WCT</Text>
           </ImageBackground>
 
-          <Content>
-          <FlatList        
-            keyExtractor={item => item.name}
-            data={routes}
-            renderItem={data => {
-              return (
-                <ListItem
-                  icon
-                  button
-                  onPress={() => 
-                    {
-                      this.props.navigation.closeDrawer();
-                      this.props.navigation.navigate(data.item.name);
-                    }
-                  }   
-                  style={{marginLeft: 0}}
-                  >
-                  <Left>
-                    <Icon style={{ fontSize: 23, marginLeft: 10, color: '#404040' }} name={data.item.iconName} type={data.item.iconType}/>
-                  </Left>
-                  <Body>
-                    <Text style={{marginLeft: 10, fontSize: 12, color: '#404040', fontFamily: 'Ubuntu-Medium'}}>{data.item.displayName}</Text>
-                  </Body>
-                </ListItem>
-              );
-            }}
-          />
+          <Content style={{backgroundColor: '#111'}}>
+            <FlatList        
+              keyExtractor={item => item.name}
+              data={routes}
+              renderItem={data => {
+                return (
+                  <ListItem
+                    icon
+                    button
+                    onPress={() => 
+                      {
+                        this.props.navigation.closeDrawer();
+                        this.props.navigation.navigate(data.item.name);
+                      }
+                    }   
+                    style={{marginLeft: 0}}
+                    >
+                    <Left>
+                      <Icon style={[styles.menuItemIcon, styles.glowing]} name={data.item.iconName} type={data.item.iconType}/>
+                    </Left>
+                    <Body style={{borderBottomColor: '#333', borderBottomWidth: 0.5}}>
+                      <Text style={[styles.menuItemDisplayName, styles.glowing]}>{data.item.displayName}</Text>
+                    </Body>
+                  </ListItem>
+                );
+              }}
+            />
           </Content>
 {/* 
           <Footer style={{height: 50, paddingTop: 10}}>
@@ -138,6 +139,11 @@ class SideBar extends React.Component {
 export default SideBar;
 
 const styles = StyleSheet.create({
+  glowing: {
+    textShadowColor: 'rgba(255, 255, 255, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
+  },
   imageBackground: {
     height: 150,
     alignSelf: 'stretch',
@@ -172,5 +178,16 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 13,
     fontFamily: 'Ubuntu-Bold',
+  },
+  menuItemIcon: {
+    fontSize: 23,
+    marginLeft: 10,
+    color: '#fff'
+  },
+  menuItemDisplayName: {
+    marginLeft: 10,
+    fontSize: 12,
+    color: '#fff',
+    fontFamily: 'Ubuntu-Medium'
   }
 });

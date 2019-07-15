@@ -39,30 +39,30 @@ export default class AlertScreen extends React.Component {
 
     return (
       <Animatable.View animation="lightSpeedIn" delay={index * 200}>
-        <View style={{width: '90%', minHeight: 200, backgroundColor: 'white', alignSelf: 'center', borderWidth: 1, borderRadius: 15, borderColor: '#999', marginTop: 10, overflow: 'hidden'}}>
-          <View style={{position: 'absolute', right: 0, top: 0, width: '15%', height: '100%', backgroundColor: '#ff6060'}}></View>
+        <View style={{width: '90%', minHeight: 200, backgroundColor: 'white', alignSelf: 'center', borderWidth: 1, borderRadius: 15, borderColor: '#fff', marginTop: 10, marginBottom: 10, overflow: 'hidden'}}>
+          {/* <View style={{position: 'absolute', right: 0, top: 0, width: '15%', height: '100%', backgroundColor: '#414953', zIndex: 1}}></View> */}
 
-          <View style={{flex: 4/5, flexDirection: 'row', paddingTop: 10}}>
-            <View style={{flex: 1/4, alignItems: 'center'}}>
+          <View style={{flex: 4/5, flexDirection: 'row', backgroundColor: '#3d4248'}}>
+            <View style={{flex: 1/4, alignItems: 'center', paddingTop: 10, borderRightColor: '#fff', borderRightWidth: 1, backgroundColor: '#333'}}>
               <View>
-                <Icon name="calendar" type='Feather' style={{fontSize: 60, color: '#ff6060',}}/>
-                <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}}>
+                <Icon name="calendar" type='Feather' style={[{fontSize: 60, color: '#ff4545',}, styles.glowingRed]}/>
+                <Text style={[{fontSize: 20, color: '#ff4545', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>
                   {Moment(alert.date).format("D")}
                 </Text>
               </View>
-              <Text style={{fontSize: 20, color: '#ff6060', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>
-                {monthNames_short[Moment(alert.date).format("M")]}
+              <Text style={[{fontSize: 20, color: '#ff4545', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>
+                {monthNames_short[parseInt(Moment(alert.date).format("M")) - 1]}
               </Text>
             </View>
-            <View style={{flex: 3/4, marginRight: 50}}>
-              <Text style={{fontSize: 20, fontWeight: 'bold', color: '#ff6060', fontFamily: 'Roboto-Bold'}}>{alert.title}</Text>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: '#999', paddingRight: 1, fontFamily: 'Roboto-Bold'}}>{alert.content}</Text>
+            <View style={{flex: 3/4, paddingTop: 10, paddingLeft: 10, backgroundColor: '#222'}}>
+              <Text style={[styles.alertCardTitle, styles.glowing]}>{alert.title}</Text>
+              <Text style={[styles.alertCardDescription]}>{alert.content}</Text>
             </View>
           </View>
 
-          <View style={{flex: 1/5, backgroundColor: 'black', opacity: 0.6, flexDirection: 'row', alignContent: 'center', alignItems: 'center'}}>
-            <Icon name="clock" style={styles.icon}/>
-            <Text style={styles.dateText}>
+          <View style={{flex: 1/5, backgroundColor: '#666', opacity: 1, flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderTopColor: '#fff', borderTopWidth: 1}}>
+            <Icon name="clock" style={styles.dateIcon}/>
+            <Text style={[styles.dateText, styles.glowing]}>
               {/* Expired: {alert.dateFrom === alert.dateTo ? 'Same day' : alert.dateTo} */}
               Effective Date: {Moment(alert.date).format("MM-DD-YYYY")}
             </Text>
@@ -75,16 +75,16 @@ export default class AlertScreen extends React.Component {
   render () {
     return (
       <StyleProvider style={getTheme(material)}>
-        <Container>
-          <CustomHeader title='Alerts' navigation={this.props.navigation} />
+        <Container style={{backgroundColor: '#2d3238'}}>
+          <CustomHeader title='Alerts' navigation={this.props.navigation} isHome />
 
-          <Content style={{flex: 1, backgroundColor: '#ddd'}}>
+          <Content style={{flex: 1, backgroundColor: 'transparent'}}>
             {this.state.isLoading ? <Spinner/> :
               <FlatList
                 data={this.state.data}
                 keyExtractor={(data, index) => index.toString()}
                 renderItem={(data, index) => this.renderAlerts(data.item, index)}
-              />   
+              />
             }
           </Content>
 
@@ -95,7 +95,23 @@ export default class AlertScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  icon: {
+  glowing: {
+    textShadowColor: 'rgba(255, 255, 255, 0.3)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
+  },
+  glowingRed: {
+    textShadowColor: 'rgba(255, 69, 69, 0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
+  },
+  alertCardTitle: {
+    fontSize: 20, fontWeight: 'bold', color: '#fff', fontFamily: 'Roboto-Bold'
+  },
+  alertCardDescription: {
+    fontSize: 16, color: '#ccc', paddingRight: 1, fontFamily: 'Roboto'
+  },
+  dateIcon: {
     fontSize: 20,
     color: 'white',
     paddingLeft: 10,
