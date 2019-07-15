@@ -5,6 +5,7 @@ import getTheme from '../../../native-base-theme/components';
 import {View, Image, StyleSheet, TouchableOpacity , Dimensions, Platform } from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
 import { LinearGradient } from 'expo-linear-gradient';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -18,6 +19,11 @@ const previewRoute = [
   //   iconName: "globe",
   //   displayName: "Contact Us"
   // },
+  {
+    name: "Contact",
+    iconName: "globe",
+    displayName: "Contact Us"
+  },
   {
     name: "Schedule",
     iconName: "calendar",
@@ -47,8 +53,8 @@ export default class HomeScreen extends React.Component {
     imageURL: "",
     isImageLoading: true,
     
-    latestEvent: null,
-    isEventLoading: true,
+    latestAlert: null,
+    isAlertLoading: true,
   }
 
   componentDidMount() {    
@@ -78,63 +84,30 @@ export default class HomeScreen extends React.Component {
       console.error(err);
     });
     
-    firebase.firestore().collection('EventScreen').doc(global.uid).get()
+    firebase.firestore().collection('AlertScreen').doc(global.uid).get()
     .then( doc => {      
       let tempList = doc.data().list;
-      console.log("--Getting latest event"); 
+      console.log("--Getting latest alert"); 
       //console.log(tempList);
       if (!tempList || tempList.length === 0){
-        console.log("--Empty latest event");
-        this.setState({ isEventLoading: false } );
+        console.log("--Empty latest alert");
+        this.setState({ isAlertLoading: false } );
         return;
       }
 
       tempList.sort((a, b) => {
-        var returnVal = new Date(b.dateFrom) - new Date(a.dateFrom);
-        if (returnVal === 0) {
-          returnVal = new Date(b.dateTo) - new Date(a.dateTo);
-        }
+        var returnVal = new Date(b.date) - new Date(a.date);
         return returnVal;
       })
 
-      this.setState({latestEvent: tempList[0]}, () => this.setState({ isEventLoading: false }))
+      this.setState({latestAlert: tempList[0]}, () => this.setState({ isAlertLoading: false }))
     })
     .catch(err => {
-      console.log("--Empty latest event");
-      this.setState({ isEventLoading: false } );
+      console.log("--Empty latest alert");
+      this.setState({ isAlertLoading: false } );
       console.log(err);
     })
 
-  }
-
-  renderEventCard = () => {
-    //console.log(card);
-
-    return (
-      <View style={{width: '90%', height: '25%', position: 'absolute', top: '70%', left: '5%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
-        <View style={{flexDirection: 'row', width: '100%', backgroundColor: 'white'}}>
-          <View style={{flex: 1, alignItems: 'center', paddingLeft: 5,}}>
-              <Icon name="newspaper-o" type="FontAwesome" style={{color: '#fc5344'}} />
-          </View>
-          
-          {this.state.latestEvent ? 
-          <View style={{flex: 5, paddingRight: 15, paddingLeft: 11}}>
-            <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-              <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold', fontSize: Platform.OS === 'ios' ? 17 : 13, }}>
-                Latest Event: {this.state.latestEvent.title}
-              </Text>
-            </View>
-
-            <Text style={{color: '#888', fontSize: Platform.OS === 'ios' ? 13 : 10, marginTop: 5, }}>{this.state.latestEvent.description}</Text>
-            <Text style={{color: '#888', fontSize: Platform.OS === 'ios' ? 13 : 10, marginTop: 5, }}> Start: {this.state.latestEvent.dateFrom}</Text>
-            <Text style={{color: '#888', fontSize: Platform.OS === 'ios' ? 13 : 10}}> End: {this.state.latestEvent.dateTo}</Text>
-            {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
-          </View>  : 
-          null
-          }
-        </View>     
-      </View>
-    );
   }
 
   renderMenuButton() {
@@ -153,7 +126,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <StyleProvider style={getTheme(material)}>
-        {this.state.isImageLoading || this.state.isEventLoading ? 
+        {this.state.isImageLoading || this.state.isAlertLoading ? 
           <Container>
             <Content 
                 contentContainerStyle={{
@@ -170,36 +143,55 @@ export default class HomeScreen extends React.Component {
           </Container> : 
 
           <Container style={{backgroundColor: '#0f0f0f'}}>
-            <CustomHeader title="Ricardo Milos" navigation={this.props.navigation} isHome />
+            <CustomHeader title="Master Eric's World Champion Taekwondo" navigation={this.props.navigation} isHome />
 
             <View style={{ width: '100%', height: '100%' }}>
-              <Image source={{uri: "http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg"}}
-                style={{position: 'absolute', top: 0, left: 0, alignSelf: 'center', height: '75%', width: '100%',}}
+              <Image source={{uri: this.state.imageURL}}
+                style={{position: 'absolute', top: 0, left: 0, alignSelf: 'center', height: '100%', width: '100%',}}
               />
               <LinearGradient
                 colors={['#0f0f0f', 'transparent', '#0f0f0f']}
                 style={{ alignItems: 'center', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }}
-                locations={[0, 0.1, 0.6]}>
+                locations={[0, 0.1, 0.8]}>
               </LinearGradient>
+
+              <View style={{ position: 'absolute', top: 0, right: -10, }}>
+                <Image source={require('../../../assets/images/original_logo_edited.png')} 
+                  style={{
+                    height: (width * 0.25),
+                    width: (width * 0.25),
+                  }}
+                />
+                <AutoHeightImage source={require('../../../assets/images/tkd_white_edited.png')} 
+                  width={ width * 0.25 }
+                  style={{ marginTop: -20, }}
+                />
+              </View>
 
               <View style={styles.menuButtonsContainer}>
                 {this.renderMenuButton()}
               </View>
 
-              <View style={styles.eventContainer}>
+              <View style={styles.alertContainer}>
                 <View style={{flex: 1}}>
-                  <Icon style={[styles.eventIcon, styles.glowing]} name='book-open'></Icon>
+                  <Icon style={[styles.alertIcon, styles.glowing]} name='bell'></Icon>
                 </View>
-                <View style={{flex: 3}}>
-                  <Text style={[styles.eventTitle, styles.glowing]}>{this.state.latestEvent.title}</Text>
-                  <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-                    <Text style={[styles.eventDescription, styles.glowing]}>{this.state.latestEvent.description}</Text>
-                    <View style={{flex: 1,}}>
-                      <Text style={[styles.eventDate, styles.glowing]}>Start Date: {this.state.latestEvent.dateFrom}</Text>
-                      <Text style={[styles.eventDate, styles.glowing]}>End Date: {this.state.latestEvent.dateTo}</Text>
+                {this.state.latestAlert ? 
+                  <View style={{flex: 3, }}>
+                    <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5, }}>
+                      <Text style={[styles.alertTitle, styles.glowing]}>{this.state.latestAlert.title}</Text>  
                     </View>
-                  </View>
-                </View>
+
+                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                      <Text style={[styles.alertDescription, styles.glowing]}>{this.state.latestAlert.content}</Text>
+
+                      <View style={{flex: 1,}}>
+                        <Text style={[styles.alertDate, styles.glowing]}>Start Date: {this.state.latestAlert.date}</Text>
+                      </View>
+                    </View>
+                  </View> : 
+                  null
+                }
               </View>
             </View>
           </Container>
@@ -208,20 +200,21 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+//http://wcttigard.com/assets/wp-content/screens/IMG_2628-2-1.jpg
 
 const styles = StyleSheet.create({
   glowing: {
     textShadowColor: 'rgba(255, 255, 255, 0.8)',
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    textShadowRadius: 2,
   },
   // Menu buttons (Left)
   menuButtonsContainer: {
     position: 'absolute',
-    bottom: '15%',
+    bottom: '10%',
     left: 0,
     backgroundColor: 'transparent',
-    width: '25%',
+    width: '20%',
     flexDirection: 'column-reverse',
   },
   menuButton: {
@@ -250,13 +243,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   
-  // Event Card (Right)
-  eventContainer: {
+  // Alert Card (Right)
+  alertContainer: {
     position: 'absolute',
-    bottom: '15%',
+    bottom: '13%',
     right: 0,
     height: '25%',
-    width: '65%',
+    width: '72%',
     borderColor: '#e02b34',
     backgroundColor: 'transparent',
     borderWidth: 2,
@@ -268,23 +261,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
   },
-  eventIcon: {
+  alertIcon: {
     color: '#fff',
     fontSize: 44,
   },
-  eventTitle: {
+  alertTitle: {
     color: '#fff',
     fontSize: 16,
     borderBottomColor: '#fff',
     borderBottomWidth: 1,
   },
-  eventDescription: {
+  alertDescription: {
     color: '#fff',
-    flex: 3,
+    flex: 4,
     fontSize: 12,
     marginTop: 10,
   },
-  eventDate: {
+  alertDate: {
     color: '#fff',
     fontSize: 10,
   }
