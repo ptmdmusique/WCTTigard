@@ -25,15 +25,15 @@ export default class CustomHeader extends React.Component {
   render () {
     return (
       <Header style={styles.header} transparent>
-        <Left style={{flex:1, left: -10, }}>
+        <Left style={{flex:1,}}>
           <Animatable.View animation="zoomIn">
             {this.renderLeftIcon()}
           </Animatable.View>
         </Left>
 
-        <Body style={{flex: this.props.isHome ? 5 : 3 }}>
+        <Body style={{flex: this.props.isHome ? 4 : 3 }}>
           <Animatable.View animation="zoomIn">
-            <Title style={[styles.headerText, { fontSize: this.props.isHome ? 14.5 : 15, }]}>{this.props.title}</Title>
+            <Title style={[styles.headerText, { fontSize: this.props.isHome ? 14 : 22, }]}>{this.props.title}</Title>
           </Animatable.View>
         </Body>
 

@@ -186,7 +186,7 @@ export default class HomeScreen extends React.Component {
                       <Text style={[styles.alertDescription, styles.glowing]}>{this.state.latestAlert.content}</Text>
 
                       <View style={{flex: 1,}}>
-                        <Text style={[styles.alertDate, styles.glowing]}>Start Date: {this.state.latestAlert.date}</Text>
+                        <Text style={[styles.alertDate, styles.glowing]}>Effective Date: {this.state.latestAlert.date}</Text>
                       </View>
                     </View>
                   </View> : 
@@ -204,9 +204,9 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   glowing: {
-    textShadowColor: 'rgba(255, 255, 255, 0.8)',
+    textShadowColor: 'rgba(255, 255, 255, 0.5)',
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 2,
+    textShadowRadius: 10,
   },
   // Menu buttons (Left)
   menuButtonsContainer: {
