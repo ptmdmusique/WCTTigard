@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, Platform, StatusBarStyle } from 'react-native';
+import { StatusBar, Platform, } from 'react-native';
 import AppContainer from './src/AppContainer';
 import { Root, StyleProvider, Spinner, Text, Content, Container } from 'native-base';
 import { Image } from 'react-native';
@@ -42,7 +42,7 @@ export default class App extends React.Component {
     //WCTTigard 
     global.uid = "up9uVP8l43csXumPi9okIWTUcuH2";
     //Test
-    global.uid = "test";
+    //global.uid = "test";
     
     // Initialize Firebase
     const firebaseConfig = {

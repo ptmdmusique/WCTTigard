@@ -25,49 +25,33 @@ export default class CustomHeader extends React.Component {
   render () {
     return (
       <Header style={styles.header} transparent>
-        <Left style={{flex:1}}>
+        <Left style={{flex:1, left: -10, }}>
           <Animatable.View animation="zoomIn">
             {this.renderLeftIcon()}
           </Animatable.View>
         </Left>
 
-        <Body style={{flex:3}}>
+        <Body style={{flex: this.props.isHome ? 5 : 3 }}>
           <Animatable.View animation="zoomIn">
-            <Title style={styles.headerText}>{this.props.title}</Title>
+            <Title style={[styles.headerText, { fontSize: this.props.isHome ? 14.5 : 15, }]}>{this.props.title}</Title>
           </Animatable.View>
         </Body>
 
-        <Right style={{flex:1}}>
+        <Right style={{flex: this.props.isHome ? 0 : 1}}>
           <Animatable.View animation="zoomIn">
             {this.props.isHome? null :
             <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
               {/* <Icon style={styles.headerIcon} name='home'/> */}
-              <Image source={require('../../assets/images/sidebar-logo.png')} 
+              <Image source={require('../../assets/images/original_logo_edited.png')} 
                 style={{
-                  height: 40,
-                  width: 40,
+                  height: 60,
+                  width: 60,
                 }}
               />
             </Button>}
           </Animatable.View>
         </Right>
       </Header>
-
-      // <Header>
-      //   <Left>
-      //     <Button transparent>
-      //       <Icon name='menu' style={{backgroundColor: 'red'}}/>
-      //     </Button>
-      //   </Left>
-      //   <Body>
-      //     <Title styles={{color: 'red'}}>Header</Title>
-      //   </Body>
-      //   <Right>
-      //     <Button transparent>
-      //       <Icon name='menu' style={{backgroundColor: 'red'}} />
-      //     </Button>
-      //   </Right>
-      // </Header>
     );
   };
 }
