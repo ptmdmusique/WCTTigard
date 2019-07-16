@@ -24,31 +24,35 @@ export default class CustomHeader extends React.Component {
 
   render () {
     return (
-      <Header style={styles.header} transparent>
+      <Header style={styles.header}>
         <Left style={{flex:1, }}>
           <Animatable.View animation="zoomIn">
             {this.renderLeftIcon()}
           </Animatable.View>
         </Left>
 
-        <Body style={{flex: this.props.isHome ? 4 : 3 }}>
+        <Body style={{flex: 3, alignItems: this.props.isHome ? 'center' : 'flex-start', }}>
+          {this.props.isHome ? 
           <Animatable.View animation="zoomIn">
-            <Title style={[styles.headerText, { fontSize: this.props.isHome ? 14 : 22, }]}>{this.props.title}</Title>
+            <Text style={[styles.headerText, { fontSize: 13, textAlign: 'center', }]}>{this.props.title}</Text>
+            <Text style={[styles.headerText, { fontSize: 13, textAlign: 'center', }]}>{this.props.title_2}</Text>
+          </Animatable.View> :
+          <Animatable.View animation="zoomIn">
+            <Text style={[styles.headerText, { fontSize: 22, }]}>{this.props.title}</Text>
           </Animatable.View>
+        }
         </Body>
 
-        <Right style={{flex: this.props.isHome ? 0 : 1}}>
+        <Right style={{flex: 1}}>
           <Animatable.View animation="zoomIn">
-            {this.props.isHome? null :
             <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
-              {/* <Icon style={styles.headerIcon} name='home'/> */}
               <Image source={require('../../assets/images/original_logo_edited.png')} 
                 style={{
                   height: 60,
                   width: 60,
                 }}
               />
-            </Button>}
+            </Button>
           </Animatable.View>
         </Right>
       </Header>
@@ -61,15 +65,13 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center', 
     alignItems: 'center',
-    // shadowRadius: 5,
-    // elevation: 3,
+    backgroundColor: "#e53635",
     paddingTop: 0,
   },
   headerText:{
     fontSize: 22,
     color: '#fff',
     fontFamily: 'Ubuntu-Medium',
-
     textShadowColor: 'rgba(255, 255, 255, 0.6)',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 10,

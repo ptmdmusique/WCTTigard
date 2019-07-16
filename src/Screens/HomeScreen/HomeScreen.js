@@ -143,7 +143,7 @@ export default class HomeScreen extends React.Component {
           </Container> : 
 
           <Container style={{backgroundColor: '#0f0f0f'}}>
-            <CustomHeader title="Master Eric's World Champion Taekwondo" navigation={this.props.navigation} isHome />
+            <CustomHeader title="Master Eric's" title_2=" World Champion Taekwondo" navigation={this.props.navigation} isHome />
 
             <View style={{ width: '100%', height: '100%' }}>
               <Image source={{uri: this.state.imageURL}}
@@ -155,13 +155,7 @@ export default class HomeScreen extends React.Component {
                 locations={[0, 0.1, 0.8]}>
               </LinearGradient>
 
-              <View style={{ position: 'absolute', top: 0, right: -10, }}>
-                <Image source={require('../../../assets/images/original_logo_edited.png')} 
-                  style={{
-                    height: (width * 0.25),
-                    width: (width * 0.25),
-                  }}
-                />
+              <View style={{ position: 'absolute', top: 20, right: -10, }}>
                 <AutoHeightImage source={require('../../../assets/images/tkd_white_edited.png')} 
                   width={ width * 0.25 }
                   style={{ marginTop: -20, }}
@@ -178,7 +172,7 @@ export default class HomeScreen extends React.Component {
                 </View>
                 {this.state.latestAlert ? 
                   <View style={{flex: 3, }}>
-                    <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5, }}>
+                    <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: -3, }}>
                       <Text style={[styles.alertTitle, styles.glowing]}>{this.state.latestAlert.title}</Text>  
                     </View>
 
@@ -220,10 +214,10 @@ const styles = StyleSheet.create({
   menuButton: {
     flex: 1,
     width: '100%',
-    borderColor: '#e02b34',
-    backgroundColor: 'transparent',
+    // borderColor: '#e02b34',
+    backgroundColor: '#ef5350',
     borderWidth: 2,
-    borderRadius: 5,
+    borderRadius: 15,
     borderTopStartRadius: 0,
     borderBottomStartRadius: 0,
     borderStartWidth: 0,
@@ -240,7 +234,7 @@ const styles = StyleSheet.create({
   menuButtonText: {
     flex: 1,
     color: '#fff',
-    fontSize: 12,
+    fontSize: 11,
   },
   
   // Alert Card (Right)
@@ -250,10 +244,10 @@ const styles = StyleSheet.create({
     right: 0,
     height: '25%',
     width: '72%',
-    borderColor: '#e02b34',
-    backgroundColor: 'transparent',
+    // borderColor: '#e02b34',
+    backgroundColor: '#ef5350',
     borderWidth: 2,
-    borderRadius: 5,
+    borderRadius: 15,
     borderTopEndRadius: 0,
     borderBottomEndRadius: 0,
     borderEndWidth: 0,

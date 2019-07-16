@@ -16,11 +16,11 @@ export default {
   platform,
 
   //Accordion
-  headerStyle: "#edebed",
+  headerStyle: "#e53635",
   iconStyle: "#000",
   contentStyle: "#f5f4f5",
   expandedIconStyle: "#000",
-  accordionBorderColor: "#d3d3d3",
+  accordionBorderColor: "#e53635",
 
   // Android
   androidRipple: true,
@@ -105,7 +105,7 @@ export default {
   checkboxTickColor: "#fff",
 
   // Color
-  brandPrimary: platform === "ios" ? "#007aff" : "#3F51B5",
+  brandPrimary: "#e53635",
   brandInfo: "#62B1F6",
   brandSuccess: "#5cb85c",
   brandDanger: "#d9534f",

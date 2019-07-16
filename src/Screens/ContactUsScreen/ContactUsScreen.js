@@ -103,7 +103,7 @@ export default class ContactUsScreen extends React.Component {
                 { this.state.isLoading ? <Spinner/> :
                     <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
                         {this.renderMap()}
-                        <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: 'rgba(0, 0, 0, 0.8)', justifyContent: 'center'}}>
+                        <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: 'rgba(0, 0, 0, 0.6)', justifyContent: 'center'}}>
                             <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
                             
                             <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>

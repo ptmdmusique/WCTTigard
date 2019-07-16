@@ -14,17 +14,6 @@ import * as firebase from 'firebase/app';
 
 import { Permissions, Notifications } from 'expo';
 
-var FIREBASE_ENDPOINT = "https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/<TOPIC_NAME> ";
-//Should be this?
-// https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/<TOPIC_NAME> 
-// https://iid.googleapis.com/iid/v1/<REGISTRATION_TOKEN>/rel/topics/wcttigard 
-//Or this, using the old schema, doc as device token + query for group field
-// "https://firestore.googleapis.com/v1/projects/wcttigardweb/databases/(default)/documents"
-//                                      projects/wcttigardweb/databases/(default)/documents
-// POST https://firestore.googleapis.com/v1/projects/wcttigardweb/databases/(default)/documents/FCMToken?documentId=someID2&key={YOUR_API_KEY}
-// https://developers.google.com/apis-explorer/#search/firestore/firestore/v1/firestore.projects.databases.documents.createDocument?parent=projects%252Fwcttigardweb%252Fdatabases%252F(default)%252Fdocuments&collectionId=FCMToken&documentId=someID2&_h=2&resource=%257B%250A++%2522fields%2522%253A+%250A++%257B%250A++++%2522group%2522%253A+%250A++++%257B%250A++++++%2522stringValue%2522%253A+%2522myGroup2%2522%250A++++%257D%250A++%257D%250A%257D&
-//https://firebase.google.com/docs/cloud-messaging/js/send-multiple  <----- Subscription
-
 export default class App extends React.Component {
   constructor() {
     super();
@@ -122,8 +111,6 @@ export default class App extends React.Component {
 
   render() {
     console.disableYellowBox = true;
-
-    const isIOS = Platform.OS === 'ios';
 
     if (!this.state.fontLoaded) {
       return <AppLoading/>
