@@ -79,15 +79,15 @@ export default class ContactUsScreen extends React.Component {
         return (
             <View style={{flexDirection: 'row', width: '100%', marginTop: -15}}>
                 <View style={{flex: 1, alignItems: 'center'}}>
-                    <Icon name="location-on" type="MaterialIcons" style={{color: '#fc5344'}} />
+                    <Icon name="location-on" type="MaterialIcons" style={[{color: '#fc5344'}, styles.glowingRed]} />
                 </View>
                 <View style={{flex: 5, paddingRight: 15}}>
                     <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-                        <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{this.state.data.schoolName || "No contact info yet"}</Text>
+                        <Text style={[{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>{this.state.data.schoolName || "No contact info yet"}</Text>
                     </View>
-                    <Text style={{color: '#888', fontSize: 12}}>{this.state.data.address}</Text>
-                    <Text style={{color: '#888', fontSize: 12}}>{this.state.data.phoneNumber}</Text>
-                    <Text style={{color: '#888', fontSize: 12}}>{this.state.data.email}</Text>
+                    <Text style={{color: '#fff', fontSize: 12}}>{this.state.data.address}</Text>
+                    <Text style={{color: '#fff', fontSize: 12}}>{this.state.data.phoneNumber}</Text>
+                    <Text style={{color: '#fff', fontSize: 12}}>{this.state.data.email}</Text>
                     {/* <Text style={{color: '#3366bb', fontWeight: '400', borderTopWidth: 1, borderTopColor: '#ddd', marginTop: 5, fontSize: 14}}>{this.state.contact.website}</Text> */}
                 </View>
             </View>
@@ -97,13 +97,13 @@ export default class ContactUsScreen extends React.Component {
     render () {
         return (
             <StyleProvider style={getTheme(material)}>
-            <Container>
+            <Container style={{backgroundColor: '#2d3238'}}>
                 <CustomHeader title='Contact Us' navigation={this.props.navigation} />
 
                 { this.state.isLoading ? <Spinner/> :
                     <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
                         {this.renderMap()}
-                        <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: '#fff', elevation: 8, justifyContent: 'center'}}>
+                        <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: 'rgba(0, 0, 0, 0.8)', justifyContent: 'center'}}>
                             <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
                             
                             <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>
@@ -143,3 +143,11 @@ export default class ContactUsScreen extends React.Component {
         );
       };
 }
+
+const styles = StyleSheet.create({
+    glowingRed: {
+        textShadowColor: 'rgba(255, 83, 68, 0.3)',
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 10,
+      },
+});

@@ -31,9 +31,9 @@ export default class CustomHeader extends React.Component {
           </Animatable.View>
         </Left>
 
-        <Body style={{flex: this.props.isHome ? 5 : 3 }}>
+        <Body style={{flex: this.props.isHome ? 4 : 3 }}>
           <Animatable.View animation="zoomIn">
-            <Title style={[styles.headerText, { fontSize: this.props.isHome ? 14.5 : 15, }]}>{this.props.title}</Title>
+            <Title style={[styles.headerText, { fontSize: this.props.isHome ? 14 : 22, }]}>{this.props.title}</Title>
           </Animatable.View>
         </Body>
 
