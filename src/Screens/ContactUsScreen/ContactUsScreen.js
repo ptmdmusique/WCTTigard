@@ -12,7 +12,7 @@ var latitudeDelta = 0.1022, longitudeDelta = 0.1021;
 
 export default class ContactUsScreen extends React.Component {
     state = {
-        data: null,
+        data: { latLng: { lat: 37.4220, lng: -122.0841 }},
         mapURL: null,
         isLoading: true,
     }
@@ -31,7 +31,13 @@ export default class ContactUsScreen extends React.Component {
     componentDidMount(){        
         firebase.firestore().collection('ContactUsScreen').doc(global.uid).get()
         .then( doc => {
-            this.setState({data: doc.data()}, () => this.convertAddress())
+            if (doc.data()) { 
+                console.log("--Getting contact info");
+                this.setState({data: doc.data()}, () => this.convertAddress());
+            } else {
+                console.warn("--Empty contact info!");
+                this.setState({ isLoading: false });
+            }
         })
         .catch(err => {
             console.log(err);
@@ -77,7 +83,7 @@ export default class ContactUsScreen extends React.Component {
                 </View>
                 <View style={{flex: 5, paddingRight: 15}}>
                     <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-                        <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{this.state.data.schoolName}</Text>
+                        <Text style={{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}}>{this.state.data.schoolName || "No contact info yet"}</Text>
                     </View>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.data.address}</Text>
                     <Text style={{color: '#888', fontSize: 12}}>{this.state.data.phoneNumber}</Text>
@@ -87,13 +93,6 @@ export default class ContactUsScreen extends React.Component {
             </View>
         );
     }
-
-    // renderContactButtons(contactButtons) {
-    //     contactButtons = CONTACT_BUTTONS;
-    //     return contactButtons.map(contactButton => (
-    //         <Icon name={contactButton.iconName} type={contactButton.iconType} style={{backgroundColor: '#70a1ff', color: 'white', fontSize: 20, padding: 10, borderRadius: 50, marginRight: 8, elevation: 10}} />
-    //     ));
-    // }
 
     render () {
         return (

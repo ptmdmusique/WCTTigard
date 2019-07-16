@@ -25,7 +25,7 @@ export default class CustomHeader extends React.Component {
   render () {
     return (
       <Header style={styles.header} transparent>
-        <Left style={{flex:1, left: -10, }}>
+        <Left style={{flex:1, }}>
           <Animatable.View animation="zoomIn">
             {this.renderLeftIcon()}
           </Animatable.View>
