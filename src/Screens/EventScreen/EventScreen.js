@@ -4,7 +4,7 @@ import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 
-import { BoxShadow } from 'react-native-shadow';
+import { BoxShadow, BorderShadow } from 'react-native-shadow';
 
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -21,16 +21,22 @@ export default class EventScreen extends React.Component {
   }
 
   componentDidMount() {
-    //TODO: CHANGE THIS
-    firebase.firestore().collection('EventScreen').doc(global.uid).get()
-    .then( doc =>
-      this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
-    )
-    .catch(err => {
-      //TODO: Add some alert here
-      this.setState({ isLoading: false });
-      console.log("--No Event to load");
-      console.log(err);
+    this.refresh();
+  }
+
+  refresh = () => {
+    this.setState({isLoading: true}, () => {
+      console.log("--Loading Event")
+      firebase.firestore().collection('EventScreen').doc(global.uid).get()
+      .then( doc =>
+        this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
+      )
+      .catch(err => {
+        //TODO: Add some alert here
+        this.setState({ isLoading: false });
+        console.log("--No Event to load");
+        console.log(err);
+      })
     })
   }
 
@@ -106,20 +112,25 @@ export default class EventScreen extends React.Component {
             </View>
           </Content>
 
-          <BoxShadow setting={shadowOpt}>
+          <View style={ styles.reloadContainer }>
             <View style={{ alignSelf: 'center', }}>
-              <Button style={ [styles.refreshButton, styles.glowingRed] } rounded >
-                <Icon 
-                  name="md-refresh" 
-                  type="ionicons"
-                  style={{ color: 'white', fontSize: 25, marginRight: 0, marginLeft: 0, }} 
-                />
-              </Button>
+              <BoxShadow setting={shadowOpt}>
+                <Button 
+                  onPress={() => this.refresh()}
+                  style={ [styles.refreshButton, styles.glowingRed] } 
+                  rounded >
+                  <Icon 
+                    name="md-refresh" 
+                    type="ionicons"
+                    style={{ color: 'white', fontSize: 25, marginRight: 0, marginLeft: 0, }} 
+                  />
+                </Button>
+              </BoxShadow>    
               <Text style={{ marginTop: 10, color: 'white', }}>
                 Refresh
               </Text>
             </View>
-          </BoxShadow>
+          </View>
         </Container>
       </StyleProvider>
     );
@@ -178,13 +189,12 @@ const styles = StyleSheet.create({
 })
 
 const shadowOpt = {
-  width:310,
-  height:200,
-  color:"#fff",
-  border:6,
-  radius:15,
-  opacity:0.1,
+  height: 50,
+  width: 50,
+  color:"#ab000d",
+  border: 1,
+  radius: 25, 
+  opacity: 0.07,
   x:0,
   y:0,
-  style: styles.reloadContainer,
 }

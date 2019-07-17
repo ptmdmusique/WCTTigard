@@ -83,7 +83,7 @@ export default class ContactUsScreen extends React.Component {
                 </View>
                 <View style={{flex: 5, paddingRight: 15}}>
                     <View style={{borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5}}>
-                        <Text style={[{color: '#fc5344', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>{this.state.data.schoolName || "No contact info yet"}</Text>
+                        <Text style={[{ color: 'white', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>{this.state.data.schoolName || "No contact info yet"}</Text>
                     </View>
                     <Text style={{color: '#fff', fontSize: 12}}>{this.state.data.address}</Text>
                     <Text style={{color: '#fff', fontSize: 12}}>{this.state.data.phoneNumber}</Text>
@@ -103,7 +103,7 @@ export default class ContactUsScreen extends React.Component {
                 { this.state.isLoading ? <Spinner/> :
                     <View style={{flex: 1, flexDirection: 'column', elevation: -2}}>
                         {this.renderMap()}
-                        <View style={{width: '80%', height: '30%', position: 'absolute', top: '65%', left: '10%', backgroundColor: 'rgba(0, 0, 0, 0.6)', justifyContent: 'center'}}>
+                        <View style={{width: '80%', height: 175, position: 'absolute', top: '65%', left: '10%', backgroundColor: 'rgba(0, 0, 0, 0.6 )', justifyContent: 'center'}}>
                             <View style={{justifyContent: 'center'}}>{this.renderContact()}</View>
                             
                             <View style={{position: 'absolute', top: -20, right: 10, flexDirection: 'row', alignItems: 'center'}}>

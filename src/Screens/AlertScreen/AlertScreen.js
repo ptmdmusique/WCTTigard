@@ -17,16 +17,21 @@ export default class AlertScreen extends React.Component {
   }
   
   componentDidMount() {
-    //TODO: CHANGE THIS
-    firebase.firestore().collection('AlertScreen').doc(global.uid).get()
-    .then( doc =>
-      this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
-    )
-    .catch(err => {
-      //TODO: Add some alert here
-      this.setState({ isLoading: false });
-      console.log("--No Alert to load");
-      console.log(err);
+    this.refresh();
+  }
+
+  refresh = () => {
+    this.setState({ isLoading: true }, () => {
+      firebase.firestore().collection('AlertScreen').doc(global.uid).get()
+      .then( doc =>
+        this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
+      )
+      .catch(err => {
+        //TODO: Add some alert here
+        this.setState({ isLoading: false });
+        console.log("--No Alert to load");
+        console.log(err);
+      })
     })
   }
 

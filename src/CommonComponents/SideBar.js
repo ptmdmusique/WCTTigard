@@ -98,7 +98,7 @@ class SideBar extends React.Component {
             <Text style={styles.title}>Master Eric's WCT</Text>
           </ImageBackground>
 
-          <Content style={{backgroundColor: '#111'}}>
+          <Content style={{backgroundColor: '#fafafa'}}>
             <FlatList        
               keyExtractor={item => item.name}
               data={routes}
@@ -118,7 +118,7 @@ class SideBar extends React.Component {
                     <Left>
                       <Icon style={[styles.menuItemIcon, styles.glowing]} name={data.item.iconName} type={data.item.iconType}/>
                     </Left>
-                    <Body style={{borderBottomColor: '#333', borderBottomWidth: 0.5}}>
+                    <Body style={{borderBottomColor: '#ddd', borderBottomWidth: 0.5}}>
                       <Text style={[styles.menuItemDisplayName, styles.glowing]}>{data.item.displayName}</Text>
                     </Body>
                   </ListItem>
@@ -182,12 +182,12 @@ const styles = StyleSheet.create({
   menuItemIcon: {
     fontSize: 23,
     marginLeft: 10,
-    color: '#fff'
+    color: '#222'
   },
   menuItemDisplayName: {
     marginLeft: 10,
     fontSize: 12,
-    color: '#fff',
+    color: '#222',
     fontFamily: 'Ubuntu-Medium'
   }
 });

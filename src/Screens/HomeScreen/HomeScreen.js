@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   // Menu buttons (Left)
   menuButtonsContainer: {
     position: 'absolute',
-    bottom: '10%',
+    bottom: 70,
     left: 0,
     backgroundColor: 'transparent',
     width: '20%',
@@ -240,9 +240,9 @@ const styles = StyleSheet.create({
   // Alert Card (Right)
   alertContainer: {
     position: 'absolute',
-    bottom: '13%',
+    bottom: 70,
     right: 0,
-    height: '25%',
+    height: 200,
     width: '72%',
     // borderColor: '#e02b34',
     backgroundColor: '#ef5350',

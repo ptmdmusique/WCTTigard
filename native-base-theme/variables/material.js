@@ -24,8 +24,9 @@ export default {
 
   // Android
   androidRipple: true,
-  androidRippleColor: "rgba(256, 256, 256, 0.3)",
-  androidRippleColorDark: "rgba(0, 0, 0, 0.15)",
+  //androidRippleColor: "rgba(256, 256, 256, 0.3)",
+  androidRippleColor: "rgba(255, 111, 96, 0.15)",
+  androidRippleColorDark: "rgba(255, 111, 96, 0.15)",
   btnUppercaseAndroidText: true,
 
   // Badge
@@ -198,7 +199,7 @@ export default {
   listBg: "transparent",
   listBorderColor: "#c9c9c9",
   listDividerBg: "#f4f4f4",
-  listBtnUnderlayColor: "#DDD",
+  listBtnUnderlayColor: "#ff6f60",
   listItemPadding: 12,
   listNoteColor: "#808080",
   listNoteSize: 13,

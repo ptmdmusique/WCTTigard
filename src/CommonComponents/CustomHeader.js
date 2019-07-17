@@ -8,8 +8,9 @@ export default class CustomHeader extends React.Component {
   renderLeftIcon() {
     if (this.props.isStack) {
       return (
-        <Button transparent onPress={() => this.props.navigation.goBack()}>
-          <Icon style={styles.headerIcon} name='chevron-left'/>
+        <Button transparent onPress={() => this.props.navigation.goBack()} style={{flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Icon style={styles.headerIcon} name='angle-left' type="FontAwesome"/>
+          <Text style={styles.headerIconText}>Back</Text>
         </Button>
       );
     }
