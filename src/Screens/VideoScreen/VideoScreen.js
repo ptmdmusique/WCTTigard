@@ -2,10 +2,11 @@ import React from 'react';
 import { Container, StyleProvider, Spinner, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { AppState, View, FlatList, } from 'react-native';
+import { View, FlatList, } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { WebView } from 'react-native-webview';
 
+import RefreshView from '../../CommonComponents/RefreshView';
 import VideoFolder from './VideoFolder';
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
@@ -13,7 +14,6 @@ import * as firebase from 'firebase'
 
 export default class VideoScreen extends React.Component {
   state = {
-    appState: AppState.currentState,
     screenSwitched: false,
     currentVidUrl: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc"),
     
@@ -22,35 +22,27 @@ export default class VideoScreen extends React.Component {
   }
 
   componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
+    this.refresh();
+  }
 
+  refresh = () => {
     //TODO: Change this
-    firebase.firestore().collection('VideoScreen').doc(global.uid).get()
-    .then( doc => {
-      console.log("--Video loaded!");
-      this.setState({ videoFolderList: doc.data().videoFolderList }, 
-        () => this.setState({ isLoading: false }))
+    this.setState({ isLoading: true }, () => {
+      firebase.firestore().collection('VideoScreen').doc(global.uid).get()
+      .then( doc => {
+        console.log("--Video loaded!");
+        this.setState({ videoFolderList: doc.data().videoFolderList }, 
+          () => this.setState({ isLoading: false }))
+      })
+      .catch(err => {
+        console.log("--No video to load!'")
+        this.setState({ isLoading: false })
+        console.log(err);
+      })
     })
-    .catch(err => {
-      console.log("--No video to load!'")
-      this.setState({ isLoading: false })
-      console.log(err);
-    })
-  }
-
-  componentWillUnmount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
-  }
-
-  _handleAppStateChange = (nextAppState) => {
-    this.setState({appState: nextAppState});
   }
 
   renderVideo() {
-    if (this.state.appState !== 'active' || this.state.screenSwitched) {
-      return <View />;
-    }
-
     return (
       <WebView 
         javaScriptEnabled={true}
@@ -99,6 +91,7 @@ export default class VideoScreen extends React.Component {
               </View>
           }
 
+          <RefreshView refresh={this.refresh}/>
         </Container>
       </StyleProvider>
     );

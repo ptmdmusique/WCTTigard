@@ -12,7 +12,7 @@ import {Provider} from 'react-redux';
 import reducers from './src/Redux/Reducers';
 import * as firebase from 'firebase/app';
 
-import { Permissions, Notifications } from 'expo';
+import { Permissions, Notifications, } from 'expo';
 
 export default class App extends React.Component {
   constructor() {
@@ -88,6 +88,17 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
+    if (Platform.OS === 'android') {
+      console.log("--Registering notification channel");
+      Notifications.createChannelAndroidAsync('wcttigard', {
+        name: "WCT Tigard's Important Messages",
+        description: "Notification setting for WCT Tigard's important messages",
+        sound: true,
+        priority: 'max',
+        vibrate: [0, 250, 250, 250],
+      });
+    }
+    
     //setTimeout(() => {this.setState({isReady: true})}, 500);
     this.setState({ isReady: true });
 

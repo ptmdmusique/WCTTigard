@@ -4,30 +4,10 @@ import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 
+import RefreshView from '../../CommonComponents/RefreshView';
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase/app';
 import '@firebase/firestore';
-
-const MOCK_NEWS = [
-  {
-    title: 'Test News',
-    description: 'Short description',
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
-    date: '9/22/2019',
-    address: "15660 SW Pacific Hwy",
-    locationName: 'WCTTigard',
-    image: 'https://imgur.com/B8cudDx.jpg'
-  },
-  {
-    title: 'Test News 2',
-    description: 'Short description 2',
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquid scire se gaudeant? Ut necesse sit omnium rerum, quae natura vigeant, similem esse finem, non eundem. Quamquam ab iis philosophiam et omnes ingenuas disciplinas habemus; At enim hic etiam dolore. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ergo infelix una molestia, fellx rursus, cum is ipse anulus in praecordiis piscis inventus est? ",
-    date: '9/22/2019',
-    address: "15660 SW Pacific Hwy",
-    locationName: 'WCTTigard',
-    image: 'https://imgur.com/B8cudDx.jpg'
-  }
-];
 
 export default class NewsScreen extends React.Component {
   state = {
@@ -97,6 +77,7 @@ export default class NewsScreen extends React.Component {
             </View>
           </Content>
 
+          <RefreshView refresh={this.refresh}/>
         </Container>
       </StyleProvider>
     );

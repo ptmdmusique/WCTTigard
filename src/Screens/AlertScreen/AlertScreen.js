@@ -1,14 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Platform } from 'react-native';
+import { StyleSheet, View, FlatList, Platform, Dimensions } from 'react-native';
 import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import Moment from 'moment';
 import { BoxShadow } from 'react-native-shadow';
 
+import RefreshView from '../../CommonComponents/RefreshView';
+
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as Animatable from 'react-native-animatable';
 import * as firebase from 'firebase/app';
+
+var {height, width} = Dimensions.get('window');
 
 export default class AlertScreen extends React.Component {
   state = {
@@ -44,7 +48,7 @@ export default class AlertScreen extends React.Component {
     Moment(alert.date).format("MM-DD-YYYY");
 
     const shadowOpt = {
-      width:310,
+      width: width * 0.9,
       height:200,
       color:"#fff",
       border:6,
@@ -61,25 +65,26 @@ export default class AlertScreen extends React.Component {
           <View style={{width: '100%', minHeight: 200, backgroundColor: 'white', alignSelf: 'center', borderWidth: 1, borderRadius: 15, borderColor: '#fff', overflow: 'hidden'}}>
             {/* <View style={{position: 'absolute', right: 0, top: 0, width: '15%', height: '100%', backgroundColor: '#414953', zIndex: 1}}></View> */}
 
-            <View style={{flex: 4/5, flexDirection: 'row', backgroundColor: '#3d4248'}}>
-              <View style={{flex: 1/4, alignItems: 'center', paddingTop: 10, borderRightColor: '#fff', borderRightWidth: 1, backgroundColor: '#333'}}>
+            <View style={{flex: 4/5, flexDirection: 'row', backgroundColor: '#FF6557'}}>
+              <View style={{flex: 1/4, alignItems: 'center', paddingTop: 10, borderRightColor: '#fff', borderRightWidth: 1, backgroundColor: '#FF6557'}}>
                 <View>
-                  <Icon name="calendar" type='Feather' style={[{fontSize: 60, color: '#ff4545',}, styles.glowingRed]}/>
-                  <Text style={[{fontSize: 20, color: '#ff4545', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>
+                  <Icon name="calendar" type='Feather' style={[{fontSize: 60, color: '#fff',}, styles.glowingRed]}/>
+                  <Text style={[{fontSize: 20, color: '#fff', fontWeight: 'bold', position: 'absolute', top: '42%', alignSelf: 'center', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>
                     {Moment(alert.date).format("D")}
                   </Text>
                 </View>
-                <Text style={[{fontSize: 20, color: '#ff4545', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>
+                <Text style={[{fontSize: 20, color: '#fff', fontWeight: 'bold', fontFamily: 'Roboto-Bold'}, styles.glowingRed]}>
                   {monthNames_short[parseInt(Moment(alert.date).format("M")) - 1]}
                 </Text>
               </View>
-              <View style={{flex: 3/4, paddingTop: 10, paddingLeft: 10, backgroundColor: '#222'}}>
+
+              <View style={{flex: 3/4, paddingTop: 10, paddingLeft: 10, backgroundColor: '#fff'}}>
                 <Text style={[styles.alertCardTitle, styles.glowing]}>{alert.title}</Text>
                 <Text style={[styles.alertCardDescription]}>{alert.content}</Text>
               </View>
             </View>
 
-            <View style={{flex: 1/5, backgroundColor: '#666', opacity: 1, flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderTopColor: '#fff', borderTopWidth: 1}}>
+            <View style={{flex: 1/5, backgroundColor: '#FF6D60', opacity: 1, flexDirection: 'row', alignContent: 'center', alignItems: 'center', borderTopColor: '#fff', borderTopWidth: 1}}>
               <Icon name="clock" style={styles.dateIcon}/>
               <Text style={[styles.dateText, styles.glowing]}>
                 {/* Expired: {alert.dateFrom === alert.dateTo ? 'Same day' : alert.dateTo} */}
@@ -95,7 +100,7 @@ export default class AlertScreen extends React.Component {
   render () {
     return (
       <StyleProvider style={getTheme(material)}>
-        <Container style={{backgroundColor: '#2d3238'}}>
+        <Container style={{backgroundColor: '#C9C9C9'}}>
           <CustomHeader title='Alerts' navigation={this.props.navigation} />
 
           <Content style={{flex: 1, backgroundColor: 'transparent'}}>
@@ -108,6 +113,7 @@ export default class AlertScreen extends React.Component {
             }
           </Content>
 
+          <RefreshView refresh={this.refresh}/>
         </Container>
       </StyleProvider>
     );
@@ -126,10 +132,10 @@ const styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   alertCardTitle: {
-    fontSize: 20, fontWeight: 'bold', color: '#fff', fontFamily: 'Roboto-Bold'
+    fontSize: 20, fontWeight: 'bold', color: '#111', fontFamily: 'Roboto-Bold'
   },
   alertCardDescription: {
-    fontSize: 16, color: '#ccc', paddingRight: 1, fontFamily: 'Roboto'
+    fontSize: 16, color: '#333', paddingRight: 1, fontFamily: 'Roboto'
   },
   dateIcon: {
     fontSize: 20,
