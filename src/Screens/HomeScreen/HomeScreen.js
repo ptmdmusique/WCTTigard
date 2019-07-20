@@ -198,9 +198,9 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   glowing: {
-    textShadowColor: 'rgba(255, 255, 255, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    // textShadowColor: 'rgba(255, 255, 255, 0.5)',
+    // textShadowOffset: { width: 0, height: 0 },
+    // textShadowRadius: 10,
   },
   // Menu buttons (Left)
   menuButtonsContainer: {
@@ -214,9 +214,9 @@ const styles = StyleSheet.create({
   menuButton: {
     flex: 1,
     width: '100%',
-    // borderColor: '#e02b34',
+    borderColor: '#fff',
     backgroundColor: '#ef5350',
-    borderWidth: 2,
+    // borderWidth: 2,
     borderRadius: 15,
     borderTopStartRadius: 0,
     borderBottomStartRadius: 0,
@@ -242,11 +242,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 70,
     right: 0,
-    height: 200,
+    minHeight: 200,
     width: '72%',
-    // borderColor: '#e02b34',
+    borderColor: '#fff',
     backgroundColor: '#ef5350',
-    borderWidth: 2,
+    // borderWidth: 2,
     borderRadius: 15,
     borderTopEndRadius: 0,
     borderBottomEndRadius: 0,

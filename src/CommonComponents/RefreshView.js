@@ -6,6 +6,7 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 
 import { BoxShadow, } from 'react-native-shadow';
 import '@firebase/firestore';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 var {height, width} = Dimensions.get('window');
 
@@ -13,22 +14,22 @@ export default class RefreshView extends React.Component {
   render () {
     return (
       <View style={ styles.reloadContainer }>
-        <View style={{ alignSelf: 'center', }}>
-          <BoxShadow setting={shadowOpt}>
-            <Button 
-              onPress={() => this.props.refresh()}
-              style={ [styles.refreshButton, styles.glowingRed] } 
-              rounded >
+        <View style={{ alignSelf: 'flex-start', paddingLeft: 20 }}>
+          <TouchableOpacity 
+            onPress={() => this.props.refresh()}
+            style={ [styles.refreshButton, styles.glowingRed] } 
+          >
+            <View style={ styles.refreshIconContainer }>
               <Icon 
                 name="md-refresh" 
-                type="ionicons"
-                style={{ color: 'white', fontSize: 25, marginRight: 0, marginLeft: 0, }} 
+                type="Ionicons"
+                style={ styles.refreshIcon } 
               />
-            </Button>
-          </BoxShadow>    
-          <Text style={{ marginTop: 10, color: 'white', }}>
-            Refresh
-          </Text>
+            </View>
+            <Text style={{ color: 'white', marginLeft: 10 }}>
+              Refresh
+            </Text>
+          </TouchableOpacity>   
         </View>
       </View>
     );
@@ -40,23 +41,28 @@ styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 0,
-    height: 0.15 * height,
-    width: width,
-    backgroundColor: 'rgba( 0, 0, 0, 0.6 )',
-    alignItems: 'center',
-    alignContent: 'center', 
-    justifyContent: 'center', 
+    paddingVertical: 10,
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   refreshButton: {
-    height: 50,
-    width: 50,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  refreshIconContainer: {
+    width: 40,
+    height: 40,
     borderWidth: 4,
     borderRadius: 50,
     borderColor: '#FE4141',
-    backgroundColor: 'transparent',
-    alignSelf: 'center',    
-    alignItems: 'center',   
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+  refreshIcon: {
+    color: 'white',
+    fontSize: 25,
   },
   glowingRed: {
     shadowOpacity: 0.75,
@@ -65,14 +71,3 @@ styles = StyleSheet.create({
     shadowOffset: { height: 0, width: 0 },
   },
 })
-
-const shadowOpt = {
-  height: 50,
-  width: 50,
-  color:"#ab000d",
-  border: 1,
-  radius: 25, 
-  opacity: 0.07,
-  x:0,
-  y:0,
-}

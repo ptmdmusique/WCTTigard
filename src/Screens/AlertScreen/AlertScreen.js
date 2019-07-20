@@ -62,7 +62,7 @@ export default class AlertScreen extends React.Component {
     return (
       <Animatable.View animation="lightSpeedIn" delay={index * 200}>
         <BoxShadow setting={shadowOpt}>
-          <View style={{width: '100%', minHeight: 200, backgroundColor: 'white', alignSelf: 'center', borderWidth: 1, borderRadius: 15, borderColor: '#fff', overflow: 'hidden'}}>
+          <View style={{width: '100%', minHeight: 200, backgroundColor: 'white', alignSelf: 'center', borderWidth: 0, borderRadius: 15, borderColor: '#fff', overflow: 'hidden'}}>
             {/* <View style={{position: 'absolute', right: 0, top: 0, width: '15%', height: '100%', backgroundColor: '#414953', zIndex: 1}}></View> */}
 
             <View style={{flex: 4/5, flexDirection: 'row', backgroundColor: '#FF6557'}}>
@@ -100,7 +100,7 @@ export default class AlertScreen extends React.Component {
   render () {
     return (
       <StyleProvider style={getTheme(material)}>
-        <Container style={{backgroundColor: '#C9C9C9'}}>
+        <Container style={{backgroundColor: '#ddd'}}>
           <CustomHeader title='Alerts' navigation={this.props.navigation} />
 
           <Content style={{flex: 1, backgroundColor: 'transparent'}}>
@@ -122,14 +122,14 @@ export default class AlertScreen extends React.Component {
 
 const styles = StyleSheet.create({
   glowing: {
-    textShadowColor: 'rgba(255, 255, 255, 0.3)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    // textShadowColor: 'rgba(255, 255, 255, 0.3)',
+    // textShadowOffset: { width: 0, height: 0 },
+    // textShadowRadius: 10,
   },
   glowingRed: {
-    textShadowColor: 'rgba(255, 69, 69, 0.5)',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
+    // textShadowColor: 'rgba(255, 69, 69, 0.5)',
+    // textShadowOffset: { width: 0, height: 0 },
+    // textShadowRadius: 10,
   },
   alertCardTitle: {
     fontSize: 20, fontWeight: 'bold', color: '#111', fontFamily: 'Roboto-Bold'
