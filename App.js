@@ -31,7 +31,7 @@ export default class App extends React.Component {
     //WCTTigard 
     global.uid = "up9uVP8l43csXumPi9okIWTUcuH2";
     //Test
-    global.uid = "test";
+    global.uid = "dTmGIfXKQdM1LtlHSK23LMNssw63";
     
     // Initialize Firebase
     const firebaseConfig = {
