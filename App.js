@@ -139,7 +139,7 @@ export default class App extends React.Component {
                       alignItems: 'center',
                   }}
               >
-                  <Image source={require('./assets/images/sidebar-logo.png')}/>
+                  <Image source={require('./assets/images/original_logo_edited.png')}/>
                   <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{"\n"}World Champion Taekwondo</Text>
                   <Spinner color='red'/>
               </Content>

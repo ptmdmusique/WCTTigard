@@ -15,6 +15,7 @@ export default class ScheduleScreen extends React.Component {
     state = {
         scheduleURL: "http://www.pdf995.com/samples/pdf.pdf",
         isLoading: true,
+        isGrantedPermission: false
     }
 
     async componentDidMount() {

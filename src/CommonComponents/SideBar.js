@@ -3,6 +3,7 @@ import { Image, ImageBackground, View, StyleSheet, FlatList } from 'react-native
 import { Container, Content, Text, ListItem, Left, Body, Icon, StyleProvider, Footer, Header} from "native-base";
 import material from '../..//native-base-theme/variables/material';
 import getTheme from '../../native-base-theme/components';
+import * as firebase from 'firebase/app';
 
 const routes =  [
   {
@@ -79,11 +80,49 @@ const routes =  [
 ]
 
 class SideBar extends React.Component {
+  state = {
+    imageURL: '../../assets/images/sidebar-background.png'
+  }
+
+  componentDidMount() {
+    console.log(global.uid);
+    firebase.storage().ref("Drawer/" + global.uid).listAll()
+    .then(result => {
+      if (!result.items || result.items.length === 0){
+        console.log("--No Drawer image");
+        return;
+      }
+
+      result.items[0].getDownloadURL().then(url => {
+        this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
+      })})
+
+    .catch(err => {
+      console.log("--No Drawer image");
+      console.error(err);
+    });
+  }
+
   render() {
     // TODO: Get sidebar Image from database
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
+          {this.state.imageURL ? 
+          <ImageBackground
+            source={{ url: this.state.imageURL }}
+            style={styles.imageBackground}
+          >
+            <View style={styles.darkOverlay} />
+            <View style={styles.logoContainer}>
+              <Image
+                style={{ height: 70, width: 70 }}
+                source={require('../../assets/images/sidebar-logo.png')}
+              />
+            </View>
+            <Text style={styles.title}>Master Eric's WCT</Text>
+          </ImageBackground>
+            :
           <ImageBackground
             source={require('../../assets/images/sidebar-background.png')}
             style={styles.imageBackground}
@@ -97,6 +136,7 @@ class SideBar extends React.Component {
             </View>
             <Text style={styles.title}>Master Eric's WCT</Text>
           </ImageBackground>
+        }
 
           <Content style={{backgroundColor: '#fafafa'}}>
             <FlatList        
