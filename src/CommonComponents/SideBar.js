@@ -116,8 +116,8 @@ class SideBar extends React.Component {
             <View style={styles.darkOverlay} />
             <View style={styles.logoContainer}>
               <Image
-                style={{ height: 70, width: 70 }}
-                source={require('../../assets/images/sidebar-logo.png')}
+                style={styles.logo}
+                source={require('../../assets/images/original_logo_edited.png')}
               />
             </View>
             <Text style={styles.title}>Master Eric's WCT</Text>
@@ -130,8 +130,8 @@ class SideBar extends React.Component {
             <View style={styles.darkOverlay} />
             <View style={styles.logoContainer}>
               <Image
-                style={{ height: 70, width: 70 }}
-                source={require('../../assets/images/sidebar-logo.png')}
+                style={styles.logo}
+                source={require('../../assets/images/original_logo_edited.png')}
               />
             </View>
             <Text style={styles.title}>Master Eric's WCT</Text>
@@ -229,5 +229,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#222',
     fontFamily: 'Ubuntu-Medium'
+  },
+  logo: {
+    width: 100,
+    height: 100,
   }
 });
