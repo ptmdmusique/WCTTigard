@@ -6,7 +6,7 @@ import {View, Image, StyleSheet, TouchableOpacity , Dimensions, Platform } from 
 import { Row, Grid, Col } from "react-native-easy-grid";
 import { LinearGradient } from 'expo-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image';
-
+import Moment from 'moment';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase/app';
@@ -136,7 +136,7 @@ export default class HomeScreen extends React.Component {
                     alignItems: 'center',
                 }}
             >
-                <Image source={require('../../../assets/images/sidebar-logo.png')}/>
+                <Image style={{ width: 200, height: 200, }} source={require('../../../assets/images/original_logo_edited.png')}/>
                 <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{"\n"}World Champion Taekwondo</Text>
                 <Spinner color='red'/>
             </Content>
@@ -179,7 +179,7 @@ export default class HomeScreen extends React.Component {
                       <Text style={[styles.alertDescription, styles.glowing]}>{this.state.latestAlert.content}</Text>
 
                       <View style={{flex: 1,}}>
-                        <Text style={[styles.alertDate, styles.glowing]}>Effective Date: {this.state.latestAlert.date}</Text>
+                        <Text style={[styles.alertDate, styles.glowing]}>Effective Date: {Moment(this.state.latestAlert.date).format("MM-DD-YYYY")}</Text>
                       </View>
                     </View>
                   </View> : 

@@ -3,6 +3,7 @@ import { Container, Icon, StyleProvider, Spinner, Content, Card, CardItem } from
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking } from 'react-native';
+import Moment from 'moment';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import { MapView, Location, } from 'expo';
@@ -86,7 +87,7 @@ export default class EventDetailScreen extends React.Component {
             <Card style={styles.cardStyle}>
               <CardItem>
                 <Icon name="calendar" type="FontAwesome" style={styles.icon}/>
-                <Text style={{flex: 18/20, color: "#333", fontSize: 11}}>{this.state.event.dateFrom} - {this.state.event.dateTo}</Text>
+                <Text style={{flex: 18/20, color: "#333", fontSize: 11}}>{Moment(this.state.event.dateFrom).format("MM-DD-YYYY")} - {Moment(this.state.event.dateTo).format("MM-DD-YYYY")}</Text>
               </CardItem>
               {this.renderLocationItem()}
             </Card>

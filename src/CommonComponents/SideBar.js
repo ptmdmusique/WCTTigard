@@ -85,20 +85,20 @@ class SideBar extends React.Component {
   }
 
   componentDidMount() {
-    console.log(global.uid);
     firebase.storage().ref("Drawer/" + global.uid).listAll()
     .then(result => {
       if (!result.items || result.items.length === 0){
-        console.log("--No Drawer image");
+        console.warn("--No Drawer image");
         return;
       }
 
+      console.log("--Drawer image found!");
       result.items[0].getDownloadURL().then(url => {
         this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
       })})
 
     .catch(err => {
-      console.log("--No Drawer image");
+      console.warn("--No Drawer image");
       console.error(err);
     });
   }
@@ -109,34 +109,34 @@ class SideBar extends React.Component {
       <StyleProvider style={getTheme(material)}>
         <Container>
           {this.state.imageURL ? 
-          <ImageBackground
-            source={{ url: this.state.imageURL }}
-            style={styles.imageBackground}
-          >
-            <View style={styles.darkOverlay} />
-            <View style={styles.logoContainer}>
-              <Image
-                style={styles.logo}
-                source={require('../../assets/images/original_logo_edited.png')}
-              />
-            </View>
-            <Text style={styles.title}>Master Eric's WCT</Text>
-          </ImageBackground>
-            :
-          <ImageBackground
-            source={require('../../assets/images/sidebar-background.png')}
-            style={styles.imageBackground}
-          >
-            <View style={styles.darkOverlay} />
-            <View style={styles.logoContainer}>
-              <Image
-                style={styles.logo}
-                source={require('../../assets/images/original_logo_edited.png')}
-              />
-            </View>
-            <Text style={styles.title}>Master Eric's WCT</Text>
-          </ImageBackground>
-        }
+            <ImageBackground
+              source={{ url: this.state.imageURL }}
+              style={styles.imageBackground}
+            >
+              <View style={styles.darkOverlay} />
+              <View style={styles.logoContainer}>
+                <Image
+                  style={styles.logo}
+                  source={require('../../assets/images/original_logo_edited.png')}
+                />
+              </View>
+              <Text style={styles.title}>Master Eric's WCT</Text>
+            </ImageBackground>
+              :
+            <ImageBackground
+              source={require('../../assets/images/sidebar-background.png')}
+              style={styles.imageBackground}
+            >
+              <View style={styles.darkOverlay} />
+              <View style={styles.logoContainer}>
+                <Image
+                  style={styles.logo}
+                  source={require('../../assets/images/original_logo_edited.png')}
+                />
+              </View>
+              <Text style={styles.title}>Master Eric's WCT</Text>
+            </ImageBackground>
+          }
 
           <Content style={{backgroundColor: '#fafafa'}}>
             <FlatList        
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     backgroundColor: 'black',
-    opacity: 0.6
+    opacity: 0.5
   },
   logoContainer: {
     height: 85,

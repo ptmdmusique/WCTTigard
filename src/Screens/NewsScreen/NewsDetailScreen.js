@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Icon, StyleProvider, Spinner, Content, Card, CardItem } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
+import Moment from 'moment';
 import { View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking, } from 'react-native';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -109,7 +110,7 @@ export default class NewsDetailScreen extends React.Component {
             <Card style={styles.cardStyle}>
               <CardItem>
                 <Icon name="calendar" type="FontAwesome" style={styles.icon}/>
-                <Text style={{flex: 18/20, color: "#333"}}>Date Posted: {this.state.news.date}</Text>
+                <Text style={{flex: 18/20, color: "#333"}}>Date Posted: {Moment(this.state.news.date).format("MM-DD-YYYY")}</Text>
               </CardItem>
               {this.renderLocationItem()}
             </Card>

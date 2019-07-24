@@ -4,6 +4,7 @@ import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import { StyleSheet, View, FlatList, TouchableOpacity,} from 'react-native';
 import RefreshView from '../../CommonComponents/RefreshView';
+import Moment from 'moment';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase/app';
@@ -72,9 +73,9 @@ export default class EventScreen extends React.Component {
           <View style={{flex: 1/3, flexDirection: 'row'}}>
             <View style={{flex: 5/6, justifyContent: 'center',}}>
               <Text style={{color: '#d67535', fontSize: 12, fontWeight: '600', paddingBottom: 5,}}>
-                Start: {event.dateFrom}
+                Start: {Moment(event.dateFrom).format("MM-DD-YYYY")}
                 {'\n'}
-                End:   {event.dateTo}
+                End:   {Moment(event.dateTo).format("MM-DD-YYYY")}
               </Text>
             </View>
             <View style={{flex: 1/6, alignItems: 'center', justifyContent: 'center',}}>

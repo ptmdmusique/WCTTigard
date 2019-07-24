@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
+import Moment from 'moment';
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 
 import RefreshView from '../../CommonComponents/RefreshView';
@@ -44,7 +45,7 @@ export default class NewsScreen extends React.Component {
           </View>
           <View style={{flex: 1/3, flexDirection: 'row'}}>
             <View style={{flex: 5/6, justifyContent: 'center',}}>
-              <Text style={{color: '#ff5f56', fontSize: 12, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>Posted: {news.date}</Text>
+              <Text style={{color: '#ff5f56', fontSize: 12, fontWeight: '600', fontFamily: 'Roboto-Bold'}}>Posted: {Moment(news.date).format("MM-DD-YYYY")}</Text>
             </View>
             <View style={{flex: 1/6, alignItems: 'center', justifyContent: 'center'}}>
               <Icon name="ios-arrow-forward" type="Ionicons" style={{fontSize: 20, color: '#ff5f56'}} />
