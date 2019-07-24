@@ -4,6 +4,7 @@ import { Container, Content, Text, ListItem, Left, Body, Icon, StyleProvider, Fo
 import material from '../..//native-base-theme/variables/material';
 import getTheme from '../../native-base-theme/components';
 import * as firebase from 'firebase/app';
+import Spinner from '../../native-base-theme/components/Spinner';
 
 const routes =  [
   {
@@ -81,7 +82,8 @@ const routes =  [
 
 class SideBar extends React.Component {
   state = {
-    imageURL: '../../assets/images/sidebar-background.png'
+    imageURL: '../../assets/images/sidebar-background.png',
+    isImageLoading: true,
   }
 
   componentDidMount() {
@@ -95,6 +97,7 @@ class SideBar extends React.Component {
       console.log("--Drawer image found!");
       result.items[0].getDownloadURL().then(url => {
         this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
+        console.log("Original: " + url);
       })})
 
     .catch(err => {
@@ -108,7 +111,7 @@ class SideBar extends React.Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
-          {this.state.imageURL ? 
+          {!this.state.isImageLoading ? 
             <ImageBackground
               source={{ url: this.state.imageURL }}
               style={styles.imageBackground}
