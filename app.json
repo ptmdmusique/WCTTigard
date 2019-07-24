@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/App_Icon_3.png",
     "splash": {
@@ -27,7 +27,8 @@
       "bundleIdentifier": "com.test.WCTTigard"
     },
     "android": {
-      "package": "com.test.WCTTigard"
+      "package": "com.test.WCTTigard",
+      "versionCode": 2
     }
   }
 }

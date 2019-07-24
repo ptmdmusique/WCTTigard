@@ -13,7 +13,7 @@
     "easy-peasy": "^2.6.5",
     "expo": "^33.0.0",
     "expo-blur": "^5.0.1",
-    "expo-cli": "^3.0.0",
+    "expo-cli": "^3.0.2",
     "expo-linear-gradient": "^5.0.1",
     "firebase": "^6.2.4",
     "moment": "^2.24.0",

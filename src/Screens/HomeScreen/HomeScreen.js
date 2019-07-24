@@ -143,7 +143,7 @@ export default class HomeScreen extends React.Component {
           </Container> : 
 
           <Container style={{backgroundColor: '#0f0f0f'}}>
-            <CustomHeader title="Master Eric's World Champion Taekwondo" navigation={this.props.navigation} isHome />
+            <CustomHeader title="Master Eric's" title_2=" World Champion Taekwondo" navigation={this.props.navigation} isHome />
 
             <View style={{ width: '100%', height: '100%' }}>
               <Image source={{uri: this.state.imageURL}}
@@ -156,15 +156,8 @@ export default class HomeScreen extends React.Component {
               </LinearGradient>
 
               <View style={{ position: 'absolute', top: 0, right: -10, }}>
-                <Image source={require('../../../assets/images/original_logo_edited.png')} 
-                  style={{
-                    height: (width * 0.25),
-                    width: (width * 0.25),
-                  }}
-                />
                 <AutoHeightImage source={require('../../../assets/images/tkd_white_edited.png')} 
                   width={ width * 0.25 }
-                  style={{ marginTop: -20, }}
                 />
               </View>
 
