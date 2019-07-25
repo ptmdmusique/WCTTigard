@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import CustomHeader from '../../CommonComponents/CustomHeader';
 import {Container, StyleProvider, Spinner, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components'; 
+import RefreshView from '../../CommonComponents/RefreshView';
 
 import * as firebase from 'firebase/app';
 
@@ -36,6 +38,8 @@ export class BirthdayScreen extends Component {
           <WebView
             source={{ html: this.state.data || ""}}
           />}
+          
+          {Platform.OS === "ios" ? <RefreshView navigation={this.props.navigation}/> : null}
         </Container>
       </StyleProvider>
     )

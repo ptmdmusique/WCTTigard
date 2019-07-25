@@ -84,8 +84,8 @@ export default class HomeScreen extends React.Component {
       console.error(err);
     });
     
-    firebase.firestore().collection('AlertScreen').doc(global.uid).get()
-    .then( doc => {      
+    firebase.firestore().collection('AlertScreen').doc(global.uid)
+    .onSnapshot( doc => {      
       let tempList = doc.data().list;
       console.log("--Getting latest alert"); 
       //console.log(tempList);
@@ -101,13 +101,11 @@ export default class HomeScreen extends React.Component {
       })
 
       this.setState({latestAlert: tempList[0]}, () => this.setState({ isAlertLoading: false }))
-    })
-    .catch(err => {
+    }, (err) => {
       console.log("--Empty latest alert");
       this.setState({ isAlertLoading: false } );
       console.log(err);
     })
-
   }
 
   renderMenuButton() {
@@ -136,7 +134,7 @@ export default class HomeScreen extends React.Component {
                     alignItems: 'center',
                 }}
             >
-                <Image style={{ width: 200, height: 200, }} source={require('../../../assets/images/original_logo_edited.png')}/>
+                <Image style={{ width: 200, height: 200, }} source={require('../../../assets/images/logo.png')}/>
                 <Text style={{fontSize: 15, textAlign: 'center'}}>Master Eric's{"\n"}World Champion Taekwondo</Text>
                 <Spinner color='red'/>
             </Content>
@@ -170,12 +168,13 @@ export default class HomeScreen extends React.Component {
                   <Icon style={[styles.alertIcon, styles.glowing]} name='bell'></Icon>
                 </View>
                 {this.state.latestAlert ? 
-                  <View style={{flex: 3, }}>
+                  <View style={{flex: 4, }}>
                     <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5, }}>
+                      <Text style={[styles.alertTitle, styles.glowing, { fontSize: 12, borderBottomWidth: 0, marginBottom: 5, }]}>Latest Alert: </Text>  
                       <Text style={[styles.alertTitle, styles.glowing]}>{this.state.latestAlert.title}</Text>  
                     </View>
 
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
                       <Text style={[styles.alertDescription, styles.glowing]}>{this.state.latestAlert.content}</Text>
 
                       <View style={{flex: 1,}}>
@@ -214,7 +213,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     borderColor: '#fff',
-    backgroundColor: '#ef5350',
+    backgroundColor: '#f44336',
     // borderWidth: 2,
     borderRadius: 15,
     borderTopStartRadius: 0,
@@ -233,7 +232,8 @@ const styles = StyleSheet.create({
   menuButtonText: {
     flex: 1,
     color: '#fff',
-    fontSize: 12,
+    fontSize: 11,
+    fontWeight: 'bold',
   },
   
   // Alert Card (Right)
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     minHeight: 200,
     width: '72%',
     borderColor: '#fff',
-    backgroundColor: '#ef5350',
+    backgroundColor: '#f44336',
     // borderWidth: 2,
     borderRadius: 15,
     borderTopEndRadius: 0,
@@ -256,11 +256,11 @@ const styles = StyleSheet.create({
   },
   alertIcon: {
     color: '#fff',
-    fontSize: 44,
+    fontSize: 40,
   },
   alertTitle: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
     borderBottomColor: '#fff',
     borderBottomWidth: 1,
   },

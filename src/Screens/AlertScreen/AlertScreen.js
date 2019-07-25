@@ -113,7 +113,7 @@ export default class AlertScreen extends React.Component {
             }
           </Content>
 
-          <RefreshView refresh={this.refresh}/>
+          <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
         </Container>
       </StyleProvider>
     );

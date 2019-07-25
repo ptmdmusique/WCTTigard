@@ -91,7 +91,7 @@ export default class VideoScreen extends React.Component {
               </View>
           }
 
-          <RefreshView refresh={this.refresh}/>
+          <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
         </Container>
       </StyleProvider>
     );

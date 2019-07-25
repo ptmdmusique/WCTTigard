@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, StyleProvider, Tabs, Tab, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-
+import RefreshView from '../../CommonComponents/RefreshView';
 import CustomHeader from '../../CommonComponents/CustomHeader';
 
 import AboutSchoolTab from './Tabs/AboutSchoolTab';
@@ -60,7 +60,7 @@ export default class PictureScreen extends React.Component {
         <Container>
           <CustomHeader title='About Us' navigation={this.props.navigation} />
 
-          <Tabs tabBarPosition='bottom' tabBarUnderlineStyle={{backgroundColor: '#FF6961', top: 0}}>
+          <Tabs tabBarPosition='top' tabBarUnderlineStyle={{backgroundColor: '#FF6961', }}>
             <Tab
               heading={"School"}
               textStyle={{color: '#FF6961'}}
@@ -82,6 +82,7 @@ export default class PictureScreen extends React.Component {
             </Tab>
           </Tabs>
 
+          <RefreshView navigation={this.props.navigation}/>
         </Container>
       </StyleProvider>
     );

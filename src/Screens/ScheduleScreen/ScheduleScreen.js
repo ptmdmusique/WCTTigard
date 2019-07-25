@@ -56,7 +56,7 @@ export default class ScheduleScreen extends React.Component {
                 </View>
               </Content>
 
-              <RefreshView refresh={this.refresh}/>
+              <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
             </Container>
           </StyleProvider>
         );

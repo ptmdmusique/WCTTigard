@@ -120,7 +120,7 @@ class SideBar extends React.Component {
               <View style={styles.logoContainer}>
                 <Image
                   style={styles.logo}
-                  source={require('../../assets/images/original_logo_edited.png')}
+                  source={require('../../assets/images/logo.png')}
                 />
               </View>
               <Text style={styles.title}>Master Eric's WCT</Text>
@@ -134,7 +134,7 @@ class SideBar extends React.Component {
               <View style={styles.logoContainer}>
                 <Image
                   style={styles.logo}
-                  source={require('../../assets/images/original_logo_edited.png')}
+                  source={require('../../assets/images/logo.png')}
                 />
               </View>
               <Text style={styles.title}>Master Eric's WCT</Text>

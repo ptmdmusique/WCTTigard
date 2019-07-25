@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native'
+import { StyleSheet, Image, } from 'react-native'
 import * as Animatable from 'react-native-animatable';
-import { Title, Body, Right, Header, Button, Left, Icon, Text } from 'native-base';
+import { Body, Right, Header, Button, Left, Icon, Text } from 'native-base';
 
 
 export default class CustomHeader extends React.Component {
@@ -35,8 +35,8 @@ export default class CustomHeader extends React.Component {
         <Body style={{flex: 3, alignItems: this.props.isHome ? 'center' : 'flex-start', }}>
           {this.props.isHome ? 
           <Animatable.View animation="zoomIn">
-            <Text style={[styles.headerText, { fontSize: 13, textAlign: 'center', }]}>{this.props.title}</Text>
-            <Text style={[styles.headerText, { fontSize: 13, textAlign: 'center', }]}>{this.props.title_2}</Text>
+            <Text style={[styles.headerText, { fontSize: 12, textAlign: 'center', }]}>{this.props.title}</Text>
+            <Text style={[styles.headerText, { fontSize: 12, textAlign: 'center', }]}>{this.props.title_2}</Text>
           </Animatable.View> :
           <Animatable.View animation="zoomIn">
             <Text style={[styles.headerText, { fontSize: 22, }]}>{this.props.title}</Text>
@@ -47,10 +47,10 @@ export default class CustomHeader extends React.Component {
         <Right style={{flex: 1}}>
           <Animatable.View animation="zoomIn">
             <Button transparent onPress={() => this.props.navigation.navigate('Home')}>
-              <Image source={require('../../assets/images/original_logo_edited.png')} 
+              <Image source={require('../../assets/images/logo.png')} 
                 style={{
-                  height: 60,
-                  width: 60,
+                  height: 75,
+                  width: 75,
                 }}
               />
             </Button>
