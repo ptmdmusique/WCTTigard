@@ -19,9 +19,23 @@ export default class NewsScreen extends React.Component {
   componentDidMount() {
     //TODO: CHANGE THIS
     firebase.firestore().collection('NewsScreen').doc(global.uid).get()
-    .then( doc =>
-      this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
-    )
+    .then( doc => {
+      let tempList = doc.data().list;
+      console.log("--Getting News"); 
+      //console.log(tempList);
+      if (!tempList || tempList.length === 0){
+        console.log("--Empty News");
+        this.setState({ isAlertLoading: false } );
+        return;
+      }
+
+      tempList.sort((a, b) => {
+        var returnVal = new Date(b.date) - new Date(a.date);
+        return returnVal;
+      })
+
+      this.setState({data: tempList}, () => this.setState({ isLoading: false }))
+    })
     .catch(err => {
       //TODO: Add some alert here
       this.setState({ isLoading: false });

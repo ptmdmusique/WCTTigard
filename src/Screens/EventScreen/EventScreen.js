@@ -25,9 +25,20 @@ export default class EventScreen extends React.Component {
     this.setState({isLoading: true}, () => {
       console.log("--Loading Event")
       firebase.firestore().collection('EventScreen').doc(global.uid).get()
-      .then( doc =>
-        this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
-      )
+      .then( doc => {
+        tempList = doc.data().list;
+        tempList.sort((a, b) => {
+          var returnVal = new Date(b.dateFrom) - new Date(a.dateFrom);
+
+          if (returnVal === 0){
+            returnVal = new Date(b.dateTo) - new Date(a.dateTo);
+          }
+
+          return returnVal;
+        })
+
+        this.setState({data: tempList}, () => this.setState({ isLoading: false }))
+      })
       .catch(err => {
         //TODO: Add some alert here
         this.setState({ isLoading: false });

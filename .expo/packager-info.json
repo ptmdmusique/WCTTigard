@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 27568,
   "expoServerNgrokUrl": "https://ns-hfr.ptmdmusique.wcttigard.exp.direct",
   "packagerNgrokUrl": "https://packager.ns-hfr.ptmdmusique.wcttigard.exp.direct",
-  "ngrokPid": 13376,
+  "ngrokPid": 26904,
   "webpackServerPort": null
 }

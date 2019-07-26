@@ -27,9 +27,23 @@ export default class AlertScreen extends React.Component {
   refresh = () => {
     this.setState({ isLoading: true }, () => {
       firebase.firestore().collection('AlertScreen').doc(global.uid).get()
-      .then( doc =>
-        this.setState({data: doc.data().list}, () => this.setState({ isLoading: false }))
-      )
+      .then( doc => {
+        let tempList = doc.data().list;
+        console.log("--Getting alert"); 
+        //console.log(tempList);
+        if (!tempList || tempList.length === 0){
+          console.log("--Empty alert");
+          this.setState({ isAlertLoading: false } );
+          return;
+        }
+  
+        tempList.sort((a, b) => {
+          var returnVal = new Date(b.date) - new Date(a.date);
+          return returnVal;
+        })
+
+        this.setState({data: tempList}, () => this.setState({ isLoading: false }))
+      })
       .catch(err => {
         //TODO: Add some alert here
         this.setState({ isLoading: false });

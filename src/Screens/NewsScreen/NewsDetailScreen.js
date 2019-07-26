@@ -67,7 +67,7 @@ export default class NewsDetailScreen extends React.Component {
                     }}
                     >
                     <MapView.Marker
-                        title={this.state.news.title}
+                        title={this.state.news.locationName}
                         description={this.state.news.description}
                         coordinate={{
                             latitude: this.state.news.latLng.lat, 

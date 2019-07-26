@@ -6,7 +6,7 @@ import { View, Dimensions, Platform, ImageBackground, StyleSheet, Text, Linking 
 import Moment from 'moment';
 
 import CustomHeader from '../../CommonComponents/CustomHeader';
-import { MapView, Location, } from 'expo';
+import { MapView, } from 'expo';
 
 var latitudeDelta = 0.0522, longitudeDelta = 0.0521;
 var { height: screenHeight, width: screenWidth } = Dimensions.get('window');
@@ -44,7 +44,7 @@ export default class EventDetailScreen extends React.Component {
                   }}
                   >
                   <MapView.Marker
-                      title={this.state.event.title}
+                      title={this.state.event.locationName}
                       description={this.state.event.description}
                       coordinate={{
                           latitude: this.state.event.latLng.lat, 
