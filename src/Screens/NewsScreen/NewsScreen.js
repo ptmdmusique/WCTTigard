@@ -39,8 +39,8 @@ export default class NewsScreen extends React.Component {
     .catch(err => {
       //TODO: Add some alert here
       this.setState({ isLoading: false });
-      console.log("--No News to load");
-      console.log(err);
+      console.warn("--No News to load");
+      console.warn(err);
     })
   }
 

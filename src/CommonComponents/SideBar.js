@@ -4,7 +4,6 @@ import { Container, Content, Text, ListItem, Left, Body, Icon, StyleProvider, Fo
 import material from '../..//native-base-theme/variables/material';
 import getTheme from '../../native-base-theme/components';
 import * as firebase from 'firebase/app';
-import Spinner from '../../native-base-theme/components/Spinner';
 
 const routes =  [
   {
@@ -50,10 +49,10 @@ const routes =  [
   //   displayName: "Picture Board"
   // },
   {
-    name: "Birthday",
-    iconName: "gift",
+    name: "SpecialService",
+    iconName: "star",
     iconType: "Feather",
-    displayName: "Birthday Party"
+    displayName: "Special Services"
   },
   {
     name: "ReferUs",
@@ -97,12 +96,11 @@ class SideBar extends React.Component {
       console.log("--Drawer image found!");
       result.items[0].getDownloadURL().then(url => {
         this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
-        console.log("Original: " + url);
       })})
 
     .catch(err => {
       console.warn("--No Drawer image");
-      console.error(err);
+      console.warn(err);
     });
   }
 

@@ -40,7 +40,7 @@ export default class ContactUsScreen extends React.Component {
             }
         })
         .catch(err => {
-            console.log(err);
+            console.warn(err);
         })
     }
 

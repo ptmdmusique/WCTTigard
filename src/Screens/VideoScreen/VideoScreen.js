@@ -35,9 +35,9 @@ export default class VideoScreen extends React.Component {
           () => this.setState({ isLoading: false }))
       })
       .catch(err => {
-        console.log("--No video to load!'")
+        console.warn("--No video to load!'")
         this.setState({ isLoading: false })
-        console.log(err);
+        console.warn(err);
       })
     })
   }

@@ -33,9 +33,9 @@ export default class ReferUsScreen extends React.Component {
       
     })
     .catch(err => {
-      console.log("--No refer to load");
+      console.warn("--No refer to load");
       this.setState({ isLoading: false })
-      console.log(err);
+      console.warn(err);
     })
   }
   

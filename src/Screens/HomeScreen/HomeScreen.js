@@ -75,13 +75,13 @@ export default class HomeScreen extends React.Component {
         this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
       })})
     .catch(err => {
-      console.log("--No homescreen image");
+      console.warn("--No homescreen image");
       firebase.storage().ref("HomeScreen/test").listAll()
       .then(result => {
         result.items[0].getDownloadURL().then(url => {
           this.setState({ imageURL: url }, () => this.setState({ isImageLoading: false }));
         })})
-      console.error(err);
+      console.warn(err);
     });
     
     firebase.firestore().collection('AlertScreen').doc(global.uid)
@@ -90,7 +90,7 @@ export default class HomeScreen extends React.Component {
       console.log("--Getting latest alert"); 
       //console.log(tempList);
       if (!tempList || tempList.length === 0){
-        console.log("--Empty latest alert");
+        console.warn("--Empty latest alert");
         this.setState({ isAlertLoading: false } );
         return;
       }
@@ -104,7 +104,7 @@ export default class HomeScreen extends React.Component {
     }, (err) => {
       console.log("--Empty latest alert");
       this.setState({ isAlertLoading: false } );
-      console.log(err);
+      console.warn(err);
     })
   }
 

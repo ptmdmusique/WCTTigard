@@ -31,8 +31,8 @@ export default class ScheduleScreen extends React.Component {
             .catch(err => {
                 //TODO: Add some alert here
                 this.setState({ isLoading: false });
-                console.log("--No Schedule to load");
-                console.log(err);
+                console.warn("--No Schedule to load");
+                console.warn(err);
             })
         })
     }

@@ -70,14 +70,13 @@ export default class App extends React.Component {
     let token = await Notifications.getExpoPushTokenAsync();
 
     // POST the token to your backend server from where you can retrieve it to send push notifications.
-    //TODO: CHANGE THIS
     let docRef = firebase.firestore().collection('FCMToken').doc(global.uid);
     docRef.set({
       list: firebase.firestore.FieldValue.arrayUnion(token)
     }, { merge: true }).then(
       console.log("Add Token successfully!")
     ).catch(err => {
-      console.log(err);
+      console.warn(err);
     })
 
     this.notificationSubscription = Notifications.addListener(this.handleNotification);

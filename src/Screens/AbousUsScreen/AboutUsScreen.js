@@ -23,9 +23,9 @@ export default class PictureScreen extends React.Component {
     firebase.firestore().collection('AboutSchool').doc(global.uid).get()
     .then( doc => this.setState({ aboutSchoolData: doc.data() }, () => this.setState({ isSchoolLoading: false })))
     .catch(err => {
-      console.log("--No about school data to load in AboutUsScreen")
+      console.warn("--No about school data to load in AboutUsScreen")
       this.setState({ isSchoolLoading: false });
-      console.log(err);
+      console.warn(err);
     })
 
     //TODO: Change this
@@ -42,13 +42,13 @@ export default class PictureScreen extends React.Component {
               })              
             })})
           .catch(err => {
-            console.log("--Can't load master image in AboutUsScreen");
-            console.error(err);
+            console.warn("--Can't load master image in AboutUsScreen");
+            console.warn(err);
           });
           
         })
       } else {
-        console.log("--No master image to load in AboutUsScreen");
+        console.warn("--No master image to load in AboutUsScreen");
         this.setState({ isMasterLoading: false });
       }
     })

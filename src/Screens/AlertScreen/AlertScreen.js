@@ -47,8 +47,8 @@ export default class AlertScreen extends React.Component {
       .catch(err => {
         //TODO: Add some alert here
         this.setState({ isLoading: false });
-        console.log("--No Alert to load");
-        console.log(err);
+        console.warn("--No Alert to load");
+        console.warn(err);
       })
     })
   }
