@@ -11,6 +11,9 @@
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/App_Icon_4.png",
+    "notification": {
+      "icon": "./assets/Notification_Icon.png"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
