@@ -22,17 +22,14 @@ const tabStyle = {
   "fundraiser": { 
     iconName: "heart",
     iconType: "Entypo",
-    title   : "School Fundraisers",
   }, 
   "birthday": { 
     iconName: "cake",
     iconType: "Entypo",
-    title   : "Birthday Party"
   }, 
   "movieNights": { 
     iconName: "popcorn",
     iconType: "MaterialCommunityIcons",
-    title   : "Movie Nights",
   }, 
 }
 
@@ -104,7 +101,8 @@ const SpecialServiceScreen = (props) => {
       data = doc.data();
       Object.keys(data).forEach((key, _) => {
         tempList.push({
-          "data": data[key],
+          "data": data[key].data,
+          "title": data[key].title,
           ...tabStyle[key],
         })
       })
