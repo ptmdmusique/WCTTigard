@@ -49,12 +49,6 @@ const routes =  [
   //   displayName: "Picture Board"
   // },
   {
-    name: "SpecialService",
-    iconName: "star",
-    iconType: "Feather",
-    displayName: "Special Services"
-  },
-  {
     name: "ReferUs",
     iconName: "users",
     iconType: "Feather",
@@ -71,6 +65,12 @@ const routes =  [
     iconName: "info",
     iconType: "Feather",
     displayName:  "About Us"
+  },
+  {
+    name: "SpecialService",
+    iconName: "star",
+    iconType: "Feather",
+    displayName: "Special Services"
   },
   // {
   //   name: "Trial",

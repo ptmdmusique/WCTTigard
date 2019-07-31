@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Text, Icon, StyleProvider, Footer, Spinner, Content, Button } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import {View, Image, StyleSheet, TouchableOpacity , Dimensions, Platform } from 'react-native';
+import {View, Image, StyleSheet, TouchableOpacity , Dimensions, SafeAreaView } from 'react-native';
 import { Row, Grid, Col } from "react-native-easy-grid";
 import { LinearGradient } from 'expo-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -141,51 +141,59 @@ export default class HomeScreen extends React.Component {
           </Container> : 
 
           <Container style={{backgroundColor: '#0f0f0f'}}>
-            <CustomHeader title="Master Eric's" title_2=" World Champion Taekwondo" navigation={this.props.navigation} isHome />
-
-            <View style={{ width: '100%', height: '100%' }}>
-              <Image source={{uri: this.state.imageURL}}
-                style={{position: 'absolute', top: 0, left: 0, alignSelf: 'center', height: '100%', width: '100%',}}
+            <CustomHeader 
+              title="Master Eric's" 
+              title_2=" World Champion Taekwondo" 
+              navigation={this.props.navigation} 
+              isHome 
+              style={{ flex: 1, }}
               />
-              <LinearGradient
-                colors={['#0f0f0f', 'transparent', '#0f0f0f']}
-                style={{ alignItems: 'center', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }}
-                locations={[0, 0.1, 0.8]}>
-              </LinearGradient>
 
-              <View style={{ position: 'absolute', top: 0, right: -10, }}>
-                <AutoHeightImage source={require('../../../assets/images/tkd_white_edited.png')} 
-                  width={ width * 0.25 }
+            <SafeAreaView style={{ flex: 1, }}>
+              <View style={{ width: '100%', height: '100%' }}>
+                <Image source={{uri: this.state.imageURL}}
+                  style={{position: 'absolute', top: 0, left: 0, alignSelf: 'center', height: '100%', width: '100%',}}
                 />
-              </View>
+                <LinearGradient
+                  colors={['#0f0f0f', 'transparent', '#0f0f0f']}
+                  style={{ alignItems: 'center', position: 'absolute', top: 0, left: 0, height: '100%', width: '100%' }}
+                  locations={[0, 0.1, 0.8]}>
+                </LinearGradient>
 
-              <View style={styles.menuButtonsContainer}>
-                {this.renderMenuButton()}
-              </View>
-
-              <View style={styles.alertContainer}>
-                <View style={{flex: 1}}>
-                  <Icon style={[styles.alertIcon, styles.glowing]} name='bell'></Icon>
+                <View style={{ position: 'absolute', top: 0, right: -10, }}>
+                  <AutoHeightImage source={require('../../../assets/images/tkd_white_edited.png')} 
+                    width={ width * 0.25 }
+                  />
                 </View>
-                {this.state.latestAlert ? 
-                  <View style={{flex: 4, }}>
-                    <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5, }}>
-                      <Text style={[styles.alertTitle, styles.glowing, { fontSize: 12, borderBottomWidth: 0, marginBottom: 5, }]}>Latest Alert: </Text>  
-                      <Text style={[styles.alertTitle, styles.glowing]}>{this.state.latestAlert.title}</Text>  
-                    </View>
 
-                    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
-                      <Text style={[styles.alertDescription, styles.glowing]}>{this.state.latestAlert.content}</Text>
+                <View style={styles.menuButtonsContainer}>
+                  {this.renderMenuButton()}
+                </View>
 
-                      <View style={{flex: 1,}}>
-                        <Text style={[styles.alertDate, styles.glowing]}>Effective Date: {Moment(this.state.latestAlert.date).format("MM-DD-YYYY")}</Text>
+                <View style={styles.alertContainer}>
+                  <View style={{flex: 1}}>
+                    <Icon style={[styles.alertIcon, styles.glowing]} name='bell'></Icon>
+                  </View>
+                  {this.state.latestAlert ? 
+                    <View style={{flex: 4, }}>
+                      <View style={{ borderBottomWidth: 1, borderBottomColor: '#ddd', marginBottom: 5, }}>
+                        <Text style={[styles.alertTitle, styles.glowing, { fontSize: 12, borderBottomWidth: 0, marginBottom: 5, }]}>Latest Alert: </Text>  
+                        <Text style={[styles.alertTitle, styles.glowing]}>{this.state.latestAlert.title}</Text>  
                       </View>
-                    </View>
-                  </View> : 
-                  null
-                }
+
+                      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
+                        <Text style={[styles.alertDescription, styles.glowing]}>{this.state.latestAlert.content}</Text>
+
+                        <View style={{flex: 1,}}>
+                          <Text style={[styles.alertDate, styles.glowing]}>Effective Date: {Moment(this.state.latestAlert.date).format("MM-DD-YYYY")}</Text>
+                        </View>
+                      </View>
+                    </View> : 
+                    null
+                  }
+                </View>
               </View>
-            </View>
+            </SafeAreaView>
           </Container>
         }
       </StyleProvider>
@@ -203,7 +211,7 @@ const styles = StyleSheet.create({
   // Menu buttons (Left)
   menuButtonsContainer: {
     position: 'absolute',
-    bottom: 70,
+    bottom: 0,
     left: 0,
     backgroundColor: 'transparent',
     width: '20%',
@@ -239,7 +247,7 @@ const styles = StyleSheet.create({
   // Alert Card (Right)
   alertContainer: {
     position: 'absolute',
-    bottom: 70,
+    bottom: 0,
     right: 0,
     minHeight: 200,
     width: '72%',

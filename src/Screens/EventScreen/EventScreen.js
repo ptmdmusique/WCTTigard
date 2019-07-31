@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Icon, StyleProvider, Text, Content, Spinner, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { StyleSheet, View, FlatList, TouchableOpacity,} from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, SafeAreaView, } from 'react-native';
 import RefreshView from '../../CommonComponents/RefreshView';
 import Moment from 'moment';
 
@@ -104,21 +104,23 @@ export default class EventScreen extends React.Component {
         <Container>
           <CustomHeader title='Events' navigation={this.props.navigation} />
 
-          <Content style={{flex: 1, backgroundColor: '#ddd'}}>
-            <Text style={styles.sectionTitle}>
-              EVENTS
-            </Text>
-            <View>
-              {this.state.isLoading ? 
-                  <Spinner/>
-                : <FlatList 
-                  keyExtractor={(item, index) => item.title + index}
-                  data={this.state.data}
-                  renderItem={data => this.renderEvents(data.item)}
-                />
-              }
-            </View>
-          </Content>
+          <SafeAreaView style={{ flex: 1, }}>
+            <Content style={{flex: 1, backgroundColor: '#ddd'}}>
+              <Text style={styles.sectionTitle}>
+                EVENTS
+              </Text>
+              <View>
+                {this.state.isLoading ? 
+                    <Spinner/>
+                  : <FlatList 
+                    keyExtractor={(item, index) => item.title + index}
+                    data={this.state.data}
+                    renderItem={data => this.renderEvents(data.item)}
+                  />
+                }
+              </View>
+            </Content>
+          </SafeAreaView>
 
           <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
         </Container>

@@ -3,7 +3,7 @@ import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-b
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
 import Moment from 'moment';
-import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 
 import RefreshView from '../../CommonComponents/RefreshView';
 import CustomHeader from '../../CommonComponents/CustomHeader';
@@ -76,21 +76,23 @@ export default class NewsScreen extends React.Component {
         <Container>
           <CustomHeader title='News' navigation={this.props.navigation} />
 
-          <Content style={{flex: 1, backgroundColor: '#ddd'}}>
-            <Text style={styles.sectionTitle}>
-              NEWS
-            </Text>
-            <View style={{marginBottom: 10}}>
-            {this.state.isLoading ? 
-                  <Spinner/>
-                : <FlatList 
-                  keyExtractor={item => item.title}
-                  data={this.state.data}
-                  renderItem={data => this.renderNews(data.item)}
-                />
-              }
-            </View>
-          </Content>
+          <SafeAreaView style={{ flex: 1, }}>
+            <Content style={{flex: 1, backgroundColor: '#ddd'}}>
+              <Text style={styles.sectionTitle}>
+                NEWS
+              </Text>
+              <View style={{marginBottom: 10}}>
+              {this.state.isLoading ? 
+                    <Spinner/>
+                  : <FlatList 
+                    keyExtractor={item => item.title}
+                    data={this.state.data}
+                    renderItem={data => this.renderNews(data.item)}
+                  />
+                }
+              </View>
+            </Content>
+          </SafeAreaView>
 
           <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
         </Container>

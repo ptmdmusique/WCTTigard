@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Platform, Dimensions } from 'react-native';
+import { StyleSheet, View, FlatList, Platform, Dimensions, SafeAreaView } from 'react-native';
 import { Container, Icon, StyleProvider, Text, Content, Spinner } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
@@ -117,15 +117,17 @@ export default class AlertScreen extends React.Component {
         <Container style={{backgroundColor: '#ddd'}}>
           <CustomHeader title='Alerts' navigation={this.props.navigation} />
 
-          <Content style={{flex: 1, backgroundColor: 'transparent'}}>
-            {this.state.isLoading ? <Spinner/> :
-              <FlatList
-                data={this.state.data}
-                keyExtractor={(data, index) => index.toString()}
-                renderItem={(data, index) => this.renderAlerts(data.item, index)}
-              />
-            }
-          </Content>
+          <SafeAreaView style={{ flex: 1, }}>
+            <Content style={{flex: 1, backgroundColor: 'transparent'}}>
+              {this.state.isLoading ? <Spinner/> :
+                <FlatList
+                  data={this.state.data}
+                  keyExtractor={(data, index) => index.toString()}
+                  renderItem={(data, index) => this.renderAlerts(data.item, index)}
+                />
+              }
+            </Content>
+          </SafeAreaView>
 
           <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
         </Container>

@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.1",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/App_Icon_4.png",
     "notification": {
@@ -31,7 +31,7 @@
     },
     "android": {
       "package": "com.test.WCTTigard",
-      "versionCode": 2
+      "versionCode": 7
     }
   }
 }

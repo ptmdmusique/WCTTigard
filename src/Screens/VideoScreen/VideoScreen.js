@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, StyleProvider, Spinner, } from 'native-base';
 import material from '../../../native-base-theme/variables/material';
 import getTheme from '../../../native-base-theme/components';
-import { View, FlatList, } from 'react-native';
+import { View, FlatList, SafeAreaView, } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { WebView } from 'react-native-webview';
 
@@ -13,10 +13,7 @@ import CustomHeader from '../../CommonComponents/CustomHeader';
 import * as firebase from 'firebase'
 
 export default class VideoScreen extends React.Component {
-  state = {
-    screenSwitched: false,
-    currentVidUrl: this.getEmbedFromLink("https://www.youtube.com/watch?v=_-HNSut_1Fc"),
-    
+  state = {    
     videoFolderList: null,
     isLoading: true,
   }
@@ -42,30 +39,6 @@ export default class VideoScreen extends React.Component {
     })
   }
 
-  renderVideo() {
-    return (
-      <WebView 
-        javaScriptEnabled={true}
-        source={{uri: this.state.currentVidUrl}}
-      />
-    );
-  }
-
-  getEmbedFromLink(url){
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    const match = url.match(regExp);
-
-    if (match && match[2].length == 11) {
-        return 'http://www.youtube.com/embed/' + match[2];
-    } else {
-        return this.defaultURL;
-    }
-  }
-
-  selectVideo(vidUrl) {
-    this.setState({ currentVidUrl: this.getEmbedFromLink(vidUrl) });
-  }
-
   renderFolder = (folder) => {
     return <VideoFolder folder={folder.item} selectVideo={(url) => this.selectVideo(url)} />
   }
@@ -76,19 +49,16 @@ export default class VideoScreen extends React.Component {
         <Container>
           <CustomHeader title='Videos' navigation={this.props.navigation} />
 
-          <NavigationEvents
-              onWillFocus={() => this.setState({ screenSwitched: false })}
-              onWillBlur={() => this.setState({ screenSwitched: true })}
-            />
-
           { this.state.isLoading ? <Spinner/> : 
-              <View style={{backgroundColor: '#ddd'}}>
-                <FlatList
-                  data = {this.state.videoFolderList}
-                  renderItem={this.renderFolder}
-                  keyExtractor={folder => folder.folderName.toString()}
-                />
-              </View>
+              <SafeAreaView style={{ flex: 1, }}>
+                <View style={{backgroundColor: '#ddd'}}>
+                  <FlatList
+                    data = {this.state.videoFolderList}
+                    renderItem={this.renderFolder}
+                    keyExtractor={folder => folder.folderName.toString()}
+                  />
+                </View>
+              </SafeAreaView>
           }
 
           <RefreshView refresh={this.refresh} navigation={this.props.navigation}/>
