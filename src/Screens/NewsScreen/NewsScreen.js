@@ -17,30 +17,36 @@ export default class NewsScreen extends React.Component {
   }
 
   componentDidMount() {
-    //TODO: CHANGE THIS
-    firebase.firestore().collection('NewsScreen').doc(global.uid).get()
-    .then( doc => {
-      let tempList = doc.data().list;
-      console.log("--Getting News"); 
-      //console.log(tempList);
-      if (!tempList || tempList.length === 0){
-        console.log("--Empty News");
-        this.setState({ isAlertLoading: false } );
-        return;
-      }
+    this.refresh();
+  }
 
-      tempList.sort((a, b) => {
-        var returnVal = new Date(b.date) - new Date(a.date);
-        return returnVal;
+  refresh = () => {
+    this.setState({isLoading: true}, () => {
+      //TODO: CHANGE THIS
+      firebase.firestore().collection('NewsScreen').doc(global.uid).get()
+      .then( doc => {
+        let tempList = doc.data().list;
+        console.log("--Getting News"); 
+        //console.log(tempList);
+        if (!tempList || tempList.length === 0){
+          console.log("--Empty News");
+          this.setState({ isAlertLoading: false } );
+          return;
+        }
+
+        tempList.sort((a, b) => {
+          var returnVal = new Date(b.date) - new Date(a.date);
+          return returnVal;
+        })
+
+        this.setState({data: tempList}, () => this.setState({ isLoading: false }))
       })
-
-      this.setState({data: tempList}, () => this.setState({ isLoading: false }))
-    })
-    .catch(err => {
-      //TODO: Add some alert here
-      this.setState({ isLoading: false });
-      console.warn("--No News to load");
-      console.warn(err);
+      .catch(err => {
+        //TODO: Add some alert here
+        this.setState({ isLoading: false });
+        console.warn("--No News to load");
+        console.warn(err);
+      })
     })
   }
 
